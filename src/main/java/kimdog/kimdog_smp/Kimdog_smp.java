@@ -8,6 +8,7 @@ import kimdog.kimdog_smp.fly.FlyCommands;
 import kimdog.kimdog_smp.updater.UpdateChecker;
 import kimdog.kimdog_smp.updater.UpdateNotifier;
 import kimdog.kimdog_smp.updater.UpdateCommand;
+import kimdog.kimdog_smp.web.WebServer;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.server.MinecraftServer;
 import org.slf4j.Logger;
@@ -52,6 +53,9 @@ public class Kimdog_smp implements ModInitializer {
 
             long loadTime = System.currentTimeMillis() - startTime;
             printCompletionBanner(loadTime);
+
+            // Start web server for control panel
+            WebServer.start();
 
             // Start auto-update checker (15 minute interval)
             startAutoUpdateChecker();
@@ -125,6 +129,10 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info("   /quest           - View quests");
         LOGGER.info("   /chatmessages    - Message controls");
         LOGGER.info("   /anticheat       - AntiCheat controls");
+        LOGGER.info("------------------------------------------------------------");
+        LOGGER.info(" Web Control Panel:");
+        LOGGER.info("   Open browser: http://localhost:8080");
+        LOGGER.info("   Dashboard for full server management");
         LOGGER.info("============================================================");
         LOGGER.info(" KimDog SMP is now fully operational!");
         LOGGER.info("============================================================");
