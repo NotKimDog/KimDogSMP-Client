@@ -1,0 +1,108 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'  # Triggers on version tags like v1.0.0, v1.1.0, etc.
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build --no-daemon
+
+      - name: Get version from tag
+        id: get_version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Building version: $VERSION"
+
+      - name: Rename JAR file
+        run: |
+          VERSION=${{ steps.get_version.outputs.VERSION }}
+          cd build/libs
+          # Find the main JAR (not sources or dev)
+          MAIN_JAR=$(ls | grep -v "sources" | grep -v "dev" | grep ".jar" | head -n 1)
+          mv "$MAIN_JAR" "kimdog-smp-$VERSION.jar"
+          echo "Renamed to: kimdog-smp-$VERSION.jar"
+          ls -la
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: KimDog SMP v${{ steps.get_version.outputs.VERSION }}
+          body: |
+            ## 🎮 KimDog SMP v${{ steps.get_version.outputs.VERSION }}
+            
+            ### 📥 Installation
+            1. Download `kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar` below
+            2. Place in your `mods/` folder
+            3. Requires Minecraft 1.21 + Fabric API
+            4. Restart your server/client
+            
+            ### ✨ Features
+            - ⛏️ VeinMiner with quest system
+            - 💬 Enhanced chat messages
+            - 🚪 Double door mechanics
+            - 🛡️ AntiCheat protection
+            - 🔄 Auto-update system
+            - 🎮 Custom commands
+            
+            ### 🔧 Building from Source
+            ```bash
+            git clone https://github.com/NotKimDog/KimDogSMP-Client.git
+            cd KimDogSMP-Client
+            ./gradlew build
+            ```
+            
+            ### 📝 Changelog
+            See [CHANGELOG.md](https://github.com/NotKimDog/KimDogSMP-Client/blob/main/CHANGELOG.md) for detailed changes.
+            
+            ### 🔄 Auto-Update
+            This version will be automatically detected by the in-game updater!
+            Use `/kimdogsmp update download` to auto-install.
+          draft: false
+          prerelease: false
+
+      - name: Upload JAR to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_name: kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_content_type: application/java-archive
+
+      - name: Upload to Modrinth (Optional)
+        if: false  # Set to true if you want to publish to Modrinth
+        run: |
+          echo "Modrinth upload would happen here"
+          # Add Modrinth API integration here if needed
+
+      - name: Notify Discord (Optional)
+        if: false  # Set to true if you have a Discord webhook
+        run: |
+          echo "Discord notification would happen here"
+          # Add Discord webhook notification here if needed
