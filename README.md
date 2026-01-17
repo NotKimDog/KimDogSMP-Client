@@ -22,9 +22,20 @@
 
 ## 📖 About
 
-KimDog SMP is a comprehensive **server enhancement suite** for Minecraft 1.21 built on the Fabric mod loader. It combines powerful utilities, anti-cheat protection, automated systems, and player conveniences into one cohesive package designed specifically for SMPs and community servers.
+KimDog SMP is a comprehensive **server enhancement suite** for Minecraft 1.21 built on the Fabric mod loader. 
 
-> **Perfect for:** Vanilla+ Survival Servers • SMPs • Community Play • Custom Mechanics
+### 🎯 Primary Purpose
+**This mod is primarily built for and optimized for the KimDog SMP community.** It combines powerful utilities, anti-cheat protection, automated systems, and player conveniences into one cohesive package designed specifically for the KimDog SMP experience.
+
+### ⚠️ Important Notice
+While this mod can be used on other servers, please note:
+- ✅ It is **primarily tested and optimized for KimDog SMP**
+- ⚠️ Use on **other servers at your own risk** and with careful testing
+- 🔧 Some features may need **configuration adjustments** for different server setups
+- 💬 **Community support is primarily for KimDog SMP members**
+- 📋 Always **test in a development environment first** before production deployment
+
+> **Perfect for:** KimDog SMP • Vanilla+ Survival Servers • SMPs • Community Play • Custom Mechanics
 
 ---
 
