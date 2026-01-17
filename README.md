@@ -40,6 +40,7 @@ KimDog SMP is a comprehensive **server enhancement suite** for Minecraft 1.21 bu
 | **🛡️ AntiCheat** | Speed/Fly/Reach detection • Real-time logging • Configurable | `/anticheat` |
 | **🎮 Commands** | Flight mode • Configuration • Statistics • Version checking | `/fly`, `/quest` |
 | **🔄 Auto Updates** | GitHub integration • One-click updates • Auto-installation | `/kimdogsmp update` |
+| **🔍 Zoom [WIP]** | Camera zoom capability • Configurable levels • Smooth zoom | Press Z |
 
 </div>
 
@@ -91,7 +92,7 @@ Smart, synchronized door operations!
 Configuration: config/kimdog_smp/doubledoor.json
 ```
 
-### 🛡️ AntiCheat System
+### 🛡️ AntiCheat System [WIP]
 Protect your server from cheaters!
 
 - **Speed Detection** - Detects speed hacking with configurable sensitivity
@@ -135,6 +136,19 @@ Stay up-to-date automatically!
 ```
 Automatic checks on server startup
 Use: /kimdogsmp update download
+```
+
+### 🔍 Zoom Feature [WIP]
+Camera zoom for better gameplay! (Work in Progress)
+
+- **Zoom Toggle** - Press Z to zoom in/out (configurable keybind)
+- **Smooth Transitions** - Fluid zoom animations
+- **Adjustable Levels** - Customize zoom distances
+- **Performance Friendly** - Minimal server impact
+
+```
+Press Z          - Toggle zoom
+/zoom [level]    - Adjust zoom level
 ```
 
 ---
