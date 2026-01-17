@@ -64,15 +64,15 @@ public class VeinMinerStats {
     public static String getStatsString(ServerPlayerEntity player) {
         PlayerStats stats = getStats(player);
         return String.format(
-            "⛏️ VEINMINER STATS - %s ⛏️\n" +
-            "📊 Total Blocks Mined: %d\n" +
-            "💫 Total XP Gained: %d\n" +
-            "🏆 Largest Vein: %d blocks\n" +
-            "💎 Diamond Veins: %d\n" +
-            "✨ Emerald Veins: %d\n" +
-            "🔥 Current Streak: %d\n" +
-            "⚡ Best Streak: %d\n" +
-            "🪨 Rarest Ore: %s",
+            " VEINMINER STATS - %s \n" +
+            " Total Blocks Mined: %d\n" +
+            " Total XP Gained: %d\n" +
+            " Largest Vein: %d blocks\n" +
+            " Diamond Veins: %d\n" +
+            " Emerald Veins: %d\n" +
+            " Current Streak: %d\n" +
+            " Best Streak: %d\n" +
+            " Rarest Ore: %s",
             player.getName().getString(),
             stats.totalBlocksMined,
             stats.totalXpGained,

@@ -43,45 +43,45 @@ public class AutoDownloader {
             try {
                 downloadInProgress = true;
                 downloadStatus = "Fetching release information...";
-                LOGGER.info("🔄 Starting automatic update download...");
+                LOGGER.info(" Starting automatic update download...");
 
                 // Get release info from GitHub
                 String downloadUrl = getDownloadUrl();
                 if (downloadUrl == null) {
-                    LOGGER.error("❌ Could not find download URL!");
+                    LOGGER.error(" Could not find download URL!");
                     downloadStatus = "Failed: No download URL found";
                     return false;
                 }
 
-                LOGGER.info("📦 Download URL: {}", downloadUrl);
+                LOGGER.info(" Download URL: {}", downloadUrl);
                 downloadStatus = "Downloading new version...";
 
                 // Download the new JAR file
                 Path tempFile = downloadFile(downloadUrl);
                 if (tempFile == null) {
-                    LOGGER.error("❌ Failed to download file!");
+                    LOGGER.error(" Failed to download file!");
                     downloadStatus = "Failed: Download error";
                     return false;
                 }
 
-                LOGGER.info("✅ Download complete: {}", tempFile.toString());
+                LOGGER.info(" Download complete: {}", tempFile.toString());
                 downloadStatus = "Installing update...";
 
                 // Install the update (replace old file)
                 boolean installed = installUpdate(tempFile);
                 if (installed) {
-                    LOGGER.info("✨ Update installed successfully!");
-                    LOGGER.info("⚠️  Server will need to restart to apply the update!");
+                    LOGGER.info(" Update installed successfully!");
+                    LOGGER.info("  Server will need to restart to apply the update!");
                     downloadStatus = "Update ready - restart required";
                     return true;
                 } else {
-                    LOGGER.error("❌ Failed to install update!");
+                    LOGGER.error(" Failed to install update!");
                     downloadStatus = "Failed: Installation error";
                     return false;
                 }
 
             } catch (Exception e) {
-                LOGGER.error("❌ Update failed: {}", e.getMessage());
+                LOGGER.error(" Update failed: {}", e.getMessage());
                 downloadStatus = "Failed: " + e.getMessage();
                 return false;
             } finally {
@@ -154,11 +154,11 @@ public class AutoDownloader {
             connection.setRequestProperty("User-Agent", "KimDogSMP-Updater");
 
             int fileSize = connection.getContentLength();
-            LOGGER.info("📊 File size: {} bytes ({} MB)", fileSize, fileSize / 1024.0 / 1024.0);
+            LOGGER.info(" File size: {} bytes ({} MB)", fileSize, fileSize / 1024.0 / 1024.0);
 
             // Create temp file
             Path tempFile = Files.createTempFile("kimdogsmp-update-", ".jar");
-            LOGGER.info("💾 Downloading to: {}", tempFile.toString());
+            LOGGER.info(" Downloading to: {}", tempFile.toString());
 
             // Download with progress
             try (InputStream in = connection.getInputStream();
@@ -175,14 +175,14 @@ public class AutoDownloader {
                     if (fileSize > 0) {
                         downloadProgress = (totalBytesRead * 100.0) / fileSize;
                         if (totalBytesRead % (1024 * 1024) == 0) { // Log every MB
-                            LOGGER.info("⏬ Progress: {:.1f}%", downloadProgress);
+                            LOGGER.info(" Progress: {:.1f}%", downloadProgress);
                         }
                     }
                 }
             }
 
             downloadProgress = 100.0;
-            LOGGER.info("✅ Download complete!");
+            LOGGER.info(" Download complete!");
             return tempFile;
 
         } catch (Exception e) {
@@ -199,11 +199,11 @@ public class AutoDownloader {
             // Find the mods folder
             Path modsFolder = findModsFolder();
             if (modsFolder == null) {
-                LOGGER.error("❌ Could not find mods folder!");
+                LOGGER.error(" Could not find mods folder!");
                 return false;
             }
 
-            LOGGER.info("📁 Mods folder: {}", modsFolder.toString());
+            LOGGER.info(" Mods folder: {}", modsFolder.toString());
 
             // Find and delete old KimDog SMP JAR files
             deleteOldModFiles(modsFolder);
@@ -213,11 +213,11 @@ public class AutoDownloader {
             Path targetPath = modsFolder.resolve(newFileName);
 
             Files.copy(newFile, targetPath, StandardCopyOption.REPLACE_EXISTING);
-            LOGGER.info("✅ New file installed: {}", targetPath.toString());
+            LOGGER.info(" New file installed: {}", targetPath.toString());
 
             // Delete temp file
             Files.delete(newFile);
-            LOGGER.info("🗑️  Temp file cleaned up");
+            LOGGER.info("  Temp file cleaned up");
 
             // Create update marker file for next restart
             createUpdateMarkerFile(modsFolder, newFileName);
@@ -249,7 +249,7 @@ public class AutoDownloader {
 
             for (Path path : possiblePaths) {
                 if (Files.exists(path) && Files.isDirectory(path)) {
-                    LOGGER.info("✅ Found mods folder: {}", path.toAbsolutePath());
+                    LOGGER.info(" Found mods folder: {}", path.toAbsolutePath());
                     return path.toAbsolutePath();
                 }
             }
@@ -257,7 +257,7 @@ public class AutoDownloader {
             // If not found, create it
             Path defaultModsPath = currentPath.resolve("mods");
             Files.createDirectories(defaultModsPath);
-            LOGGER.info("📁 Created mods folder: {}", defaultModsPath.toAbsolutePath());
+            LOGGER.info(" Created mods folder: {}", defaultModsPath.toAbsolutePath());
             return defaultModsPath.toAbsolutePath();
 
         } catch (Exception e) {
@@ -280,9 +280,9 @@ public class AutoDownloader {
                 .forEach(path -> {
                     try {
                         Files.delete(path);
-                        LOGGER.info("🗑️  Deleted old mod file: {}", path.getFileName());
+                        LOGGER.info("  Deleted old mod file: {}", path.getFileName());
                     } catch (IOException e) {
-                        LOGGER.warn("⚠️  Could not delete {}: {}", path.getFileName(), e.getMessage());
+                        LOGGER.warn("  Could not delete {}: {}", path.getFileName(), e.getMessage());
                     }
                 });
         } catch (Exception e) {
@@ -300,7 +300,7 @@ public class AutoDownloader {
                 "Updated to: " + newFileName + "\n" +
                 "Timestamp: " + System.currentTimeMillis() + "\n" +
                 "Please restart the server to apply changes!");
-            LOGGER.info("📝 Created update marker file");
+            LOGGER.info(" Created update marker file");
         } catch (Exception e) {
             LOGGER.warn("Could not create marker file: {}", e.getMessage());
         }

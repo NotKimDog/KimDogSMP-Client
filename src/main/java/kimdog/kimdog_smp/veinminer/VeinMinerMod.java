@@ -20,38 +20,38 @@ public class VeinMinerMod implements ModInitializer {
     public void onInitialize() {
         printBanner();
 
-        LOGGER.info("═══════════════════════════════════════════════════════════");
-        LOGGER.info("💎 KimDog VeinMiner - Mod Initialization Started");
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info("");
+        LOGGER.info(" KimDog VeinMiner - Mod Initialization Started");
+        LOGGER.info("");
 
         try {
-            LOGGER.info("📋 Loading configuration...");
+            LOGGER.info(" Loading configuration...");
             VeinMinerConfig.load();
-            LOGGER.info("✅ Configuration loaded successfully!");
+            LOGGER.info(" Configuration loaded successfully!");
 
-            LOGGER.info("🔗 Registering networking...");
+            LOGGER.info(" Registering networking...");
             VeinMinerNetworking.register();
-            LOGGER.info("✅ Networking registered!");
+            LOGGER.info(" Networking registered!");
 
-            LOGGER.info("⚒️  Registering block break handler...");
+            LOGGER.info("  Registering block break handler...");
             VeinMinerHandler.register();
-            LOGGER.info("✅ Block break handler registered!");
+            LOGGER.info(" Block break handler registered!");
 
-            LOGGER.info("🎯 Registering commands...");
+            LOGGER.info(" Registering commands...");
             VeinMinerCommands.register();
             QuestCommands.register();
             UpgradeCommands.register();
-            LOGGER.info("✅ Commands registered!");
+            LOGGER.info(" Commands registered!");
 
-            LOGGER.info("📋 Registering quest system...");
+            LOGGER.info(" Registering quest system...");
             registerQuestSystem();
-            LOGGER.info("✅ Quest system registered!");
+            LOGGER.info(" Quest system registered!");
 
-            LOGGER.info("═══════════════════════════════════════════════════════════");
-            LOGGER.info("✨ KimDog VeinMiner initialized successfully! ✨");
-            LOGGER.info("═══════════════════════════════════════════════════════════");
+            LOGGER.info("");
+            LOGGER.info(" KimDog VeinMiner initialized successfully! ");
+            LOGGER.info("");
         } catch (Exception e) {
-            LOGGER.error("❌ FATAL ERROR during VeinMiner initialization!", e);
+            LOGGER.error(" FATAL ERROR during VeinMiner initialization!", e);
             throw new RuntimeException("VeinMiner initialization failed", e);
         }
     }
@@ -60,31 +60,31 @@ public class VeinMinerMod implements ModInitializer {
         // Load quest data and upgrades when player joins
         ServerPlayConnectionEvents.JOIN.register((handler, server, sender) -> {
             java.util.UUID playerUuid = handler.getPlayer().getUuid();
-            LOGGER.info("👤 Player joined - Loading VeinMiner data for {}", handler.getPlayer().getName().getString());
+            LOGGER.info(" Player joined - Loading VeinMiner data for {}", handler.getPlayer().getName().getString());
 
             // Load player quests
             VeinMinerQuests.loadQuestData(handler.getPlayer());
-            LOGGER.info("📋 Quest data loaded");
+            LOGGER.info(" Quest data loaded");
 
             // Load player upgrades
             UpgradeManager.loadUpgrades(playerUuid);
-            LOGGER.info("⚙️  Upgrade data loaded");
+            LOGGER.info("  Upgrade data loaded");
         });
 
         ServerLifecycleEvents.SERVER_STARTED.register((server) -> {
-            LOGGER.info("📋 VeinMiner systems ready!");
+            LOGGER.info(" VeinMiner systems ready!");
         });
     }
 
     private static void printBanner() {
         LOGGER.info("\n");
-        LOGGER.info("╔═══════════════════════════════════════════════════════════╗");
-        LOGGER.info("║                                                           ║");
-        LOGGER.info("║        🏔️  KimDog VeinMiner - Mining Made Easy! 🏔️       ║");
-        LOGGER.info("║                                                           ║");
-        LOGGER.info("║              Break one ore, break them all!               ║");
-        LOGGER.info("║                                                           ║");
-        LOGGER.info("╚═══════════════════════════════════════════════════════════╝");
+        LOGGER.info("");
+        LOGGER.info("                                                           ");
+        LOGGER.info("          KimDog VeinMiner - Mining Made Easy!        ");
+        LOGGER.info("                                                           ");
+        LOGGER.info("              Break one ore, break them all!               ");
+        LOGGER.info("                                                           ");
+        LOGGER.info("");
         LOGGER.info("\n");
     }
 }

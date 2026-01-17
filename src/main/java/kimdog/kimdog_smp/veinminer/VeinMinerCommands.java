@@ -29,7 +29,7 @@ public class VeinMinerCommands {
                             ServerCommandSource src = ctx.getSource();
                             ServerPlayerEntity player = src.getPlayer();
                             if (player == null) {
-                                sendError(src, "❌ This command must be run by a player!");
+                                sendError(src, " This command must be run by a player!");
                                 return 0;
                             }
                             return showStats(src, player);
@@ -41,7 +41,7 @@ public class VeinMinerCommands {
                                 ServerCommandSource src = ctx.getSource();
                                 ServerPlayerEntity target = src.getServer().getPlayerManager().getPlayer(name);
                                 if (target == null) {
-                                    sendError(src, "❌ Player not found: " + name);
+                                    sendError(src, " Player not found: " + name);
                                     return 0;
                                 }
                                 return showStats(src, target);
@@ -56,13 +56,13 @@ public class VeinMinerCommands {
                             ServerCommandSource src = ctx.getSource();
                             ServerPlayerEntity player = src.getPlayer();
                             if (player == null) {
-                                sendError(src, "❌ This command must be run by a player!");
+                                sendError(src, " This command must be run by a player!");
                                 return 0;
                             }
                             boolean current = VeinMinerNetworking.getToggleForPlayer(player.getUuid());
                             VeinMinerNetworking.setToggleForPlayer(player.getUuid(), !current);
-                            String status = !current ? "🟢 ENABLED" : "🔴 DISABLED";
-                            sendSuccess(src, "⛏️ VeinMiner " + status);
+                            String status = !current ? " ENABLED" : " DISABLED";
+                            sendSuccess(src, " VeinMiner " + status);
                             return 1;
                         })
                         .then(
@@ -72,13 +72,13 @@ public class VeinMinerCommands {
                                 ServerCommandSource src = ctx.getSource();
                                 ServerPlayerEntity target = src.getServer().getPlayerManager().getPlayer(name);
                                 if (target == null) {
-                                    sendError(src, "❌ Player not found: " + name);
+                                    sendError(src, " Player not found: " + name);
                                     return 0;
                                 }
                                 boolean current = VeinMinerNetworking.getToggleForPlayer(target.getUuid());
                                 VeinMinerNetworking.setToggleForPlayer(target.getUuid(), !current);
-                                String status = !current ? "🟢 ENABLED" : "🔴 DISABLED";
-                                sendSuccess(src, "⛏️ VeinMiner for " + target.getName().getString() + " " + status);
+                                String status = !current ? " ENABLED" : " DISABLED";
+                                sendSuccess(src, " VeinMiner for " + target.getName().getString() + " " + status);
                                 return 1;
                             })
                         )
@@ -91,11 +91,11 @@ public class VeinMinerCommands {
                             ServerCommandSource src = ctx.getSource();
                             ServerPlayerEntity player = src.getPlayer();
                             if (player == null) {
-                                sendError(src, "❌ This command must be run by a player!");
+                                sendError(src, " This command must be run by a player!");
                                 return 0;
                             }
                             VeinMinerNetworking.setToggleForPlayer(player.getUuid(), true);
-                            sendSuccess(src, "🟢 VeinMiner ENABLED");
+                            sendSuccess(src, " VeinMiner ENABLED");
                             return 1;
                         })
                         .then(
@@ -105,11 +105,11 @@ public class VeinMinerCommands {
                                 ServerCommandSource src = ctx.getSource();
                                 ServerPlayerEntity target = src.getServer().getPlayerManager().getPlayer(name);
                                 if (target == null) {
-                                    sendError(src, "❌ Player not found: " + name);
+                                    sendError(src, " Player not found: " + name);
                                     return 0;
                                 }
                                 VeinMinerNetworking.setToggleForPlayer(target.getUuid(), true);
-                                sendSuccess(src, "🟢 VeinMiner enabled for " + target.getName().getString());
+                                sendSuccess(src, " VeinMiner enabled for " + target.getName().getString());
                                 return 1;
                             })
                         )
@@ -122,11 +122,11 @@ public class VeinMinerCommands {
                             ServerCommandSource src = ctx.getSource();
                             ServerPlayerEntity player = src.getPlayer();
                             if (player == null) {
-                                sendError(src, "❌ This command must be run by a player!");
+                                sendError(src, " This command must be run by a player!");
                                 return 0;
                             }
                             VeinMinerNetworking.setToggleForPlayer(player.getUuid(), false);
-                            sendSuccess(src, "🔴 VeinMiner DISABLED");
+                            sendSuccess(src, " VeinMiner DISABLED");
                             return 1;
                         })
                         .then(
@@ -136,11 +136,11 @@ public class VeinMinerCommands {
                                 ServerCommandSource src = ctx.getSource();
                                 ServerPlayerEntity target = src.getServer().getPlayerManager().getPlayer(name);
                                 if (target == null) {
-                                    sendError(src, "❌ Player not found: " + name);
+                                    sendError(src, " Player not found: " + name);
                                     return 0;
                                 }
                                 VeinMinerNetworking.setToggleForPlayer(target.getUuid(), false);
-                                sendSuccess(src, "🔴 VeinMiner disabled for " + target.getName().getString());
+                                sendSuccess(src, " VeinMiner disabled for " + target.getName().getString());
                                 return 1;
                             })
                         )
@@ -151,7 +151,7 @@ public class VeinMinerCommands {
                         literal("reload")
                         .executes(ctx -> {
                             VeinMinerConfig.load();
-                            sendSuccess(ctx.getSource(), "♻️ VeinMiner config reloaded successfully!");
+                            sendSuccess(ctx.getSource(), " VeinMiner config reloaded successfully!");
                             return 1;
                         })
                     )
@@ -168,9 +168,9 @@ public class VeinMinerCommands {
 
     private static int showHelp(ServerCommandSource src) {
         sendMessage(src, "");
-        sendMessage(src, Text.literal("╔══════════════════════════════════════╗").formatted(Formatting.DARK_GREEN));
-        sendMessage(src, Text.literal("║     ⛏️ VeinMiner Commands Help ⛏️      ║").formatted(Formatting.GREEN));
-        sendMessage(src, Text.literal("╚══════════════════════════════════════╝").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("      VeinMiner Commands Help       ").formatted(Formatting.GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
         sendMessage(src, "");
 
         sendMessage(src, Text.literal("/kimdog veinminer stats [player]").formatted(Formatting.YELLOW)
@@ -188,11 +188,11 @@ public class VeinMinerCommands {
 
         sendMessage(src, "");
         sendMessage(src, Text.literal("Features:").formatted(Formatting.AQUA));
-        sendMessage(src, "  ✨ Automatic vein detection with diagonal support");
-        sendMessage(src, "  ⚡ Enchantment bonuses (Efficiency, Unbreaking, Fortune)");
-        sendMessage(src, "  🔥 Streak multiplier system");
-        sendMessage(src, "  🍀 Luck-based random bonuses");
-        sendMessage(src, "  🏆 Achievement tracking");
+        sendMessage(src, "   Automatic vein detection with diagonal support");
+        sendMessage(src, "   Enchantment bonuses (Efficiency, Unbreaking, Fortune)");
+        sendMessage(src, "   Streak multiplier system");
+        sendMessage(src, "   Luck-based random bonuses");
+        sendMessage(src, "   Achievement tracking");
 
         sendMessage(src, "");
         return 1;
@@ -202,30 +202,30 @@ public class VeinMinerCommands {
         VeinMinerStats.PlayerStats stats = VeinMinerStats.getStats(player);
 
         sendMessage(src, "");
-        sendMessage(src, Text.literal("╔══════════════════════════════════════╗").formatted(Formatting.GOLD));
-        sendMessage(src, Text.literal("║  ⛏️ VeinMiner Stats - " + player.getName().getString() + " ⛏️").formatted(Formatting.YELLOW));
-        sendMessage(src, Text.literal("╚══════════════════════════════════════╝").formatted(Formatting.GOLD));
+        sendMessage(src, Text.literal("").formatted(Formatting.GOLD));
+        sendMessage(src, Text.literal("   VeinMiner Stats - " + player.getName().getString() + " ").formatted(Formatting.YELLOW));
+        sendMessage(src, Text.literal("").formatted(Formatting.GOLD));
         sendMessage(src, "");
 
-        sendMessage(src, Text.literal("📊 Total Blocks Mined: ").formatted(Formatting.AQUA)
+        sendMessage(src, Text.literal(" Total Blocks Mined: ").formatted(Formatting.AQUA)
             .append(Text.literal(stats.totalBlocksMined + "").formatted(Formatting.GREEN)));
-        sendMessage(src, Text.literal("💫 Total XP Gained: ").formatted(Formatting.AQUA)
+        sendMessage(src, Text.literal(" Total XP Gained: ").formatted(Formatting.AQUA)
             .append(Text.literal(stats.totalXpGained + "").formatted(Formatting.GREEN)));
-        sendMessage(src, Text.literal("🏆 Largest Vein: ").formatted(Formatting.AQUA)
+        sendMessage(src, Text.literal(" Largest Vein: ").formatted(Formatting.AQUA)
             .append(Text.literal(stats.largestVeinSize + " blocks").formatted(Formatting.GREEN)));
 
         sendMessage(src, "");
-        sendMessage(src, Text.literal("💎 Diamond Veins Found: ").formatted(Formatting.LIGHT_PURPLE)
+        sendMessage(src, Text.literal(" Diamond Veins Found: ").formatted(Formatting.LIGHT_PURPLE)
             .append(Text.literal(stats.diamondVeinsFound + "").formatted(Formatting.DARK_PURPLE)));
-        sendMessage(src, Text.literal("✨ Emerald Veins Found: ").formatted(Formatting.LIGHT_PURPLE)
+        sendMessage(src, Text.literal(" Emerald Veins Found: ").formatted(Formatting.LIGHT_PURPLE)
             .append(Text.literal(stats.emeraldVeinsFound + "").formatted(Formatting.DARK_PURPLE)));
-        sendMessage(src, Text.literal("🪨 Rarest Ore: ").formatted(Formatting.LIGHT_PURPLE)
+        sendMessage(src, Text.literal(" Rarest Ore: ").formatted(Formatting.LIGHT_PURPLE)
             .append(Text.literal(stats.rariestOreFound.toUpperCase()).formatted(Formatting.DARK_PURPLE)));
 
         sendMessage(src, "");
-        sendMessage(src, Text.literal("🔥 Current Streak: ").formatted(Formatting.RED)
+        sendMessage(src, Text.literal(" Current Streak: ").formatted(Formatting.RED)
             .append(Text.literal(stats.currentStreak + "").formatted(Formatting.GOLD)));
-        sendMessage(src, Text.literal("⚡ Best Streak: ").formatted(Formatting.RED)
+        sendMessage(src, Text.literal(" Best Streak: ").formatted(Formatting.RED)
             .append(Text.literal(stats.bestStreak + "").formatted(Formatting.GOLD)));
 
         sendMessage(src, "");

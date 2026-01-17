@@ -60,7 +60,7 @@ public class ComboSystem {
 
         player.sendMessage(
             Text.literal(String.format(
-                "%s⚡ COMBO x%d %s | +%d blocks | %.1fx XP",
+                "%s COMBO x%d %s | +%d blocks | %.1fx XP",
                 color, data.combo, comboText, blocks, data.xpMultiplier
             )),
             true // Action bar
@@ -71,7 +71,7 @@ public class ComboSystem {
         if (data.combo >= 3) {
             player.sendMessage(
                 Text.literal(String.format(
-                    "§e⭐ Combo Ended! x%d | Total: %d blocks | XP Bonus: +%.0f%%",
+                    "e Combo Ended! x%d | Total: %d blocks | XP Bonus: +%.0f%%",
                     data.combo, data.totalBlocks, (data.xpMultiplier - 1.0) * 100
                 )).formatted(Formatting.YELLOW),
                 false
@@ -80,35 +80,35 @@ public class ComboSystem {
     }
 
     private static String getComboTier(int combo) {
-        if (combo >= 50) return "§c§lGODLY";
-        if (combo >= 30) return "§6§lLEGENDARY";
-        if (combo >= 20) return "§5§lEPIC";
-        if (combo >= 10) return "§b§lRARE";
-        if (combo >= 5) return "§a§lGOOD";
-        return "§f";
+        if (combo >= 50) return "clGODLY";
+        if (combo >= 30) return "6lLEGENDARY";
+        if (combo >= 20) return "5lEPIC";
+        if (combo >= 10) return "blRARE";
+        if (combo >= 5) return "alGOOD";
+        return "f";
     }
 
     private static String getComboColor(int combo) {
-        if (combo >= 50) return "§c";
-        if (combo >= 30) return "§6";
-        if (combo >= 20) return "§5";
-        if (combo >= 10) return "§b";
-        if (combo >= 5) return "§a";
-        return "§f";
+        if (combo >= 50) return "c";
+        if (combo >= 30) return "6";
+        if (combo >= 20) return "5";
+        if (combo >= 10) return "b";
+        if (combo >= 5) return "a";
+        return "f";
     }
 
     private static void checkMilestones(ServerPlayerEntity player, ComboData data) {
         int combo = data.combo;
         if (combo == 5) {
-            player.sendMessage(Text.literal("§a✨ Milestone! 5 Combo!").formatted(Formatting.GREEN), false);
+            player.sendMessage(Text.literal("a Milestone! 5 Combo!").formatted(Formatting.GREEN), false);
         } else if (combo == 10) {
-            player.sendMessage(Text.literal("§b🌟 Milestone! 10 Combo! Keep going!").formatted(Formatting.AQUA), false);
+            player.sendMessage(Text.literal("b Milestone! 10 Combo! Keep going!").formatted(Formatting.AQUA), false);
         } else if (combo == 25) {
-            player.sendMessage(Text.literal("§5💫 Milestone! 25 Combo! Amazing!").formatted(Formatting.LIGHT_PURPLE), false);
+            player.sendMessage(Text.literal("5 Milestone! 25 Combo! Amazing!").formatted(Formatting.LIGHT_PURPLE), false);
         } else if (combo == 50) {
-            player.sendMessage(Text.literal("§c🔥 LEGENDARY! 50 COMBO! UNSTOPPABLE!").formatted(Formatting.RED), false);
+            player.sendMessage(Text.literal("c LEGENDARY! 50 COMBO! UNSTOPPABLE!").formatted(Formatting.RED), false);
         } else if (combo == 100) {
-            player.sendMessage(Text.literal("§4§l⚡ GODLIKE! 100 COMBO! YOU'RE A LEGEND!").formatted(Formatting.DARK_RED), false);
+            player.sendMessage(Text.literal("4l GODLIKE! 100 COMBO! YOU'RE A LEGEND!").formatted(Formatting.DARK_RED), false);
         }
     }
 

@@ -25,9 +25,9 @@ public class VeinSearch {
         queue.add(start);
         visited.add(start);
 
-        LOGGER.info("🔍 Starting vein search from {}, {}, {}", start.getX(), start.getY(), start.getZ());
-        LOGGER.info("📏 Search range: {}, Max blocks: {}", maxRange, maxBlocks);
-        LOGGER.info("🪨 Origin block type: {}", originState.getBlock());
+        LOGGER.info(" Starting vein search from {}, {}, {}", start.getX(), start.getY(), start.getZ());
+        LOGGER.info(" Search range: {}, Max blocks: {}", maxRange, maxBlocks);
+        LOGGER.info(" Origin block type: {}", originState.getBlock());
 
         int blocksChecked = 0;
         while (!queue.isEmpty() && results.size() < maxBlocks) {
@@ -55,14 +55,14 @@ public class VeinSearch {
                 if (matchPredicate.test(state)) {
                     results.add(offsetPos);
                     queue.add(offsetPos);
-                    LOGGER.info("✅ Found matching block at {}, {}, {}", offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
+                    LOGGER.info(" Found matching block at {}, {}, {}", offsetPos.getX(), offsetPos.getY(), offsetPos.getZ());
                 }
             }
         }
 
-        LOGGER.info("🎯 Vein search complete! Found {} matching adjacent blocks (checked {} blocks)", results.size(), blocksChecked);
+        LOGGER.info(" Vein search complete! Found {} matching adjacent blocks (checked {} blocks)", results.size(), blocksChecked);
         if (results.isEmpty()) {
-            LOGGER.info("ℹ️  Single block vein - no adjacent matching blocks found");
+            LOGGER.info("  Single block vein - no adjacent matching blocks found");
         }
         return results;
     }

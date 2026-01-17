@@ -17,13 +17,13 @@ public class PowerUpSystem {
     private static final Random RANDOM = new Random();
 
     public enum PowerUpType {
-        SPEED_BOOST("⚡ Speed Boost", "§e", 10, 0.05), // 5% chance, 10s duration
-        DOUBLE_DROPS("💎 Double Drops", "§b", 15, 0.03),
-        INFINITE_DURABILITY("🛡️ Infinite Durability", "§a", 8, 0.02),
-        MEGA_FORTUNE("✨ Mega Fortune", "§d", 12, 0.04),
-        XP_MULTIPLIER("⭐ XP Multiplier", "§6", 15, 0.06),
-        AUTO_SMELT("🔥 Auto Smelt", "§c", 20, 0.03),
-        MAGNET_SURGE("🧲 Magnet Surge", "§3", 10, 0.05);
+        SPEED_BOOST(" Speed Boost", "e", 10, 0.05), // 5% chance, 10s duration
+        DOUBLE_DROPS(" Double Drops", "b", 15, 0.03),
+        INFINITE_DURABILITY(" Infinite Durability", "a", 8, 0.02),
+        MEGA_FORTUNE(" Mega Fortune", "d", 12, 0.04),
+        XP_MULTIPLIER(" XP Multiplier", "6", 15, 0.06),
+        AUTO_SMELT(" Auto Smelt", "c", 20, 0.03),
+        MAGNET_SURGE(" Magnet Surge", "3", 10, 0.05);
 
         public final String name;
         public final String color;
@@ -89,7 +89,7 @@ public class PowerUpSystem {
 
         player.sendMessage(
             Text.literal(String.format(
-                "§a✨ Power-Up! %s%s §afor §e%d seconds!",
+                "a Power-Up! %s%s afor e%d seconds!",
                 type.color, type.name, type.duration
             )),
             false
@@ -126,13 +126,13 @@ public class PowerUpSystem {
     public static String getPowerUpStatus(UUID uuid) {
         List<ActivePowerUp> powerUps = getActivePowerUps(uuid);
         if (powerUps.isEmpty()) {
-            return "§7No active power-ups";
+            return "7No active power-ups";
         }
 
-        StringBuilder sb = new StringBuilder("§aActive Power-Ups: ");
+        StringBuilder sb = new StringBuilder("aActive Power-Ups: ");
         for (ActivePowerUp powerUp : powerUps) {
             long remaining = (powerUp.expiryTime - System.currentTimeMillis()) / 1000;
-            sb.append(String.format("%s%s§7(%ds) ",
+            sb.append(String.format("%s%s7(%ds) ",
                 powerUp.type.color,
                 powerUp.type.name.split(" ")[1], // Short name
                 remaining

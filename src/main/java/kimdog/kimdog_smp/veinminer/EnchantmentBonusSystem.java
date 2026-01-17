@@ -23,7 +23,7 @@ public class EnchantmentBonusSystem {
                 // Each level of Efficiency reduces delay by 5ms (min 10ms)
                 int reduction = efficiencyLevel * 5;
                 int newDelay = Math.max(10, 50 - reduction);
-                LOGGER.debug("⚡ Efficiency {} detected! Break delay: {}ms", efficiencyLevel, newDelay);
+                LOGGER.debug(" Efficiency {} detected! Break delay: {}ms", efficiencyLevel, newDelay);
                 return newDelay;
             }
         } catch (Exception e) {
@@ -42,7 +42,7 @@ public class EnchantmentBonusSystem {
                 // Each level reduces durability loss by 15%
                 float multiplier = 1.0f - (unbreakingLevel * 0.15f);
                 multiplier = Math.max(0.25f, multiplier); // Min 25% durability loss
-                LOGGER.debug("🛡️ Unbreaking {} detected! Durability mult: {}x", unbreakingLevel, multiplier);
+                LOGGER.debug(" Unbreaking {} detected! Durability mult: {}x", unbreakingLevel, multiplier);
                 return multiplier;
             }
         } catch (Exception e) {
@@ -59,7 +59,7 @@ public class EnchantmentBonusSystem {
             ItemEnchantmentsComponent enchantments = tool.getEnchantments();
             if (!enchantments.isEmpty()) {
                 int bonus = (int) (baseXp * 1.25f); // 25% XP bonus for enchanted tools
-                LOGGER.debug("✨ Enchanted tool detected! XP: {} -> {}", baseXp, bonus);
+                LOGGER.debug(" Enchanted tool detected! XP: {} -> {}", baseXp, bonus);
                 return bonus;
             }
         } catch (Exception e) {
@@ -75,7 +75,7 @@ public class EnchantmentBonusSystem {
         try {
             int fortuneLevel = getEnchantmentLevel(tool, "fortune");
             if (fortuneLevel > 0) {
-                LOGGER.debug("💎 Fortune {} detected!", fortuneLevel);
+                LOGGER.debug(" Fortune {} detected!", fortuneLevel);
                 return fortuneLevel;
             }
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public class EnchantmentBonusSystem {
         try {
             int silkTouch = getEnchantmentLevel(tool, "silk_touch");
             if (silkTouch > 0) {
-                LOGGER.debug("🧵 Silk Touch detected!");
+                LOGGER.debug(" Silk Touch detected!");
                 return true;
             }
         } catch (Exception e) {
@@ -150,10 +150,10 @@ public class EnchantmentBonusSystem {
             int fortune = getEnchantmentLevel(tool, "fortune");
             boolean silkTouch = hasSilkTouch(tool);
 
-            if (efficiency > 0) summary.append("⚡Efficiency ").append(efficiency).append(" ");
-            if (unbreaking > 0) summary.append("🛡️Unbreaking ").append(unbreaking).append(" ");
-            if (fortune > 0) summary.append("💎Fortune ").append(fortune).append(" ");
-            if (silkTouch) summary.append("🧵Silk Touch ");
+            if (efficiency > 0) summary.append("Efficiency ").append(efficiency).append(" ");
+            if (unbreaking > 0) summary.append("Unbreaking ").append(unbreaking).append(" ");
+            if (fortune > 0) summary.append("Fortune ").append(fortune).append(" ");
+            if (silkTouch) summary.append("Silk Touch ");
 
             return summary.toString().trim();
         } catch (Exception e) {

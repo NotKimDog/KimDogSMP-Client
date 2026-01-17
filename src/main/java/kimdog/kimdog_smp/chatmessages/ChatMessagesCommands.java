@@ -18,7 +18,7 @@ public class ChatMessagesCommands {
                         literal("reload")
                         .executes(ctx -> {
                             ChatMessagesConfig.load();
-                            sendSuccess(ctx.getSource(), "♻️ Chat Messages config reloaded successfully!");
+                            sendSuccess(ctx.getSource(), " Chat Messages config reloaded successfully!");
                             return 1;
                         })
                     )
@@ -34,8 +34,8 @@ public class ChatMessagesCommands {
                             ChatMessagesConfig config = ChatMessagesConfig.get();
                             config.enabled = !config.enabled;
                             ChatMessagesConfig.save();
-                            String status = config.enabled ? "🟢 ENABLED" : "🔴 DISABLED";
-                            sendSuccess(ctx.getSource(), "💬 Chat Messages " + status);
+                            String status = config.enabled ? " ENABLED" : " DISABLED";
+                            sendSuccess(ctx.getSource(), " Chat Messages " + status);
                             return 1;
                         })
                     )
@@ -45,9 +45,9 @@ public class ChatMessagesCommands {
 
     private static int showHelp(ServerCommandSource src) {
         sendMessage(src, "");
-        sendMessage(src, Text.literal("╔══════════════════════════════════════╗").formatted(Formatting.DARK_AQUA));
-        sendMessage(src, Text.literal("║   💬 Chat Messages Commands Help 💬   ║").formatted(Formatting.AQUA));
-        sendMessage(src, Text.literal("╚══════════════════════════════════════╝").formatted(Formatting.DARK_AQUA));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_AQUA));
+        sendMessage(src, Text.literal("    Chat Messages Commands Help    ").formatted(Formatting.AQUA));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_AQUA));
         sendMessage(src, "");
 
         sendMessage(src, Text.literal("/chatmessages reload").formatted(Formatting.YELLOW)
@@ -59,9 +59,9 @@ public class ChatMessagesCommands {
 
         sendMessage(src, "");
         sendMessage(src, Text.literal("Configuration:").formatted(Formatting.AQUA));
-        sendMessage(src, "  📁 Location: config/kimdog_smp/chatmessages.json");
-        sendMessage(src, "  ⏱️ Settings: enabled, messageIntervalSeconds, randomOrder");
-        sendMessage(src, "  📝 Edit the JSON to add/remove messages");
+        sendMessage(src, "   Location: config/kimdog_smp/chatmessages.json");
+        sendMessage(src, "   Settings: enabled, messageIntervalSeconds, randomOrder");
+        sendMessage(src, "   Edit the JSON to add/remove messages");
 
         sendMessage(src, "");
         return 1;

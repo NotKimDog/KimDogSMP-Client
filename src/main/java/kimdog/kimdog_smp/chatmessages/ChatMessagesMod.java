@@ -7,9 +7,9 @@ public class ChatMessagesMod {
     private static final Logger LOGGER = LoggerFactory.getLogger("KimDog ChatMessages");
 
     public void onInitialize() {
-        LOGGER.info("═══════════════════════════════════════════════════════════");
-        LOGGER.info("💬 KimDog Chat Messages - Initializing...");
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info("");
+        LOGGER.info(" KimDog Chat Messages - Initializing...");
+        LOGGER.info("");
 
         // Load config
         ChatMessagesConfig.load();
@@ -20,7 +20,7 @@ public class ChatMessagesMod {
         // Register commands
         ChatMessagesCommands.register();
 
-        LOGGER.info("✅ Chat Messages initialized successfully!");
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info(" Chat Messages initialized successfully!");
+        LOGGER.info("");
     }
 }

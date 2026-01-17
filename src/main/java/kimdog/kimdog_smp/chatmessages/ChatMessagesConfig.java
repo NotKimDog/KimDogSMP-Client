@@ -27,16 +27,16 @@ public class ChatMessagesConfig {
 
     // Hardcoded messages - cannot be modified in config
     public static final List<String> HARDCODED_MESSAGES = Arrays.asList(
-        "💎 Welcome to KimDog SMP!",
-        "⛏️ Use /veinminer help for VeinMiner commands",
-        "🏆 Check the advancements tab for VeinMiner achievements!",
-        "💬 Have fun and enjoy the server!",
-        "🎮 Don't forget to use /veinminer stats to track your progress",
-        "⭐ Break ore blocks to activate the VeinMiner feature",
-        "🔥 Keep your streak going for XP multipliers!",
-        "🍀 You have a 15% chance of lucky hits for bonus XP",
-        "📊 Use /veinminer stats [player] to see anyone's stats",
-        "✨ Enchanted pickaxes work better with VeinMiner!"
+        " Welcome to KimDog SMP!",
+        " Use /veinminer help for VeinMiner commands",
+        " Check the advancements tab for VeinMiner achievements!",
+        " Have fun and enjoy the server!",
+        " Don't forget to use /veinminer stats to track your progress",
+        " Break ore blocks to activate the VeinMiner feature",
+        " Keep your streak going for XP multipliers!",
+        " You have a 15% chance of lucky hits for bonus XP",
+        " Use /veinminer stats [player] to see anyone's stats",
+        " Enchanted pickaxes work better with VeinMiner!"
     );
 
     public ChatMessagesConfig() {
@@ -60,14 +60,14 @@ public class ChatMessagesConfig {
                 FileReader reader = new FileReader(CONFIG_FILE);
                 instance = gson.fromJson(reader, ChatMessagesConfig.class);
                 reader.close();
-                LOGGER.info("✅ Chat Messages config loaded");
+                LOGGER.info(" Chat Messages config loaded");
             } else {
                 instance = new ChatMessagesConfig();
                 save();
-                LOGGER.info("📝 Chat Messages config created with defaults");
+                LOGGER.info(" Chat Messages config created with defaults");
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error loading Chat Messages config: {}", e.getMessage());
+            LOGGER.error(" Error loading Chat Messages config: {}", e.getMessage());
             instance = new ChatMessagesConfig();
         }
     }
@@ -79,9 +79,9 @@ public class ChatMessagesConfig {
             FileWriter writer = new FileWriter(CONFIG_FILE);
             writer.write(gson.toJson(instance));
             writer.close();
-            LOGGER.info("✅ Chat Messages config saved");
+            LOGGER.info(" Chat Messages config saved");
         } catch (IOException e) {
-            LOGGER.error("❌ Error saving Chat Messages config: {}", e.getMessage());
+            LOGGER.error(" Error saving Chat Messages config: {}", e.getMessage());
         }
     }
 }

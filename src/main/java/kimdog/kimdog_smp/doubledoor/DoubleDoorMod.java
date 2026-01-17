@@ -7,9 +7,9 @@ public class DoubleDoorMod {
     private static final Logger LOGGER = LoggerFactory.getLogger("KimDog DoubleDoor");
 
     public void onInitialize() {
-        LOGGER.info("═══════════════════════════════════════════════════════════");
-        LOGGER.info("🚪 KimDog Double Door - Initializing...");
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info("");
+        LOGGER.info(" KimDog Double Door - Initializing...");
+        LOGGER.info("");
 
         // Load config
         DoubleDoorConfig.load();
@@ -17,8 +17,8 @@ public class DoubleDoorMod {
         // Register handler
         DoubleDoorHandler.register();
 
-        LOGGER.info("✅ Double Door initialized successfully!");
-        LOGGER.info("🚪 Right-click a door/trapdoor to open adjacent ones!");
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info(" Double Door initialized successfully!");
+        LOGGER.info(" Right-click a door/trapdoor to open adjacent ones!");
+        LOGGER.info("");
     }
 }

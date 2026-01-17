@@ -22,11 +22,11 @@ public class QuestCommands {
                             ServerCommandSource src = ctx.getSource();
                             net.minecraft.server.network.ServerPlayerEntity player = src.getPlayer();
                             if (player == null) {
-                                sendError(src, "❌ This command must be run by a player!");
+                                sendError(src, " This command must be run by a player!");
                                 return 0;
                             }
                             VeinMinerQuests.generateNewQuest(player);
-                            sendSuccess(src, "✨ New quest generated!");
+                            sendSuccess(src, " New quest generated!");
                             return showQuestScreen(src);
                         })
                     )
@@ -43,7 +43,7 @@ public class QuestCommands {
     private static int showQuestScreen(ServerCommandSource src) {
         net.minecraft.server.network.ServerPlayerEntity player = src.getPlayer();
         if (player == null) {
-            sendError(src, "❌ This command must be run by a player!");
+            sendError(src, " This command must be run by a player!");
             return 0;
         }
 

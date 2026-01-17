@@ -56,7 +56,7 @@ public class VeinMinerHandler {
                     if (!item.getDefaultStack().isIn(pickaxeToolTag)) {
                         String itemName = Registries.ITEM.getId(item).toString().toLowerCase();
                         if (!itemName.contains("pickaxe")) {
-                            LOGGER.debug("❌ Tool is not a pickaxe: {}", itemName);
+                            LOGGER.debug(" Tool is not a pickaxe: {}", itemName);
                             return;
                         }
                     }
@@ -68,7 +68,7 @@ public class VeinMinerHandler {
             // CRITICAL CHECK: Only activate on ORE blocks
             String blockName = Registries.BLOCK.getId(state.getBlock()).getPath();
             if (!isOreBlock(blockName)) {
-                LOGGER.debug("❌ Block {} is not an ore, VeinMiner not activated", blockName);
+                LOGGER.debug(" Block {} is not an ore, VeinMiner not activated", blockName);
                 return; // Not an ore, don't activate VeinMiner
             }
 
@@ -91,7 +91,7 @@ public class VeinMinerHandler {
             // QOL: Anti-lag check
             int veinSize = vein.size() + 1;
             if (kimdog.kimdog_smp.veinminer.qol.AntiLagSystem.shouldThrottle(serverPlayer, veinSize)) {
-                LOGGER.warn("⚠️ Throttled {} due to spam mining", serverPlayer.getName().getString());
+                LOGGER.warn(" Throttled {} due to spam mining", serverPlayer.getName().getString());
                 return;
             }
 
@@ -104,18 +104,18 @@ public class VeinMinerHandler {
             // QOL: Check durability and warn
             kimdog.kimdog_smp.veinminer.qol.QoLFeatures.notifyLowDurability(serverPlayer, main);
 
-            LOGGER.info("⛏️  VeinMiner activated for {} by {} [Upgrades: Blocks+{}, Range+{}]",
+            LOGGER.info("  VeinMiner activated for {} by {} [Upgrades: Blocks+{}, Range+{}]",
                 state.getBlock(), serverPlayer.getName().getString(),
                 upgrades.maxBlocksLevel * 64, upgrades.maxRangeLevel * 32);
-            LOGGER.info("📍 Found {} adjacent blocks to break (max: {})", vein.size(), maxBlocks - 1);
-            LOGGER.info("🎯 Mining vein at: {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
+            LOGGER.info(" Found {} adjacent blocks to break (max: {})", vein.size(), maxBlocks - 1);
+            LOGGER.info(" Mining vein at: {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
 
             spawnActivationAnimation((ServerWorld) world, pos, cfg);
 
             if (!vein.isEmpty()) {
                 applyBreaks(serverPlayer, (ServerWorld) world, vein, main, pos, upgrades);
             } else {
-                LOGGER.info("✨ Single block broken (no adjacent ores found)");
+                LOGGER.info(" Single block broken (no adjacent ores found)");
             }
         });
     }
@@ -135,7 +135,7 @@ public class VeinMinerHandler {
             );
 
             if (!originBlock.getDefaultState().isIn(oreTag)) {
-                LOGGER.warn("⚠️  Block {} is not in #minecraft:mineable/pickaxe tag", originBlock);
+                LOGGER.warn("  Block {} is not in #minecraft:mineable/pickaxe tag", originBlock);
             }
         }
 
@@ -275,11 +275,11 @@ public class VeinMinerHandler {
 
         boolean luckyBreak = cfg.enableLuckSystem && Math.random() * 100 < cfg.luckChance;
 
-        LOGGER.info("🔨 Breaking {} blocks instantly... [Speed: Lv{}, XP: x{}, Particles: Lv{}]",
+        LOGGER.info(" Breaking {} blocks instantly... [Speed: Lv{}, XP: x{}, Particles: Lv{}]",
             positions.size(), upgrades.speedLevel, String.format("%.1f", xpUpgradeMultiplier), upgrades.particleLevel);
 
-        String streakText = stats != null && stats.currentStreak > 0 ? " 🔥 Streak: " + stats.currentStreak : "";
-        player.sendMessage(net.minecraft.text.Text.literal("⛏️ Mining " + positions.size() + " blocks!" + streakText)
+        String streakText = stats != null && stats.currentStreak > 0 ? "  Streak: " + stats.currentStreak : "";
+        player.sendMessage(net.minecraft.text.Text.literal(" Mining " + positions.size() + " blocks!" + streakText)
             .formatted(net.minecraft.util.Formatting.AQUA));
 
         List<net.minecraft.entity.ItemEntity> allDrops = new ArrayList<>();
@@ -314,8 +314,8 @@ public class VeinMinerHandler {
 
             if (luckyBreak && Math.random() > 0.7) {
                 blockXp = (int) (blockXp * 1.5f);
-                LOGGER.info("🍀 LUCKY HIT! +50% XP!");
-                player.sendMessage(net.minecraft.text.Text.literal("🍀 LUCKY HIT! +50% XP bonus!").formatted(net.minecraft.util.Formatting.GOLD));
+                LOGGER.info(" LUCKY HIT! +50% XP!");
+                player.sendMessage(net.minecraft.text.Text.literal(" LUCKY HIT! +50% XP bonus!").formatted(net.minecraft.util.Formatting.GOLD));
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/lucky_break");
             }
 
@@ -349,18 +349,18 @@ public class VeinMinerHandler {
                 itemEntity.setPosition(dropOrigin.getX() + 0.5, dropOrigin.getY() + 1.0, dropOrigin.getZ() + 0.5);
                 world.spawnEntity(itemEntity);
             }
-            LOGGER.info("📦 Consolidated {} item stacks at origin", allDrops.size());
+            LOGGER.info(" Consolidated {} item stacks at origin", allDrops.size());
         }
 
         if (broken > 0) {
-            LOGGER.info("✨ Successfully broke {} blocks!", broken);
+            LOGGER.info(" Successfully broke {} blocks!", broken);
 
-            String completionMsg = String.format("✨ Vein complete! Broke %d blocks for %d XP!", broken, totalXp);
+            String completionMsg = String.format(" Vein complete! Broke %d blocks for %d XP!", broken, totalXp);
             player.sendMessage(net.minecraft.text.Text.literal(completionMsg).formatted(net.minecraft.util.Formatting.GREEN));
 
             if (totalXp > 0) {
                 dropXpOrbs(world, originPos, totalXp);
-                LOGGER.info("💫 Dropped {} XP total", totalXp);
+                LOGGER.info(" Dropped {} XP total", totalXp);
             }
 
             spawnCompletionAnimation(world, originPos, broken, cfg);
@@ -393,18 +393,18 @@ public class VeinMinerHandler {
                     int damageToTake = (int) (broken * durabilityMult);
                     int newDamage = tool.getDamage() + damageToTake;
                     if (newDamage >= tool.getMaxDamage()) {
-                        LOGGER.warn("⚠️  Tool durability exceeded! Tool has been destroyed!");
+                        LOGGER.warn("  Tool durability exceeded! Tool has been destroyed!");
                         player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
                     } else {
                         tool.setDamage(newDamage);
                         int durabilityLeft = tool.getMaxDamage() - newDamage;
-                        LOGGER.info("🛠️  Tool durability: {}/{}", durabilityLeft, tool.getMaxDamage());
+                        LOGGER.info("  Tool durability: {}/{}", durabilityLeft, tool.getMaxDamage());
                     }
                 }
             } catch (Exception e) {
-                LOGGER.error("❌ Error handling tool durability:", e);
+                LOGGER.error(" Error handling tool durability:", e);
             }
-            LOGGER.info("═══════════════════════════════════════════════════════════");
+            LOGGER.info("");
         }
     }
 
@@ -413,7 +413,7 @@ public class VeinMinerHandler {
 
         int delayTicks = Math.max(1, breakDelay / 50); // Convert ms to ticks (50ms = 1 tick)
 
-        LOGGER.info("🔨 Starting to break {} blocks with {} tick delay... [Upgrades Applied: Speed Lv{}, XP x{}]",
+        LOGGER.info(" Starting to break {} blocks with {} tick delay... [Upgrades Applied: Speed Lv{}, XP x{}]",
             positions.size(), delayTicks, upgrades.speedLevel, 1.0f + (upgrades.xpMultiplierLevel * 0.4f));
 
         VeinMinerStats.PlayerStats stats = cfg.enableStatTracking ? VeinMinerStats.getStats(player) : null;
@@ -427,8 +427,8 @@ public class VeinMinerHandler {
         // Apply XP upgrade multiplier
         final float xpUpgradeMultiplier = 1.0f + (upgrades.xpMultiplierLevel * 0.4f);
 
-        String streakText = stats != null && stats.currentStreak > 0 ? " 🔥 Streak: " + stats.currentStreak : "";
-        player.sendMessage(net.minecraft.text.Text.literal("⛏️ Mining " + positions.size() + " blocks!" + streakText)
+        String streakText = stats != null && stats.currentStreak > 0 ? "  Streak: " + stats.currentStreak : "";
+        player.sendMessage(net.minecraft.text.Text.literal(" Mining " + positions.size() + " blocks!" + streakText)
             .formatted(net.minecraft.util.Formatting.AQUA));
 
         final List<net.minecraft.entity.ItemEntity> allDrops = new ArrayList<>();
@@ -450,7 +450,7 @@ public class VeinMinerHandler {
                         BlockState state = world.getBlockState(blockPos);
                         if (state.isAir()) return;
 
-                        LOGGER.info("💥 Breaking block {} at {}, {}, {}", index + 1, blockPos.getX(), blockPos.getY(), blockPos.getZ());
+                        LOGGER.info(" Breaking block {} at {}, {}, {}", index + 1, blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
                         String oreType = state.getBlock().toString().toLowerCase();
                         if (index == 0) firstOreType[0] = oreType;
@@ -533,17 +533,17 @@ public class VeinMinerHandler {
                 itemEntity.setPosition(originPos.getX() + 0.5, originPos.getY() + 1.0, originPos.getZ() + 0.5);
                 world.spawnEntity(itemEntity);
             }
-            LOGGER.info("📦 Consolidated {} item stacks at origin", allDrops.size());
+            LOGGER.info(" Consolidated {} item stacks at origin", allDrops.size());
         }
 
         // Drop XP
         if (totalXp > 0) {
             dropXpOrbs(world, originPos, totalXp);
-            LOGGER.info("💫 Dropped {} XP total", totalXp);
+            LOGGER.info(" Dropped {} XP total", totalXp);
         }
 
         // Completion message
-        String completionMsg = String.format("✨ Vein complete! Broke %d blocks for %d XP!", broken, totalXp);
+        String completionMsg = String.format(" Vein complete! Broke %d blocks for %d XP!", broken, totalXp);
         player.sendMessage(net.minecraft.text.Text.literal(completionMsg).formatted(net.minecraft.util.Formatting.GREEN));
 
         // Completion animation
@@ -567,20 +567,20 @@ public class VeinMinerHandler {
                 int damageToTake = (int) (broken * durabilityMult);
                 int newDamage = tool.getDamage() + damageToTake;
                 if (newDamage >= tool.getMaxDamage()) {
-                    LOGGER.warn("⚠️  Tool durability exceeded! Tool has been destroyed!");
+                    LOGGER.warn("  Tool durability exceeded! Tool has been destroyed!");
                     player.setStackInHand(Hand.MAIN_HAND, ItemStack.EMPTY);
                 } else {
                     tool.setDamage(newDamage);
                     int durabilityLeft = tool.getMaxDamage() - newDamage;
-                    LOGGER.info("🛠️  Tool durability: {}/{}", durabilityLeft, tool.getMaxDamage());
+                    LOGGER.info("  Tool durability: {}/{}", durabilityLeft, tool.getMaxDamage());
                 }
             }
         } catch (Exception e) {
-            LOGGER.error("❌ Error handling tool durability:", e);
+            LOGGER.error(" Error handling tool durability:", e);
         }
 
-        LOGGER.info("✨ Successfully broke {} blocks!", broken);
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info(" Successfully broke {} blocks!", broken);
+        LOGGER.info("");
     }
 
     private static int calculateXpForBlock(BlockState state) {
@@ -715,68 +715,68 @@ public class VeinMinerHandler {
             net.minecraft.util.Formatting red = net.minecraft.util.Formatting.RED;
 
             if (blocksDestroyed >= 10 && stats.largestVeinSize == blocksDestroyed) {
-                String msg = "🏆 " + player.getName().getString() + " unlocked: MEGA VEIN! (" + blocksDestroyed + " blocks)";
+                String msg = " " + player.getName().getString() + " unlocked: MEGA VEIN! (" + blocksDestroyed + " blocks)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(gold), false);
-                LOGGER.info("🏆 ACHIEVEMENT UNLOCKED: Mega Vein! (10+ blocks in one vein)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Mega Vein! (10+ blocks in one vein)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/mega_vein");
             }
             if (blocksDestroyed >= 20 && stats.largestVeinSize == blocksDestroyed) {
-                String msg = "🏆 " + player.getName().getString() + " unlocked: LEGENDARY VEIN! (" + blocksDestroyed + " blocks)";
+                String msg = " " + player.getName().getString() + " unlocked: LEGENDARY VEIN! (" + blocksDestroyed + " blocks)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(gold), false);
-                LOGGER.info("🏆 ACHIEVEMENT UNLOCKED: Legendary Vein! (20+ blocks in one vein)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Legendary Vein! (20+ blocks in one vein)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/legendary_vein");
             }
             if (blocksDestroyed >= 30 && stats.largestVeinSize == blocksDestroyed) {
-                String msg = "🏆 " + player.getName().getString() + " unlocked: EPIC VEIN! (" + blocksDestroyed + " blocks!!)";
+                String msg = " " + player.getName().getString() + " unlocked: EPIC VEIN! (" + blocksDestroyed + " blocks!!)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(gold), false);
-                LOGGER.info("🏆 ACHIEVEMENT UNLOCKED: Epic Vein! (30+ blocks in one vein)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Epic Vein! (30+ blocks in one vein)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/epic_vein");
             }
             if (stats.diamondVeinsFound == 5) {
-                String msg = "💎 " + player.getName().getString() + " unlocked: DIAMOND PROSPECTOR! (5 diamond veins)";
+                String msg = " " + player.getName().getString() + " unlocked: DIAMOND PROSPECTOR! (5 diamond veins)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(gold), false);
-                LOGGER.info("💎 ACHIEVEMENT UNLOCKED: Diamond Prospector! (5 diamond veins)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Diamond Prospector! (5 diamond veins)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/diamond_prospector");
             }
             if (stats.emeraldVeinsFound == 5) {
-                String msg = "✨ " + player.getName().getString() + " unlocked: EMERALD COLLECTOR! (5 emerald veins)";
+                String msg = " " + player.getName().getString() + " unlocked: EMERALD COLLECTOR! (5 emerald veins)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(green), false);
-                LOGGER.info("✨ ACHIEVEMENT UNLOCKED: Emerald Collector! (5 emerald veins)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Emerald Collector! (5 emerald veins)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/emerald_collector");
             }
             if (stats.currentStreak == 10) {
-                String msg = "🔥🔥 " + player.getName().getString() + " is on FIRE! (10 vein streak)";
+                String msg = " " + player.getName().getString() + " is on FIRE! (10 vein streak)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(red), false);
-                LOGGER.info("🔥 ACHIEVEMENT UNLOCKED: Hot Streak! (10 consecutive veins)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Hot Streak! (10 consecutive veins)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/hot_streak");
             }
             if (stats.currentStreak == 15) {
-                String msg = "🔥🔥🔥 " + player.getName().getString() + " is BLAZING! (15 vein streak!)";
+                String msg = " " + player.getName().getString() + " is BLAZING! (15 vein streak!)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(red), false);
-                LOGGER.info("🔥 ACHIEVEMENT UNLOCKED: Blazing Streak! (15 consecutive veins)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Blazing Streak! (15 consecutive veins)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/blazing_streak");
             }
             if (stats.currentStreak == 25) {
-                String msg = "🔥🔥🔥 " + player.getName().getString() + " is a VEIN MINING LEGEND! (25 vein streak!!)";
+                String msg = " " + player.getName().getString() + " is a VEIN MINING LEGEND! (25 vein streak!!)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(gold), false);
-                LOGGER.info("🔥 ACHIEVEMENT UNLOCKED: UNSTOPPABLE! (25 consecutive veins)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: UNSTOPPABLE! (25 consecutive veins)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/unstoppable");
             }
             if (stats.totalBlocksMined == 1000) {
-                String msg = "⛏️ " + player.getName().getString() + " unlocked: ORE MASTER! (1000 blocks mined)";
+                String msg = " " + player.getName().getString() + " unlocked: ORE MASTER! (1000 blocks mined)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(green), false);
-                LOGGER.info("⛏️ ACHIEVEMENT UNLOCKED: Ore Master! (1000 total blocks mined)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Ore Master! (1000 total blocks mined)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/ore_master");
             }
             if (stats.totalBlocksMined == 5000) {
-                String msg = "⛏️⛏️ " + player.getName().getString() + " unlocked: ORE LEGEND! (5000 blocks mined!!)";
+                String msg = " " + player.getName().getString() + " unlocked: ORE LEGEND! (5000 blocks mined!!)";
                 world.getServer().getPlayerManager().broadcast(net.minecraft.text.Text.literal(msg).formatted(green), false);
-                LOGGER.info("⛏️ ACHIEVEMENT UNLOCKED: Ore Legend! (5000 total blocks mined)");
+                LOGGER.info(" ACHIEVEMENT UNLOCKED: Ore Legend! (5000 total blocks mined)");
                 grantAdvancement(player, world.getServer(), "kimdog_smp:veinminer/ore_legend");
             }
 
             if (stats.currentStreak > 1 && stats.currentStreak % 3 == 0) {
-                String msg = "⛏️ " + player.getName().getString() + " streak: " + stats.currentStreak + " consecutive veins!";
+                String msg = " " + player.getName().getString() + " streak: " + stats.currentStreak + " consecutive veins!";
                 player.sendMessage(net.minecraft.text.Text.literal(msg).formatted(red));
             }
         } catch (Exception e) {
@@ -794,7 +794,7 @@ public class VeinMinerHandler {
                         progress.obtain(criterion);
                     }
                 }
-                LOGGER.info("✅ Advancement granted to {}: {}", player.getName().getString(), advancementId);
+                LOGGER.info(" Advancement granted to {}: {}", player.getName().getString(), advancementId);
             }
         } catch (Exception e) {
             LOGGER.debug("Advancement grant error: {}", e.getMessage());

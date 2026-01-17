@@ -42,14 +42,14 @@ public class DoubleDoorConfig {
                 FileReader reader = new FileReader(CONFIG_FILE);
                 instance = gson.fromJson(reader, DoubleDoorConfig.class);
                 reader.close();
-                LOGGER.info("✅ Double Door config loaded");
+                LOGGER.info(" Double Door config loaded");
             } else {
                 instance = new DoubleDoorConfig();
                 save();
-                LOGGER.info("📝 Double Door config created with defaults");
+                LOGGER.info(" Double Door config created with defaults");
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error loading Double Door config: {}", e.getMessage());
+            LOGGER.error(" Error loading Double Door config: {}", e.getMessage());
             instance = new DoubleDoorConfig();
         }
     }
@@ -61,9 +61,9 @@ public class DoubleDoorConfig {
             FileWriter writer = new FileWriter(CONFIG_FILE);
             writer.write(gson.toJson(instance));
             writer.close();
-            LOGGER.info("✅ Double Door config saved");
+            LOGGER.info(" Double Door config saved");
         } catch (IOException e) {
-            LOGGER.error("❌ Error saving Double Door config: {}", e.getMessage());
+            LOGGER.error(" Error saving Double Door config: {}", e.getMessage());
         }
     }
 }

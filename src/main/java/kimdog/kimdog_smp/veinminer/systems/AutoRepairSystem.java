@@ -30,7 +30,7 @@ public class AutoRepairSystem {
         int playerXpLevel = player.experienceLevel;
         if (playerXpLevel < cfg.autoRepairCost) {
             player.sendMessage(
-                Text.literal("⚠️ Auto-Repair failed! Need " + cfg.autoRepairCost + " XP levels to repair.")
+                Text.literal(" Auto-Repair failed! Need " + cfg.autoRepairCost + " XP levels to repair.")
                     .formatted(Formatting.RED),
                 true
             );
@@ -42,7 +42,7 @@ public class AutoRepairSystem {
         player.addExperienceLevels(-cfg.autoRepairCost);
 
         player.sendMessage(
-            Text.literal("🔧 Auto-Repaired tool! Cost: " + cfg.autoRepairCost + " XP levels")
+            Text.literal(" Auto-Repaired tool! Cost: " + cfg.autoRepairCost + " XP levels")
                 .formatted(Formatting.GREEN),
             true
         );
@@ -64,7 +64,7 @@ public class AutoRepairSystem {
         // Warn when getting low
         if (durabilityPercent <= cfg.autoRepairThreshold + 5 && durabilityPercent > cfg.autoRepairThreshold) {
             player.sendMessage(
-                Text.literal("⚠️ Tool durability low (" + durabilityPercent + "%) - Auto-repair will activate soon!")
+                Text.literal(" Tool durability low (" + durabilityPercent + "%) - Auto-repair will activate soon!")
                     .formatted(Formatting.YELLOW),
                 true
             );

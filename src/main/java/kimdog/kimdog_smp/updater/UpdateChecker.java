@@ -36,7 +36,7 @@ public class UpdateChecker {
      */
     public static void initialize(String version) {
         currentVersion = version;
-        LOGGER.info("🔍 Initializing Update Checker...");
+        LOGGER.info(" Initializing Update Checker...");
         LOGGER.info("   Current Version: {}", currentVersion);
         LOGGER.info("   GitHub Repository: {}/{}", GITHUB_USER, GITHUB_REPO);
 
@@ -55,7 +55,7 @@ public class UpdateChecker {
      */
     private static void checkForUpdates() {
         try {
-            LOGGER.info("📡 Checking for updates from GitHub...");
+            LOGGER.info(" Checking for updates from GitHub...");
 
             URL url = new URL(GITHUB_API_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -79,15 +79,15 @@ public class UpdateChecker {
 
                 parseUpdateInfo(response.toString());
             } else if (responseCode == 404) {
-                LOGGER.info("ℹ️  No releases found on GitHub yet");
+                LOGGER.info("  No releases found on GitHub yet");
             } else {
-                LOGGER.warn("⚠️  Update check returned code: {}", responseCode);
+                LOGGER.warn("  Update check returned code: {}", responseCode);
             }
 
             checkComplete = true;
 
         } catch (Exception e) {
-            LOGGER.warn("⚠️  Could not check for updates: {}", e.getMessage());
+            LOGGER.warn("  Could not check for updates: {}", e.getMessage());
             checkComplete = true;
         }
     }
@@ -120,16 +120,16 @@ public class UpdateChecker {
             // Compare versions
             if (isNewerVersion(cleanLatestVersion, cleanCurrentVersion)) {
                 updateAvailable = true;
-                LOGGER.info("✨ ════════════════════════════════════════════════════════════════");
-                LOGGER.info("✨ NEW UPDATE AVAILABLE!");
-                LOGGER.info("✨ ════════════════════════════════════════════════════════════════");
-                LOGGER.info("✨ Current Version: {}", currentVersion);
-                LOGGER.info("✨ Latest Version:  {}", latestVersion);
-                LOGGER.info("✨ Release Name:    {}", releaseName);
-                LOGGER.info("✨ Download:        {}", GITHUB_RELEASES_URL);
-                LOGGER.info("✨ ════════════════════════════════════════════════════════════════");
+                LOGGER.info(" ");
+                LOGGER.info(" NEW UPDATE AVAILABLE!");
+                LOGGER.info(" ");
+                LOGGER.info(" Current Version: {}", currentVersion);
+                LOGGER.info(" Latest Version:  {}", latestVersion);
+                LOGGER.info(" Release Name:    {}", releaseName);
+                LOGGER.info(" Download:        {}", GITHUB_RELEASES_URL);
+                LOGGER.info(" ");
             } else {
-                LOGGER.info("✅ You are running the latest version!");
+                LOGGER.info(" You are running the latest version!");
             }
 
         } catch (Exception e) {
@@ -189,22 +189,22 @@ public class UpdateChecker {
         }
 
         return Text.literal("")
-            .append(Text.literal("═══════════════════════════════════════════════\n").formatted(Formatting.GOLD, Formatting.BOLD))
-            .append(Text.literal("🎮 ").formatted(Formatting.YELLOW))
+            .append(Text.literal("\n").formatted(Formatting.GOLD, Formatting.BOLD))
+            .append(Text.literal(" ").formatted(Formatting.YELLOW))
             .append(Text.literal("KimDog SMP Update Available!\n").formatted(Formatting.GOLD, Formatting.BOLD))
-            .append(Text.literal("═══════════════════════════════════════════════\n").formatted(Formatting.GOLD, Formatting.BOLD))
+            .append(Text.literal("\n").formatted(Formatting.GOLD, Formatting.BOLD))
             .append(Text.literal("Current Version: ").formatted(Formatting.GRAY))
             .append(Text.literal(currentVersion + "\n").formatted(Formatting.RED))
             .append(Text.literal("Latest Version: ").formatted(Formatting.GRAY))
             .append(Text.literal(latestUpdate.version + "\n").formatted(Formatting.GREEN, Formatting.BOLD))
             .append(Text.literal("\n"))
-            .append(Text.literal("📝 Release: ").formatted(Formatting.YELLOW))
+            .append(Text.literal(" Release: ").formatted(Formatting.YELLOW))
             .append(Text.literal(latestUpdate.name + "\n").formatted(Formatting.WHITE))
             .append(Text.literal("\n"))
             .append(Text.literal("Download: ").formatted(Formatting.GRAY))
             .append(Text.literal(GITHUB_RELEASES_URL + "\n").formatted(Formatting.AQUA, Formatting.UNDERLINE))
             .append(Text.literal("\n"))
-            .append(Text.literal("═══════════════════════════════════════════════").formatted(Formatting.GOLD, Formatting.BOLD));
+            .append(Text.literal("").formatted(Formatting.GOLD, Formatting.BOLD));
     }
 
     /**

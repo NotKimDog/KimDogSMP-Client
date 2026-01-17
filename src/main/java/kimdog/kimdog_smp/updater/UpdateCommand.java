@@ -31,7 +31,7 @@ public class UpdateCommand {
         ServerCommandSource source = context.getSource();
 
         if (!UpdateChecker.isCheckComplete()) {
-            source.sendFeedback(() -> Text.literal("⏳ Update check in progress, please wait...").formatted(Formatting.YELLOW), false);
+            source.sendFeedback(() -> Text.literal(" Update check in progress, please wait...").formatted(Formatting.YELLOW), false);
             return 1;
         }
 
@@ -43,14 +43,14 @@ public class UpdateCommand {
 
             // Show download option
             source.sendFeedback(() -> Text.literal(""), false);
-            source.sendFeedback(() -> Text.literal("💡 To automatically download and install:")
+            source.sendFeedback(() -> Text.literal(" To automatically download and install:")
                 .formatted(Formatting.YELLOW), false);
             source.sendFeedback(() -> Text.literal("   /kimdogsmp update download")
                 .formatted(Formatting.AQUA, Formatting.BOLD), false);
             source.sendFeedback(() -> Text.literal("   (Requires OP level 3)")
                 .formatted(Formatting.GRAY, Formatting.ITALIC), false);
         } else {
-            source.sendFeedback(() -> Text.literal("✅ You are running the latest version!").formatted(Formatting.GREEN), false);
+            source.sendFeedback(() -> Text.literal(" You are running the latest version!").formatted(Formatting.GREEN), false);
 
             UpdateChecker.UpdateInfo latestUpdate = UpdateChecker.getLatestUpdate();
             if (latestUpdate != null) {
@@ -64,9 +64,9 @@ public class UpdateCommand {
     private static int showVersion(CommandContext<ServerCommandSource> context) {
         ServerCommandSource source = context.getSource();
 
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
-        source.sendFeedback(() -> Text.literal("🎮 KimDog SMP Mod Info").formatted(Formatting.YELLOW, Formatting.BOLD), false);
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
+        source.sendFeedback(() -> Text.literal("").formatted(Formatting.GOLD), false);
+        source.sendFeedback(() -> Text.literal(" KimDog SMP Mod Info").formatted(Formatting.YELLOW, Formatting.BOLD), false);
+        source.sendFeedback(() -> Text.literal("").formatted(Formatting.GOLD), false);
         source.sendFeedback(() -> Text.literal("Version: ").formatted(Formatting.GRAY)
             .append(Text.literal("1.0.0").formatted(Formatting.GREEN)), false);
         source.sendFeedback(() -> Text.literal("Minecraft: ").formatted(Formatting.GRAY)
@@ -75,10 +75,10 @@ public class UpdateCommand {
             .append(Text.literal("Fabric").formatted(Formatting.GREEN)), false);
         source.sendFeedback(() -> Text.literal("GitHub: ").formatted(Formatting.GRAY)
             .append(Text.literal(UpdateChecker.getDownloadUrl()).formatted(Formatting.AQUA, Formatting.UNDERLINE)), false);
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
+        source.sendFeedback(() -> Text.literal("").formatted(Formatting.GOLD), false);
 
         if (UpdateChecker.isUpdateAvailable()) {
-            source.sendFeedback(() -> Text.literal("\n⚠️  An update is available! Use /kimdogsmp update to see details.").formatted(Formatting.YELLOW), false);
+            source.sendFeedback(() -> Text.literal("\n  An update is available! Use /kimdogsmp update to see details.").formatted(Formatting.YELLOW), false);
         }
 
         return 1;
@@ -89,32 +89,32 @@ public class UpdateCommand {
 
 
         if (!UpdateChecker.isUpdateAvailable()) {
-            source.sendFeedback(() -> Text.literal("ℹ️  No update available to download!")
+            source.sendFeedback(() -> Text.literal("  No update available to download!")
                 .formatted(Formatting.YELLOW), false);
             return 0;
         }
 
         if (AutoDownloader.isDownloadInProgress()) {
-            source.sendFeedback(() -> Text.literal("⏳ Download already in progress!")
+            source.sendFeedback(() -> Text.literal(" Download already in progress!")
                 .formatted(Formatting.YELLOW), false);
             source.sendFeedback(() -> Text.literal("   Progress: " + String.format("%.1f%%", AutoDownloader.getDownloadProgress()))
                 .formatted(Formatting.GRAY), false);
             return 0;
         }
 
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+        source.sendFeedback(() -> Text.literal("")
             .formatted(Formatting.GOLD, Formatting.BOLD), false);
-        source.sendFeedback(() -> Text.literal("🔄 Starting Automatic Update Download...")
+        source.sendFeedback(() -> Text.literal(" Starting Automatic Update Download...")
             .formatted(Formatting.YELLOW, Formatting.BOLD), false);
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+        source.sendFeedback(() -> Text.literal("")
             .formatted(Formatting.GOLD, Formatting.BOLD), false);
         source.sendFeedback(() -> Text.literal(""), false);
-        source.sendFeedback(() -> Text.literal("📦 Target Version: " + UpdateChecker.getLatestUpdate().version)
+        source.sendFeedback(() -> Text.literal(" Target Version: " + UpdateChecker.getLatestUpdate().version)
             .formatted(Formatting.GREEN), false);
-        source.sendFeedback(() -> Text.literal("⏬ Downloading from GitHub...")
+        source.sendFeedback(() -> Text.literal(" Downloading from GitHub...")
             .formatted(Formatting.GRAY), false);
         source.sendFeedback(() -> Text.literal(""), false);
-        source.sendFeedback(() -> Text.literal("⚠️  This process will:")
+        source.sendFeedback(() -> Text.literal("  This process will:")
             .formatted(Formatting.YELLOW), false);
         source.sendFeedback(() -> Text.literal("   1. Download the new version")
             .formatted(Formatting.GRAY), false);
@@ -123,34 +123,34 @@ public class UpdateCommand {
         source.sendFeedback(() -> Text.literal("   3. Install the new version")
             .formatted(Formatting.GRAY), false);
         source.sendFeedback(() -> Text.literal(""), false);
-        source.sendFeedback(() -> Text.literal("💡 Use /kimdogsmp update status to check progress")
+        source.sendFeedback(() -> Text.literal(" Use /kimdogsmp update status to check progress")
             .formatted(Formatting.AQUA), false);
-        source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+        source.sendFeedback(() -> Text.literal("")
             .formatted(Formatting.GOLD, Formatting.BOLD), false);
 
         // Start download asynchronously
         AutoDownloader.downloadAndInstallUpdate().thenAccept(success -> {
             if (success) {
                 source.sendFeedback(() -> Text.literal(""), false);
-                source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+                source.sendFeedback(() -> Text.literal("")
                     .formatted(Formatting.GREEN, Formatting.BOLD), false);
-                source.sendFeedback(() -> Text.literal("✅ UPDATE INSTALLED SUCCESSFULLY!")
+                source.sendFeedback(() -> Text.literal(" UPDATE INSTALLED SUCCESSFULLY!")
                     .formatted(Formatting.GREEN, Formatting.BOLD), false);
-                source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+                source.sendFeedback(() -> Text.literal("")
                     .formatted(Formatting.GREEN, Formatting.BOLD), false);
                 source.sendFeedback(() -> Text.literal(""), false);
-                source.sendFeedback(() -> Text.literal("⚠️  SERVER RESTART REQUIRED!")
+                source.sendFeedback(() -> Text.literal("  SERVER RESTART REQUIRED!")
                     .formatted(Formatting.YELLOW, Formatting.BOLD), false);
                 source.sendFeedback(() -> Text.literal("   The new version will be active after restart.")
                     .formatted(Formatting.GRAY), false);
                 source.sendFeedback(() -> Text.literal(""), false);
                 source.sendFeedback(() -> Text.literal("Old mod files have been automatically removed.")
                     .formatted(Formatting.GREEN), false);
-                source.sendFeedback(() -> Text.literal("═══════════════════════════════════════════════")
+                source.sendFeedback(() -> Text.literal("")
                     .formatted(Formatting.GREEN, Formatting.BOLD), false);
             } else {
                 source.sendFeedback(() -> Text.literal(""), false);
-                source.sendFeedback(() -> Text.literal("❌ Update download failed!")
+                source.sendFeedback(() -> Text.literal(" Update download failed!")
                     .formatted(Formatting.RED, Formatting.BOLD), false);
                 source.sendFeedback(() -> Text.literal("Status: " + AutoDownloader.getDownloadStatus())
                     .formatted(Formatting.GRAY), false);
@@ -166,11 +166,11 @@ public class UpdateCommand {
         ServerCommandSource source = context.getSource();
 
         if (AutoDownloader.isDownloadInProgress()) {
-            source.sendFeedback(() -> Text.literal("═══════════════════════════════════")
+            source.sendFeedback(() -> Text.literal("")
                 .formatted(Formatting.GOLD), false);
-            source.sendFeedback(() -> Text.literal("⏬ Download Status")
+            source.sendFeedback(() -> Text.literal(" Download Status")
                 .formatted(Formatting.YELLOW, Formatting.BOLD), false);
-            source.sendFeedback(() -> Text.literal("═══════════════════════════════════")
+            source.sendFeedback(() -> Text.literal("")
                 .formatted(Formatting.GOLD), false);
             source.sendFeedback(() -> Text.literal("Status: In Progress")
                 .formatted(Formatting.YELLOW), false);
@@ -178,12 +178,12 @@ public class UpdateCommand {
                 .formatted(Formatting.GREEN), false);
             source.sendFeedback(() -> Text.literal("Current: " + AutoDownloader.getDownloadStatus())
                 .formatted(Formatting.GRAY), false);
-            source.sendFeedback(() -> Text.literal("═══════════════════════════════════")
+            source.sendFeedback(() -> Text.literal("")
                 .formatted(Formatting.GOLD), false);
         } else {
             String status = AutoDownloader.getDownloadStatus();
             if (status == null || status.isEmpty()) {
-                source.sendFeedback(() -> Text.literal("ℹ️  No download in progress")
+                source.sendFeedback(() -> Text.literal("  No download in progress")
                     .formatted(Formatting.GRAY), false);
             } else {
                 source.sendFeedback(() -> Text.literal("Last Status: " + status)

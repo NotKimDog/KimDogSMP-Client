@@ -53,9 +53,9 @@ public class ChatMessagesBroadcaster {
 
             Text chatMessage = Text.literal(message).formatted(Formatting.AQUA);
             server.getPlayerManager().broadcast(chatMessage, false);
-            LOGGER.info("📢 Broadcasted: {}", message);
+            LOGGER.info(" Broadcasted: {}", message);
         } catch (Exception e) {
-            LOGGER.error("❌ Error broadcasting message: {}", e.getMessage());
+            LOGGER.error(" Error broadcasting message: {}", e.getMessage());
         }
     }
 }

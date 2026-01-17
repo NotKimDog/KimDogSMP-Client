@@ -34,7 +34,7 @@ public class SmartNotifications {
 
         if (!tracker.shownTips.contains(tipId)) {
             player.sendMessage(
-                Text.literal("💡 §eTip: §7" + message),
+                Text.literal(" eTip: 7" + message),
                 false
             );
             tracker.shownTips.add(tipId);
@@ -58,19 +58,19 @@ public class SmartNotifications {
         // After 5 veins
         if (tracker.sessionVeins == 5) {
             showTipOnce(player, "upgrades",
-                "Press §6U §7to open upgrades! Spend emeralds to improve your mining!");
+                "Press 6U 7to open upgrades! Spend emeralds to improve your mining!");
         }
 
         // After 10 veins
         if (tracker.sessionVeins == 10) {
             showTipOnce(player, "stats",
-                "Use §6/kimdog stats §7to see your mining statistics!");
+                "Use 6/kimdog stats 7to see your mining statistics!");
         }
 
         // After 20 veins
         if (tracker.sessionVeins == 20) {
             showTipOnce(player, "leaderboard",
-                "Compete with others! Use §6/kimdog leaderboard §7to see top miners!");
+                "Compete with others! Use 6/kimdog leaderboard 7to see top miners!");
         }
     }
 
@@ -92,17 +92,17 @@ public class SmartNotifications {
     public static void showAchievement(ServerPlayerEntity player, String title, String description) {
         player.sendMessage(Text.literal(""), false);
         player.sendMessage(
-            Text.literal("§6§l✦ ACHIEVEMENT UNLOCKED! ✦")
+            Text.literal("6l ACHIEVEMENT UNLOCKED! ")
                 .formatted(Formatting.GOLD),
             false
         );
         player.sendMessage(
-            Text.literal("§e" + title)
+            Text.literal("e" + title)
                 .formatted(Formatting.YELLOW),
             false
         );
         player.sendMessage(
-            Text.literal("§7" + description)
+            Text.literal("7" + description)
                 .formatted(Formatting.GRAY),
             false
         );
@@ -114,27 +114,27 @@ public class SmartNotifications {
     public static void celebrateMilestone(ServerPlayerEntity player, String milestone, int reward) {
         player.sendMessage(Text.literal(""), false);
         player.sendMessage(
-            Text.literal("§6§l━━━━━━━━━━━━━━━━━━━━━━━━")
+            Text.literal("6l")
                 .formatted(Formatting.GOLD),
             false
         );
         player.sendMessage(
-            Text.literal("§6§l  🎉 MILESTONE REACHED! 🎉")
+            Text.literal("6l   MILESTONE REACHED! ")
                 .formatted(Formatting.GOLD),
             false
         );
         player.sendMessage(
-            Text.literal("§e  " + milestone)
+            Text.literal("e  " + milestone)
                 .formatted(Formatting.YELLOW),
             false
         );
         player.sendMessage(
-            Text.literal("§a  Reward: +" + reward + " Emeralds!")
+            Text.literal("a  Reward: +" + reward + " Emeralds!")
                 .formatted(Formatting.GREEN),
             false
         );
         player.sendMessage(
-            Text.literal("§6§l━━━━━━━━━━━━━━━━━━━━━━━━")
+            Text.literal("6l")
                 .formatted(Formatting.GOLD),
             false
         );
@@ -145,10 +145,10 @@ public class SmartNotifications {
      */
     public static void showWarning(ServerPlayerEntity player, String message, WarningSeverity severity) {
         String prefix = switch (severity) {
-            case LOW -> "§e⚠";
-            case MEDIUM -> "§6⚠";
-            case HIGH -> "§c⚠";
-            case CRITICAL -> "§4§l⚠";
+            case LOW -> "e";
+            case MEDIUM -> "6";
+            case HIGH -> "c";
+            case CRITICAL -> "4l";
         };
 
         player.sendMessage(
@@ -166,7 +166,7 @@ public class SmartNotifications {
      */
     public static void suggestCommand(ServerPlayerEntity player, String command, String reason) {
         player.sendMessage(
-            Text.literal("§7💡 Try §6" + command + " §7" + reason),
+            Text.literal("7 Try 6" + command + " 7" + reason),
             false
         );
     }

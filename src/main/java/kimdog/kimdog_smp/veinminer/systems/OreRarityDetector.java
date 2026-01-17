@@ -50,7 +50,7 @@ public class OreRarityDetector {
     }
 
     private static void announceRareFind(ServerPlayerEntity finder, ServerWorld world, String oreName, int count, int radius) {
-        String message = String.format("💎 %s found a vein with %d %s!",
+        String message = String.format(" %s found a vein with %d %s!",
             finder.getName().getString(), count, oreName);
 
         // Announce to nearby players
@@ -67,7 +67,7 @@ public class OreRarityDetector {
     }
 
     public static void announceGlobalRareFind(ServerPlayerEntity finder, ServerWorld world, String oreName) {
-        String message = String.format("✨ %s found %s! Congratulations!",
+        String message = String.format(" %s found %s! Congratulations!",
             finder.getName().getString(), oreName);
 
         world.getServer().getPlayerManager().broadcast(

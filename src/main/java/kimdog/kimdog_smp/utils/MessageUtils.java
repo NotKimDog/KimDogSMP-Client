@@ -11,17 +11,17 @@ import net.minecraft.util.Formatting;
 public class MessageUtils {
 
     // Message constants
-    public static final String SECTION_DIVIDER = "§7━━━━━━━━━━━━━━━━━━━━━━━━━━━";
-    public static final String FULL_DIVIDER = "§6§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    public static final String SECTION_DIVIDER = "7";
+    public static final String FULL_DIVIDER = "6l";
 
     // Emojis
-    public static final String FIRE_EMOJI = "🔥";
-    public static final String ALERT_EMOJI = "⚠️";
-    public static final String PICKAXE_EMOJI = "⛏";
-    public static final String DIAMOND_EMOJI = "💎";
-    public static final String EMERALD_EMOJI = "✨";
-    public static final String HEART_EMOJI = "💚";
-    public static final String STAR_EMOJI = "⭐";
+    public static final String FIRE_EMOJI = "";
+    public static final String ALERT_EMOJI = "";
+    public static final String PICKAXE_EMOJI = "";
+    public static final String DIAMOND_EMOJI = "";
+    public static final String EMERALD_EMOJI = "";
+    public static final String HEART_EMOJI = "";
+    public static final String STAR_EMOJI = "";
 
     /**
      * Send a message to player (action bar, false = chat)
@@ -50,7 +50,7 @@ public class MessageUtils {
     public static void sendTitle(ServerPlayerEntity player, String title) {
         sendChat(player, "");
         sendChat(player, FULL_DIVIDER);
-        sendChat(player, "§6§l" + title);
+        sendChat(player, "6l" + title);
         sendChat(player, FULL_DIVIDER);
     }
 
@@ -58,42 +58,42 @@ public class MessageUtils {
      * Send a success message (green)
      */
     public static void sendSuccess(ServerPlayerEntity player, String message) {
-        sendChat(player, "§a✓ §7" + message);
+        sendChat(player, "a 7" + message);
     }
 
     /**
      * Send an error message (red)
      */
     public static void sendError(ServerPlayerEntity player, String message) {
-        sendChat(player, "§c✗ §7" + message);
+        sendChat(player, "c 7" + message);
     }
 
     /**
      * Send a warning message (yellow)
      */
     public static void sendWarning(ServerPlayerEntity player, String message) {
-        sendChat(player, "§e⚠ §7" + message);
+        sendChat(player, "e 7" + message);
     }
 
     /**
      * Send an info message (blue)
      */
     public static void sendInfo(ServerPlayerEntity player, String message) {
-        sendChat(player, "§b§li §7" + message);
+        sendChat(player, "bli 7" + message);
     }
 
     /**
      * Format a stat line
      */
     public static String formatStat(String label, String value, String color) {
-        return "§7" + label + ": " + color + value;
+        return "7" + label + ": " + color + value;
     }
 
     /**
      * Format a stat line with default color
      */
     public static String formatStat(String label, String value) {
-        return formatStat(label, value, "§a");
+        return formatStat(label, value, "a");
     }
 
     /**

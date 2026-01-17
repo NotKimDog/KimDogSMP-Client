@@ -63,7 +63,7 @@ public class DailyRewardSystem {
 
         // Notify player
         player.sendMessage(
-            Text.literal(String.format("🎁 Daily Reward! +%d emeralds! (Streak: %d days)",
+            Text.literal(String.format(" Daily Reward! +%d emeralds! (Streak: %d days)",
                 reward, data.consecutiveDays))
                 .formatted(Formatting.GREEN),
             false
@@ -89,7 +89,7 @@ public class DailyRewardSystem {
             kimdog.kimdog_smp.veinminer.upgrades.UpgradeManager.addEmeralds(uuid, bonus);
 
             player.sendMessage(
-                Text.literal(String.format("🏆 Daily Milestone! Mined %d blocks today! +%d emeralds!",
+                Text.literal(String.format(" Daily Milestone! Mined %d blocks today! +%d emeralds!",
                     cfg.dailyMilestoneBlocks, bonus))
                     .formatted(Formatting.GOLD),
                 false

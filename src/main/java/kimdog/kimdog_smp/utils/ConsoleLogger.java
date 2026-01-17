@@ -59,7 +59,7 @@ public class ConsoleLogger {
      */
     public static void printSubsection(Logger logger, String text) {
         logger.info("");
-        logger.info("▶ {}", text);
+        logger.info(" {}", text);
     }
 
     /**
@@ -85,7 +85,7 @@ public class ConsoleLogger {
      * Print module completion
      */
     public static void printModuleComplete(Logger logger, String moduleName, String emoji) {
-        logger.info("{} ✅ {} loaded successfully!", emoji, moduleName);
+        logger.info("{}  {} loaded successfully!", emoji, moduleName);
         logger.info("");
     }
 
@@ -93,21 +93,21 @@ public class ConsoleLogger {
      * Print a success message
      */
     public static void printSuccess(Logger logger, String message, String emoji) {
-        logger.info("{}✅ {}", emoji, message);
+        logger.info("{} {}", emoji, message);
     }
 
     /**
      * Print an error message
      */
     public static void printError(Logger logger, String message, String emoji) {
-        logger.info("{}❌ {}", emoji, message);
+        logger.info("{} {}", emoji, message);
     }
 
     /**
      * Print an info message
      */
     public static void printInfo(Logger logger, String message, String emoji) {
-        logger.info("{}ℹ️  {}", emoji, message);
+        logger.info("{}  {}", emoji, message);
     }
 
     /**
@@ -134,32 +134,32 @@ public class ConsoleLogger {
      * Print a complete feature list
      */
     public static void printFeatureList(Logger logger) {
-        printSection(logger, "📊 Active Features", "");
-        printItem(logger, "⛏️", "VeinMiner        - Mine entire ore veins at once!");
-        printItem(logger, "💬", "Chat Messages    - Automatic server announcements");
-        printItem(logger, "🚪", "Double Doors     - Open 2 doors/trapdoors together!");
-        printItem(logger, "🛡️", "AntiCheat        - Speed Hack | Fly Hack | Reach Hack Detection");
-        printItem(logger, "📋", "Quest System     - Daily ore mining quests with rewards!");
+        printSection(logger, " Active Features", "");
+        printItem(logger, "", "VeinMiner        - Mine entire ore veins at once!");
+        printItem(logger, "", "Chat Messages    - Automatic server announcements");
+        printItem(logger, "", "Double Doors     - Open 2 doors/trapdoors together!");
+        printItem(logger, "", "AntiCheat        - Speed Hack | Fly Hack | Reach Hack Detection");
+        printItem(logger, "", "Quest System     - Daily ore mining quests with rewards!");
     }
 
     /**
      * Print configuration files info
      */
     public static void printConfigInfo(Logger logger) {
-        printSection(logger, "⚙️  Configuration Files", "");
-        logger.info("  📁 config/kimdog_smp/");
-        logger.info("     ├─ veinminer.json");
-        logger.info("     ├─ chatmessages.json");
-        logger.info("     ├─ doubledoor.json");
-        logger.info("     ├─ anticheat.json");
-        logger.info("     └─ quests/");
+        printSection(logger, "  Configuration Files", "");
+        logger.info("   config/kimdog_smp/");
+        logger.info("      veinminer.json");
+        logger.info("      chatmessages.json");
+        logger.info("      doubledoor.json");
+        logger.info("      anticheat.json");
+        logger.info("      quests/");
     }
 
     /**
      * Print commands info
      */
     public static void printCommandInfo(Logger logger) {
-        printSection(logger, "🎮 Commands", "");
+        printSection(logger, " Commands", "");
         logger.info("  /veinminer help     - VeinMiner commands");
         logger.info("  /veinminer stats    - View your mining stats");
         logger.info("  /quest              - View active quest");

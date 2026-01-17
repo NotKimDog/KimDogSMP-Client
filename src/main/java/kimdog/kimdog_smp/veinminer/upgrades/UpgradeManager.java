@@ -119,7 +119,7 @@ public class UpgradeManager {
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error saving upgrades for {}: {}", uuid, e.getMessage());
+            LOGGER.error(" Error saving upgrades for {}: {}", uuid, e.getMessage());
         }
     }
 
@@ -138,7 +138,7 @@ public class UpgradeManager {
                 playerUpgrades.put(uuid, new PlayerUpgrades());
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error loading upgrades for {}: {}", uuid, e.getMessage());
+            LOGGER.error(" Error loading upgrades for {}: {}", uuid, e.getMessage());
         }
     }
 

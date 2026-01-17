@@ -96,7 +96,7 @@ public class AntiCheatEngine {
             data.speedHackWarnings++;
             data.totalViolations++;
 
-            String message = String.format("⚠️ [SPEED HACK] %s moved %.2f blocks (max: %.2f) - Violations: %d",
+            String message = String.format(" [SPEED HACK] %s moved %.2f blocks (max: %.2f) - Violations: %d",
                     player.getName().getString(), distance, config.speedHackThreshold, data.totalViolations);
 
             logViolation(player, "SPEED_HACK", message, distance);
@@ -108,7 +108,7 @@ public class AntiCheatEngine {
                 kickPlayer(player, config.kickMessage);
                 data.speedHackWarnings = 0;
             } else if (data.totalViolations % 5 == 0) {
-                player.sendMessage(Text.literal("§e[AntiCheat] Speed hack detected! Please stop.").formatted(Formatting.YELLOW));
+                player.sendMessage(Text.literal("e[AntiCheat] Speed hack detected! Please stop.").formatted(Formatting.YELLOW));
             }
         }
     }
@@ -131,7 +131,7 @@ public class AntiCheatEngine {
             data.flyHackWarnings++;
             data.totalViolations++;
 
-            String message = String.format("⚠️ [FLY HACK] %s moved up %.2f blocks (max: %.2f) - Violations: %d",
+            String message = String.format(" [FLY HACK] %s moved up %.2f blocks (max: %.2f) - Violations: %d",
                     player.getName().getString(), deltaY, config.maxVerticalSpeed, data.totalViolations);
 
             logViolation(player, "FLY_HACK", message, deltaY);
@@ -143,7 +143,7 @@ public class AntiCheatEngine {
                 kickPlayer(player, config.kickMessage);
                 data.flyHackWarnings = 0;
             } else if (data.totalViolations % 5 == 0) {
-                player.sendMessage(Text.literal("§e[AntiCheat] Fly hack detected! Please stop.").formatted(Formatting.YELLOW));
+                player.sendMessage(Text.literal("e[AntiCheat] Fly hack detected! Please stop.").formatted(Formatting.YELLOW));
             }
         }
     }
@@ -163,7 +163,7 @@ public class AntiCheatEngine {
         AntiCheatConfig config = AntiCheatConfig.get();
         if (!config.enableKick) return;
 
-        LOGGER.warn("🚫 Kicking player {} for cheating", player.getName().getString());
+        LOGGER.warn(" Kicking player {} for cheating", player.getName().getString());
         player.networkHandler.disconnect(Text.literal(message));
     }
 
@@ -187,7 +187,7 @@ public class AntiCheatEngine {
                 writer.write(logEntry);
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error writing to anticheat log: {}", e.getMessage());
+            LOGGER.error(" Error writing to anticheat log: {}", e.getMessage());
         }
     }
 
@@ -196,7 +196,7 @@ public class AntiCheatEngine {
         if (!config.notifyAdmins) return;
 
         // In a real system, you'd send this to all online admins
-        LOGGER.info("📢 ADMIN NOTIFICATION: {}", message);
+        LOGGER.info(" ADMIN NOTIFICATION: {}", message);
     }
 
     public static void removePlayerData(java.util.UUID uuid) {

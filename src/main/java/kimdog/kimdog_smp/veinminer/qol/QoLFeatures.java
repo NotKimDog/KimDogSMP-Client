@@ -26,11 +26,11 @@ public class QoLFeatures {
     private static final Logger LOGGER = LoggerFactory.getLogger("VeinMiner QoL");
 
     // Message formatting constants
-    private static final String SECTION_DIVIDER = "§7━━━━━━━━━━━━━━━━━━━━━━━━━━━";
-    private static final String FULL_DIVIDER = "§6§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
-    private static final String FIRE_EMOJI = "🔥";
-    private static final String ALERT_EMOJI = "⚠️";
-    private static final String PICKAXE_EMOJI = "⛏";
+    private static final String SECTION_DIVIDER = "7";
+    private static final String FULL_DIVIDER = "6l";
+    private static final String FIRE_EMOJI = "";
+    private static final String ALERT_EMOJI = "";
+    private static final String PICKAXE_EMOJI = "";
 
     /**
      * Show helpful tips to players
@@ -39,39 +39,39 @@ public class QoLFeatures {
         VeinMinerConfig cfg = VeinMinerConfig.get();
 
         sendMessage(player, "");
-        sendMessage(player, "§6§l" + PICKAXE_EMOJI + " VEINMINER TIPS " + PICKAXE_EMOJI);
+        sendMessage(player, "6l" + PICKAXE_EMOJI + " VEINMINER TIPS " + PICKAXE_EMOJI);
         sendMessage(player, SECTION_DIVIDER);
 
         // Activation tip
-        sendMessage(player, "§7Activation: " + getActivationTipMessage(cfg));
+        sendMessage(player, "7Activation: " + getActivationTipMessage(cfg));
 
         // Feature tips
         if (cfg.consolidateDrops) {
-            sendMessage(player, "§a✓ §7All drops spawn at origin");
+            sendMessage(player, "a 7All drops spawn at origin");
         }
         if (cfg.enableCascadeEffect) {
-            sendMessage(player, "§a✓ §7Watch blocks break one by one!");
+            sendMessage(player, "a 7Watch blocks break one by one!");
         }
         if (cfg.enableAutoRepair) {
-            sendMessage(player, "§a✓ §7Tools auto-repair at low durability");
+            sendMessage(player, "a 7Tools auto-repair at low durability");
         }
         if (cfg.enableLeaderboards) {
-            sendMessage(player, "§a✓ §7Use §6/kimdog leaderboard §7to compete!");
+            sendMessage(player, "a 7Use 6/kimdog leaderboard 7to compete!");
         }
         if (cfg.enableDailyRewards) {
-            sendMessage(player, "§a✓ §7Mine daily for emerald rewards!");
+            sendMessage(player, "a 7Mine daily for emerald rewards!");
         }
 
         sendMessage(player, SECTION_DIVIDER);
-        sendMessage(player, "§7Use §6/kimdog help §7for more commands");
+        sendMessage(player, "7Use 6/kimdog help 7for more commands");
     }
 
     private static String getActivationTipMessage(VeinMinerConfig cfg) {
         return switch (cfg.activation) {
-            case "always" -> "§aAlways active - just break ores!";
-            case "sneak" -> "§eSneak while breaking ores";
-            case "toggle" -> "§bUse /kimdog veinminer toggle";
-            default -> "§7Check your config";
+            case "always" -> "aAlways active - just break ores!";
+            case "sneak" -> "eSneak while breaking ores";
+            case "toggle" -> "bUse /kimdog veinminer toggle";
+            default -> "7Check your config";
         };
     }
 
@@ -80,7 +80,7 @@ public class QoLFeatures {
      */
     public static void showQuickStats(ServerPlayerEntity player) {
         sendMessage(player, "");
-        sendMessage(player, "§6§l" + PICKAXE_EMOJI + " YOUR STATS " + PICKAXE_EMOJI);
+        sendMessage(player, "6l" + PICKAXE_EMOJI + " YOUR STATS " + PICKAXE_EMOJI);
         sendMessage(player, SECTION_DIVIDER);
 
         // Get stats
@@ -88,15 +88,15 @@ public class QoLFeatures {
         UpgradeManager.PlayerUpgrades upgrades = UpgradeManager.getPlayerUpgrades(player.getUuid());
 
         // Display stats
-        sendMessage(player, String.format("§7Blocks Mined:     §a%,d", stats.totalBlocksMined));
-        sendMessage(player, String.format("§7Total XP:         §e%,d", stats.totalXpGained));
-        sendMessage(player, String.format("§7Current Streak:   §c%d %s", stats.currentStreak, FIRE_EMOJI));
-        sendMessage(player, String.format("§7Best Streak:      §6%d %s", stats.bestStreak, FIRE_EMOJI));
-        sendMessage(player, String.format("§7Largest Vein:     §6%d blocks", stats.largestVeinSize));
-        sendMessage(player, String.format("§7Emeralds:         §2%d 💚", upgrades.emeralds));
+        sendMessage(player, String.format("7Blocks Mined:     a%,d", stats.totalBlocksMined));
+        sendMessage(player, String.format("7Total XP:         e%,d", stats.totalXpGained));
+        sendMessage(player, String.format("7Current Streak:   c%d %s", stats.currentStreak, FIRE_EMOJI));
+        sendMessage(player, String.format("7Best Streak:      6%d %s", stats.bestStreak, FIRE_EMOJI));
+        sendMessage(player, String.format("7Largest Vein:     6%d blocks", stats.largestVeinSize));
+        sendMessage(player, String.format("7Emeralds:         2%d ", upgrades.emeralds));
 
         sendMessage(player, SECTION_DIVIDER);
-        sendMessage(player, "§7Press §6U §7to open upgrade menu");
+        sendMessage(player, "7Press 6U 7to open upgrade menu");
     }
 
     /**
@@ -111,17 +111,17 @@ public class QoLFeatures {
 
         if (percent <= 10 && percent > 5) {
             player.sendMessage(
-                Text.literal("§c⚠️ Tool durability critical! " + percent + "%"),
+                Text.literal("c Tool durability critical! " + percent + "%"),
                 true
             );
         } else if (percent <= 5) {
             player.sendMessage(
-                Text.literal("§4§l⚠️ TOOL BREAKING! " + percent + "% ⚠️"),
+                Text.literal("4l TOOL BREAKING! " + percent + "% "),
                 true
             );
             if (VeinMinerConfig.get().enableAutoRepair) {
                 player.sendMessage(
-                    Text.literal("§7Auto-repair will activate soon..."),
+                    Text.literal("7Auto-repair will activate soon..."),
                     true
                 );
             }
@@ -134,22 +134,22 @@ public class QoLFeatures {
     public static void showWelcome(ServerPlayerEntity player) {
         sendMessage(player, "");
         sendMessage(player, FULL_DIVIDER);
-        sendMessage(player, "§6§l    " + PICKAXE_EMOJI + " WELCOME TO VEINMINER! " + PICKAXE_EMOJI);
+        sendMessage(player, "6l    " + PICKAXE_EMOJI + " WELCOME TO VEINMINER! " + PICKAXE_EMOJI);
         sendMessage(player, FULL_DIVIDER);
         sendMessage(player, "");
-        sendMessage(player, "§7Break an §eore block §7to activate!");
-        sendMessage(player, "§7VeinMiner will mine entire veins at once!");
+        sendMessage(player, "7Break an eore block 7to activate!");
+        sendMessage(player, "7VeinMiner will mine entire veins at once!");
         sendMessage(player, "");
-        sendMessage(player, "§aFeatures:");
-        sendMessage(player, "  §7• §bMine all adjacent ores together");
-        sendMessage(player, "  §7• §bEarn emeralds for upgrades");
-        sendMessage(player, "  §7• §bDaily rewards & leaderboards");
-        sendMessage(player, "  §7• §bQuests & achievements");
+        sendMessage(player, "aFeatures:");
+        sendMessage(player, "  7 bMine all adjacent ores together");
+        sendMessage(player, "  7 bEarn emeralds for upgrades");
+        sendMessage(player, "  7 bDaily rewards & leaderboards");
+        sendMessage(player, "  7 bQuests & achievements");
         sendMessage(player, "");
-        sendMessage(player, "§7Commands:");
-        sendMessage(player, "  §6/kimdog help §7- Show all commands");
-        sendMessage(player, "  §6/kimdog stats §7- View your stats");
-        sendMessage(player, "  §6Press U §7- Open upgrade menu");
+        sendMessage(player, "7Commands:");
+        sendMessage(player, "  6/kimdog help 7- Show all commands");
+        sendMessage(player, "  6/kimdog stats 7- View your stats");
+        sendMessage(player, "  6Press U 7- Open upgrade menu");
         sendMessage(player, "");
         sendMessage(player, FULL_DIVIDER);
     }
@@ -160,20 +160,20 @@ public class QoLFeatures {
     public static void showStreakInfo(ServerPlayerEntity player, int streak) {
         if (streak == 0) return;
 
-        String emoji = "🔥";
+        String emoji = "";
         Formatting color = Formatting.YELLOW;
         String title = "Streak";
 
         if (streak >= 25) {
-            emoji = "⚡";
+            emoji = "";
             color = Formatting.GOLD;
             title = "LEGENDARY STREAK";
         } else if (streak >= 15) {
-            emoji = "🔥🔥";
+            emoji = "";
             color = Formatting.RED;
             title = "HOT STREAK";
         } else if (streak >= 10) {
-            emoji = "🔥";
+            emoji = "";
             color = Formatting.RED;
             title = "Streak";
         }
@@ -190,7 +190,7 @@ public class QoLFeatures {
      */
     public static void warnProximity(ServerPlayerEntity player, String danger) {
         player.sendMessage(
-            Text.literal("⚠️ §cWARNING: " + danger + " nearby!")
+            Text.literal(" cWARNING: " + danger + " nearby!")
                 .formatted(Formatting.RED),
             true
         );

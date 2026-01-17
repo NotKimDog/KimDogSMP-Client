@@ -14,12 +14,12 @@ public class VeinMinerNetworking {
     private static final Map<UUID, Boolean> toggles = new ConcurrentHashMap<>();
 
     public static void register() {
-        LOGGER.info("📡 Registering VeinMiner networking payloads...");
+        LOGGER.info(" Registering VeinMiner networking payloads...");
 
         // Register the payload type with its codec so Fabric knows about it
         PayloadTypeRegistry.playS2C().register(VeinMinerTogglePayload.ID, VeinMinerTogglePayload.CODEC);
         PayloadTypeRegistry.playC2S().register(VeinMinerTogglePayload.ID, VeinMinerTogglePayload.CODEC);
-        LOGGER.info("✅ Payload types registered (S2C and C2S)");
+        LOGGER.info(" Payload types registered (S2C and C2S)");
 
         // Now register the payload handler for the server to receive toggle packets from clients
         ServerPlayNetworking.registerGlobalReceiver(VeinMinerTogglePayload.ID, (payload, context) -> {
@@ -27,10 +27,10 @@ public class VeinMinerNetworking {
             UUID playerUuid = context.player().getUuid();
             boolean enabled = payload.isEnabled();
             toggles.put(playerUuid, enabled);
-            String status = enabled ? "🟢 ENABLED" : "🔴 DISABLED";
-            LOGGER.info("🔀 VeinMiner toggle status for {}: {}", context.player().getName().getString(), status);
+            String status = enabled ? " ENABLED" : " DISABLED";
+            LOGGER.info(" VeinMiner toggle status for {}: {}", context.player().getName().getString(), status);
         });
-        LOGGER.info("✅ Payload handler registered");
+        LOGGER.info(" Payload handler registered");
     }
 
     public static Boolean getToggleForPlayer(UUID uuid) {

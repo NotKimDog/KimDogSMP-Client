@@ -48,46 +48,46 @@ public class UpgradeCommands {
         UpgradeManager.PlayerUpgrades upgrades = UpgradeManager.getPlayerUpgrades(player.getUuid());
 
         sendMessage(src, "");
-        sendMessage(src, Text.literal("═══════════════════════════════════════════════════════════════").formatted(Formatting.DARK_GREEN));
-        sendMessage(src, Text.literal("                    ⛏️  VEINMINER UPGRADES  ⛏️").formatted(Formatting.GREEN));
-        sendMessage(src, Text.literal("═══════════════════════════════════════════════════════════════").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("                      VEINMINER UPGRADES  ").formatted(Formatting.GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
         sendMessage(src, "");
 
-        sendMessage(src, Text.literal("💚 Emeralds: " + upgrades.emeralds).formatted(Formatting.GREEN));
+        sendMessage(src, Text.literal(" Emeralds: " + upgrades.emeralds).formatted(Formatting.GREEN));
         sendMessage(src, "");
 
         // Max Blocks Upgrade
         sendMessage(src, formatUpgrade("Max Blocks", upgrades.maxBlocksLevel, 5,
                 UpgradeManager.UpgradeCosts.MAX_BLOCKS_COSTS,
-                upgrades.maxBlocksLevel < 5 ? 64 + (upgrades.maxBlocksLevel * 89) + " ➜ " + (64 + ((upgrades.maxBlocksLevel + 1) * 89)) : "MAX"));
+                upgrades.maxBlocksLevel < 5 ? 64 + (upgrades.maxBlocksLevel * 89) + "  " + (64 + ((upgrades.maxBlocksLevel + 1) * 89)) : "MAX"));
 
         // Max Range Upgrade
         sendMessage(src, formatUpgrade("Max Range", upgrades.maxRangeLevel, 5,
                 UpgradeManager.UpgradeCosts.MAX_RANGE_COSTS,
-                upgrades.maxRangeLevel < 5 ? 32 + (upgrades.maxRangeLevel * 44) + " ➜ " + (32 + ((upgrades.maxRangeLevel + 1) * 44)) : "MAX"));
+                upgrades.maxRangeLevel < 5 ? 32 + (upgrades.maxRangeLevel * 44) + "  " + (32 + ((upgrades.maxRangeLevel + 1) * 44)) : "MAX"));
 
         // XP Multiplier Upgrade
         sendMessage(src, formatUpgrade("XP Multiplier", upgrades.xpMultiplierLevel, 5,
                 UpgradeManager.UpgradeCosts.XP_MULTIPLIER_COSTS,
-                upgrades.xpMultiplierLevel < 5 ? String.format("%.1fx ➜ %.1fx",
+                upgrades.xpMultiplierLevel < 5 ? String.format("%.1fx  %.1fx",
                     1.0 + (upgrades.xpMultiplierLevel * 0.4),
                     1.0 + ((upgrades.xpMultiplierLevel + 1) * 0.4)) : "MAX"));
 
         // Speed Upgrade
         sendMessage(src, formatUpgrade("Mining Speed", upgrades.speedLevel, 5,
                 UpgradeManager.UpgradeCosts.SPEED_COSTS,
-                upgrades.speedLevel < 5 ? (upgrades.speedLevel + 1) + "x ➜ " + (upgrades.speedLevel + 2) + "x" : "MAX"));
+                upgrades.speedLevel < 5 ? (upgrades.speedLevel + 1) + "x  " + (upgrades.speedLevel + 2) + "x" : "MAX"));
 
         // Particle Upgrade
         sendMessage(src, formatUpgrade("Particle Effects", upgrades.particleLevel, 3,
                 UpgradeManager.UpgradeCosts.PARTICLE_COSTS,
-                upgrades.particleLevel < 3 ? "Level " + upgrades.particleLevel + " ➜ Level " + (upgrades.particleLevel + 1) : "MAX"));
+                upgrades.particleLevel < 3 ? "Level " + upgrades.particleLevel + "  Level " + (upgrades.particleLevel + 1) : "MAX"));
 
         sendMessage(src, "");
-        sendMessage(src, Text.literal("═══════════════════════════════════════════════════════════════").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
         sendMessage(src, Text.literal("/upgrade buy <name>  - Purchase an upgrade").formatted(Formatting.YELLOW));
         sendMessage(src, Text.literal("Names: maxblocks, maxrange, xpmultiplier, speed, particles").formatted(Formatting.GRAY));
-        sendMessage(src, Text.literal("═══════════════════════════════════════════════════════════════").formatted(Formatting.DARK_GREEN));
+        sendMessage(src, Text.literal("").formatted(Formatting.DARK_GREEN));
         sendMessage(src, "");
 
         return 1;
@@ -106,7 +106,7 @@ public class UpgradeCommands {
         switch (upgradeName.toLowerCase()) {
             case "maxblocks":
                 if (upgrades.maxBlocksLevel >= 5) {
-                    sendError(src, "❌ Max Blocks upgrade is already maxed!");
+                    sendError(src, " Max Blocks upgrade is already maxed!");
                     return 0;
                 }
                 nextCost = UpgradeManager.UpgradeCosts.MAX_BLOCKS_COSTS[upgrades.maxBlocksLevel];
@@ -115,7 +115,7 @@ public class UpgradeCommands {
                 break;
             case "maxrange":
                 if (upgrades.maxRangeLevel >= 5) {
-                    sendError(src, "❌ Max Range upgrade is already maxed!");
+                    sendError(src, " Max Range upgrade is already maxed!");
                     return 0;
                 }
                 nextCost = UpgradeManager.UpgradeCosts.MAX_RANGE_COSTS[upgrades.maxRangeLevel];
@@ -124,7 +124,7 @@ public class UpgradeCommands {
                 break;
             case "xpmultiplier":
                 if (upgrades.xpMultiplierLevel >= 5) {
-                    sendError(src, "❌ XP Multiplier upgrade is already maxed!");
+                    sendError(src, " XP Multiplier upgrade is already maxed!");
                     return 0;
                 }
                 nextCost = UpgradeManager.UpgradeCosts.XP_MULTIPLIER_COSTS[upgrades.xpMultiplierLevel];
@@ -133,7 +133,7 @@ public class UpgradeCommands {
                 break;
             case "speed":
                 if (upgrades.speedLevel >= 5) {
-                    sendError(src, "❌ Mining Speed upgrade is already maxed!");
+                    sendError(src, " Mining Speed upgrade is already maxed!");
                     return 0;
                 }
                 nextCost = UpgradeManager.UpgradeCosts.SPEED_COSTS[upgrades.speedLevel];
@@ -142,7 +142,7 @@ public class UpgradeCommands {
                 break;
             case "particles":
                 if (upgrades.particleLevel >= 3) {
-                    sendError(src, "❌ Particle Effects upgrade is already maxed!");
+                    sendError(src, " Particle Effects upgrade is already maxed!");
                     return 0;
                 }
                 nextCost = UpgradeManager.UpgradeCosts.PARTICLE_COSTS[upgrades.particleLevel];
@@ -150,19 +150,19 @@ public class UpgradeCommands {
                 nextLevel = upgrades.particleLevel + 1;
                 break;
             default:
-                sendError(src, "❌ Unknown upgrade: " + upgradeName);
+                sendError(src, " Unknown upgrade: " + upgradeName);
                 return 0;
         }
 
         if (upgrades.emeralds < nextCost) {
-            sendError(src, "❌ You need " + (nextCost - upgrades.emeralds) + " more emeralds!");
+            sendError(src, " You need " + (nextCost - upgrades.emeralds) + " more emeralds!");
             sendError(src, "   Current: " + upgrades.emeralds + " | Cost: " + nextCost);
             return 0;
         }
 
         if (UpgradeManager.purchaseUpgrade(player.getUuid(), upgradeName)) {
-            sendSuccess(src, "✅ Upgraded " + displayName + " to level " + nextLevel + "!");
-            sendSuccess(src, "💚 Emeralds: " + upgrades.emeralds);
+            sendSuccess(src, " Upgraded " + displayName + " to level " + nextLevel + "!");
+            sendSuccess(src, " Emeralds: " + upgrades.emeralds);
             return 1;
         }
 
@@ -173,24 +173,24 @@ public class UpgradeCommands {
         sendMessage(src, "");
         sendMessage(src, Text.literal("UPGRADE SYSTEM INFO").formatted(Formatting.GREEN));
         sendMessage(src, "");
-        sendMessage(src, "⛏️ Max Blocks - Increases max blocks per vein (64 ➜ 512)");
-        sendMessage(src, "📍 Max Range - Increases scanning range (32 ➜ 256)");
-        sendMessage(src, "💫 XP Multiplier - Increases XP rewards (1x ➜ 3x)");
-        sendMessage(src, "⚡ Mining Speed - Mine faster (1x ➜ 6x)");
-        sendMessage(src, "✨ Particles - Enhanced visual effects");
+        sendMessage(src, " Max Blocks - Increases max blocks per vein (64  512)");
+        sendMessage(src, " Max Range - Increases scanning range (32  256)");
+        sendMessage(src, " XP Multiplier - Increases XP rewards (1x  3x)");
+        sendMessage(src, " Mining Speed - Mine faster (1x  6x)");
+        sendMessage(src, " Particles - Enhanced visual effects");
         sendMessage(src, "");
-        sendMessage(src, "💚 Emeralds are earned by mining ore!");
+        sendMessage(src, " Emeralds are earned by mining ore!");
         sendMessage(src, "");
 
         return 1;
     }
 
     private static Text formatUpgrade(String name, int currentLevel, int maxLevel, int[] costs, String benefit) {
-        String status = currentLevel >= maxLevel ? "§c[MAX]" : "§b[LEVEL " + currentLevel + "/" + maxLevel + "]";
+        String status = currentLevel >= maxLevel ? "c[MAX]" : "b[LEVEL " + currentLevel + "/" + maxLevel + "]";
         int cost = currentLevel < maxLevel ? costs[currentLevel] : 0;
-        String costText = currentLevel < maxLevel ? " §6Cost: " + cost + " emeralds" : "";
+        String costText = currentLevel < maxLevel ? " 6Cost: " + cost + " emeralds" : "";
 
-        return Text.literal(status + " §a" + name + costText + " §f" + benefit);
+        return Text.literal(status + " a" + name + costText + " f" + benefit);
     }
 
     private static void sendMessage(ServerCommandSource src, String msg) {

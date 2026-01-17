@@ -1,4 +1,4 @@
-﻿package kimdog.kimdog_smp;
+package kimdog.kimdog_smp;
 
 import kimdog.kimdog_smp.veinminer.VeinMinerMod;
 import kimdog.kimdog_smp.chatmessages.ChatMessagesMod;

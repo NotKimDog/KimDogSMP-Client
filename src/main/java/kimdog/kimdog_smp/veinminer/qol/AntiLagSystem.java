@@ -80,7 +80,7 @@ public class AntiLagSystem {
         // If requested size is too large, warn and cap it
         if (requestedSize > 200) {
             SmartNotifications.showCompactInfo(player,
-                "§6⚠ Large vein detected! Breaking in optimized batches...");
+                "6 Large vein detected! Breaking in optimized batches...");
             LOGGER.info("Capped vein size from {} to 200 for {} (lag prevention)",
                 requestedSize, player.getName().getString());
             return 200;

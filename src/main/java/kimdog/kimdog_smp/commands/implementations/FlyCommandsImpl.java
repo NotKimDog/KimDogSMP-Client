@@ -51,13 +51,13 @@ public class FlyCommandsImpl {
                                 .executes(ctx -> {
                                     ServerPlayerEntity player = ctx.getSource().getPlayer();
                                     if (player == null) {
-                                        sendError(ctx.getSource(), "❌ This command must be run by a player!");
+                                        sendError(ctx.getSource(), " This command must be run by a player!");
                                         return 0;
                                     }
                                     float speed = FloatArgumentType.getFloat(ctx, "speed");
                                     FlyData data = flyingPlayers.computeIfAbsent(player.getUuid(), k -> new FlyData());
                                     data.speed = speed;
-                                    sendSuccess(ctx.getSource(), "⚡ Flight speed set to " + String.format("%.2f", speed));
+                                    sendSuccess(ctx.getSource(), " Flight speed set to " + String.format("%.2f", speed));
                                     return 1;
                                 })
                             )
@@ -69,7 +69,7 @@ public class FlyCommandsImpl {
     private static int toggleFly(ServerCommandSource src) {
         ServerPlayerEntity player = src.getPlayer();
         if (player == null) {
-            sendError(src, "❌ This command must be run by a player!");
+            sendError(src, " This command must be run by a player!");
             return 0;
         }
 
@@ -80,13 +80,13 @@ public class FlyCommandsImpl {
             player.getAbilities().allowFlying = true;
             player.getAbilities().flying = true;
             player.sendAbilitiesUpdate();
-            sendSuccess(src, "✈️ Flight enabled!");
+            sendSuccess(src, " Flight enabled!");
             return 1;
         } else {
             player.getAbilities().allowFlying = false;
             player.getAbilities().flying = false;
             player.sendAbilitiesUpdate();
-            sendSuccess(src, "✈️ Flight disabled!");
+            sendSuccess(src, " Flight disabled!");
             return 1;
         }
     }
@@ -94,7 +94,7 @@ public class FlyCommandsImpl {
     private static int enableFly(ServerCommandSource src) {
         ServerPlayerEntity player = src.getPlayer();
         if (player == null) {
-            sendError(src, "❌ This command must be run by a player!");
+            sendError(src, " This command must be run by a player!");
             return 0;
         }
 
@@ -104,18 +104,18 @@ public class FlyCommandsImpl {
             player.getAbilities().allowFlying = true;
             player.getAbilities().flying = true;
             player.sendAbilitiesUpdate();
-            sendSuccess(src, "✈️ Flight enabled!");
+            sendSuccess(src, " Flight enabled!");
             return 1;
         }
 
-        sendInfo(src, "✈️ Flight is already enabled!");
+        sendInfo(src, " Flight is already enabled!");
         return 1;
     }
 
     private static int disableFly(ServerCommandSource src) {
         ServerPlayerEntity player = src.getPlayer();
         if (player == null) {
-            sendError(src, "❌ This command must be run by a player!");
+            sendError(src, " This command must be run by a player!");
             return 0;
         }
 
@@ -125,11 +125,11 @@ public class FlyCommandsImpl {
             player.getAbilities().allowFlying = false;
             player.getAbilities().flying = false;
             player.sendAbilitiesUpdate();
-            sendSuccess(src, "✈️ Flight disabled!");
+            sendSuccess(src, " Flight disabled!");
             return 1;
         }
 
-        sendInfo(src, "✈️ Flight is already disabled!");
+        sendInfo(src, " Flight is already disabled!");
         return 1;
     }
 

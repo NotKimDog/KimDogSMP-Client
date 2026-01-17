@@ -50,60 +50,60 @@ public class VeinMinerQuests {
         private void setupQuest() {
             switch (questType.toLowerCase()) {
                 case "diamond":
-                    this.displayName = "💎 Diamond Hunter";
+                    this.displayName = " Diamond Hunter";
                     this.description = "Mine " + targetCount + " diamond veins";
                     this.reward = targetCount * 100;
-                    this.icon = "💎";
-                    this.color = "§b";
+                    this.icon = "";
+                    this.color = "b";
                     break;
                 case "emerald":
-                    this.displayName = "✨ Emerald Collector";
+                    this.displayName = " Emerald Collector";
                     this.description = "Mine " + targetCount + " emerald veins";
                     this.reward = targetCount * 80;
-                    this.icon = "✨";
-                    this.color = "§a";
+                    this.icon = "";
+                    this.color = "a";
                     break;
                 case "gold":
-                    this.displayName = "🏆 Gold Seeker";
+                    this.displayName = " Gold Seeker";
                     this.description = "Mine " + targetCount + " gold veins";
                     this.reward = targetCount * 60;
-                    this.icon = "🏆";
-                    this.color = "§6";
+                    this.icon = "";
+                    this.color = "6";
                     break;
                 case "iron":
-                    this.displayName = "⚒️ Iron Worker";
+                    this.displayName = " Iron Worker";
                     this.description = "Mine " + targetCount + " iron veins";
                     this.reward = targetCount * 50;
-                    this.icon = "⚒️";
-                    this.color = "§7";
+                    this.icon = "";
+                    this.color = "7";
                     break;
                 case "redstone":
-                    this.displayName = "🔴 Redstone Engineer";
+                    this.displayName = " Redstone Engineer";
                     this.description = "Mine " + targetCount + " redstone veins";
                     this.reward = targetCount * 40;
-                    this.icon = "🔴";
-                    this.color = "§c";
+                    this.icon = "";
+                    this.color = "c";
                     break;
                 case "coal":
-                    this.displayName = "⚫ Coal Miner";
+                    this.displayName = " Coal Miner";
                     this.description = "Mine " + targetCount + " coal veins";
                     this.reward = targetCount * 30;
-                    this.icon = "⚫";
-                    this.color = "§8";
+                    this.icon = "";
+                    this.color = "8";
                     break;
                 case "copper":
-                    this.displayName = "🟠 Copper Extractor";
+                    this.displayName = " Copper Extractor";
                     this.description = "Mine " + targetCount + " copper veins";
                     this.reward = targetCount * 40;
-                    this.icon = "🟠";
-                    this.color = "§6";
+                    this.icon = "";
+                    this.color = "6";
                     break;
                 default:
-                    this.displayName = "⛏️ Ore Miner";
+                    this.displayName = " Ore Miner";
                     this.description = "Mine " + targetCount + " ore veins";
                     this.reward = targetCount * 50;
-                    this.icon = "⛏️";
-                    this.color = "§f";
+                    this.icon = "";
+                    this.color = "f";
             }
         }
 
@@ -118,7 +118,7 @@ public class VeinMinerQuests {
                 }
                 this.checksum = sb.toString();
             } catch (Exception e) {
-                LOGGER.error("❌ Error generating checksum: {}", e.getMessage());
+                LOGGER.error(" Error generating checksum: {}", e.getMessage());
                 this.checksum = "invalid";
             }
         }
@@ -135,7 +135,7 @@ public class VeinMinerQuests {
                 String expectedChecksum = sb.toString();
                 return expectedChecksum.equals(this.checksum);
             } catch (Exception e) {
-                LOGGER.error("❌ Error validating checksum: {}", e.getMessage());
+                LOGGER.error(" Error validating checksum: {}", e.getMessage());
                 return false;
             }
         }
@@ -153,11 +153,11 @@ public class VeinMinerQuests {
             int filledBars = progress / 10;
             int emptyBars = 10 - filledBars;
             StringBuilder bar = new StringBuilder();
-            bar.append("§a");
-            for (int i = 0; i < filledBars; i++) bar.append("█");
-            bar.append("§7");
-            for (int i = 0; i < emptyBars; i++) bar.append("█");
-            bar.append("§r ").append(progress).append("%");
+            bar.append("a");
+            for (int i = 0; i < filledBars; i++) bar.append("");
+            bar.append("7");
+            for (int i = 0; i < emptyBars; i++) bar.append("");
+            bar.append("r ").append(progress).append("%");
             return bar.toString();
         }
     }
@@ -176,7 +176,7 @@ public class VeinMinerQuests {
         playerQuests.put(player.getUuid(), quest);
         playerQuestHashes.put(player.getUuid(), quest.checksum);
         saveQuestData(player);
-        LOGGER.info("📋 New quest generated for {}: {}", player.getName().getString(), quest.displayName);
+        LOGGER.info(" New quest generated for {}: {}", player.getName().getString(), quest.displayName);
     }
 
     public static void incrementOreCount(ServerPlayerEntity player, String oreType) {
@@ -187,8 +187,8 @@ public class VeinMinerQuests {
         }
 
         if (!validateQuestIntegrity(player, quest)) {
-            LOGGER.warn("⚠️  CHEATING ATTEMPT DETECTED for player {}! Quest data tampered!", player.getName().getString());
-            player.sendMessage(net.minecraft.text.Text.literal("⚠️ Your quest data has been tampered with! Quest reset.")
+            LOGGER.warn("  CHEATING ATTEMPT DETECTED for player {}! Quest data tampered!", player.getName().getString());
+            player.sendMessage(net.minecraft.text.Text.literal(" Your quest data has been tampered with! Quest reset.")
                     .formatted(net.minecraft.util.Formatting.RED));
             generateNewQuest(player);
             return;
@@ -196,8 +196,8 @@ public class VeinMinerQuests {
 
         if (quest.questType.equalsIgnoreCase(oreType)) {
             if (hasUnrealisticProgress(player)) {
-                LOGGER.warn("⚠️  SUSPICIOUS ACTIVITY DETECTED for player {}! Progress increased too fast!", player.getName().getString());
-                player.sendMessage(net.minecraft.text.Text.literal("⚠️ Suspicious quest progress detected!")
+                LOGGER.warn("  SUSPICIOUS ACTIVITY DETECTED for player {}! Progress increased too fast!", player.getName().getString());
+                player.sendMessage(net.minecraft.text.Text.literal(" Suspicious quest progress detected!")
                         .formatted(net.minecraft.util.Formatting.RED));
                 return;
             }
@@ -244,8 +244,8 @@ public class VeinMinerQuests {
     }
 
     private static void completeQuest(ServerPlayerEntity player, PlayerQuest quest) {
-        LOGGER.info("🎉 Quest completed by {}: {}", player.getName().getString(), quest.displayName);
-        player.sendMessage(net.minecraft.text.Text.literal("🎉 Quest completed! " + quest.displayName + " - Reward: " + quest.reward + " XP")
+        LOGGER.info(" Quest completed by {}: {}", player.getName().getString(), quest.displayName);
+        player.sendMessage(net.minecraft.text.Text.literal(" Quest completed! " + quest.displayName + " - Reward: " + quest.reward + " XP")
                 .formatted(net.minecraft.util.Formatting.GOLD));
         playerQuests.remove(player.getUuid());
         playerQuestHashes.remove(player.getUuid());
@@ -255,7 +255,7 @@ public class VeinMinerQuests {
     public static String getQuestDisplay(ServerPlayerEntity player) {
         PlayerQuest quest = playerQuests.get(player.getUuid());
         if (quest == null) {
-            return "📋 No active quest";
+            return " No active quest";
         }
         return String.format("%s %s [%d/%d] %s",
             quest.icon, quest.displayName, quest.currentCount, quest.targetCount, quest.getProgressBar());
@@ -264,18 +264,18 @@ public class VeinMinerQuests {
     public static String getDetailedQuestScreen(ServerPlayerEntity player) {
         PlayerQuest quest = playerQuests.get(player.getUuid());
         if (quest == null) {
-            return "§6═══════════════════════════════════════\n" +
-                   "§6║§f No Active Quest\n" +
-                   "§6║§f Type /quest new to generate one!\n" +
-                   "§6═══════════════════════════════════════";
+            return "6\n" +
+                   "6f No Active Quest\n" +
+                   "6f Type /quest new to generate one!\n" +
+                   "6";
         }
 
-        String separator = "§6═══════════════════════════════════════";
-        String header = String.format("§6║§f %s %s", quest.icon, quest.displayName);
-        String description = String.format("§6║§f %s", quest.description);
-        String progress = String.format("§6║§f Progress: %d/%d", quest.currentCount, quest.targetCount);
-        String progressBar = String.format("§6║§f %s", quest.getProgressBar());
-        String reward = String.format("§6║§f 💰 Reward: %d XP", quest.reward);
+        String separator = "6";
+        String header = String.format("6f %s %s", quest.icon, quest.displayName);
+        String description = String.format("6f %s", quest.description);
+        String progress = String.format("6f Progress: %d/%d", quest.currentCount, quest.targetCount);
+        String progressBar = String.format("6f %s", quest.getProgressBar());
+        String reward = String.format("6f  Reward: %d XP", quest.reward);
 
         return separator + "\n" + header + "\n" + description + "\n" + progressBar + "\n" + progress + "\n" + reward + "\n" + separator;
     }
@@ -289,10 +289,10 @@ public class VeinMinerQuests {
                 try (FileWriter writer = new FileWriter(questFile)) {
                     GSON.toJson(quest, writer);
                 }
-                LOGGER.debug("💾 Quest saved for {}", player.getUuid());
+                LOGGER.debug(" Quest saved for {}", player.getUuid());
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error saving quest data: {}", e.getMessage());
+            LOGGER.error(" Error saving quest data: {}", e.getMessage());
         }
     }
 
@@ -305,21 +305,21 @@ public class VeinMinerQuests {
                     PlayerQuest quest = GSON.fromJson(reader, PlayerQuest.class);
                     if (quest != null) {
                         if (!quest.isValid()) {
-                            LOGGER.warn("⚠️  TAMPERED QUEST DATA DETECTED for {}! Generating new quest!", player.getName().getString());
+                            LOGGER.warn("  TAMPERED QUEST DATA DETECTED for {}! Generating new quest!", player.getName().getString());
                             generateNewQuest(player);
                             return;
                         }
 
                         playerQuests.put(player.getUuid(), quest);
                         playerQuestHashes.put(player.getUuid(), quest.checksum);
-                        LOGGER.info("📋 Quest data loaded for {}: {}", player.getName().getString(), quest.displayName);
+                        LOGGER.info(" Quest data loaded for {}: {}", player.getName().getString(), quest.displayName);
                     }
                 }
             } else {
                 generateNewQuest(player);
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error loading quest data: {}", e.getMessage());
+            LOGGER.error(" Error loading quest data: {}", e.getMessage());
             generateNewQuest(player);
         }
     }
@@ -331,7 +331,7 @@ public class VeinMinerQuests {
                 questFile.delete();
             }
         } catch (Exception e) {
-            LOGGER.error("❌ Error deleting quest data: {}", e.getMessage());
+            LOGGER.error(" Error deleting quest data: {}", e.getMessage());
         }
     }
 }

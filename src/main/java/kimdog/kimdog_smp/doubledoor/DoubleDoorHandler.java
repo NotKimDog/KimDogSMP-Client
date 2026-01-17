@@ -35,7 +35,7 @@ public class DoubleDoorHandler {
             BlockPos[] nearbyPositions = getNearbyDoors(world, pos, config.maxDistance);
 
             if (nearbyPositions.length > 0) {
-                LOGGER.info("🚪 Double Door activated at {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
+                LOGGER.info(" Double Door activated at {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
 
                 toggleDoor(world, pos);
                 for (BlockPos nearbyPos : nearbyPositions) {
@@ -84,10 +84,10 @@ public class DoubleDoorHandler {
             if (state.getBlock() instanceof DoorBlock || state.getBlock() instanceof TrapdoorBlock) {
                 boolean isOpen = state.get(Properties.OPEN);
                 world.setBlockState(pos, state.with(Properties.OPEN, !isOpen));
-                LOGGER.debug("🚪 Door toggled at {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
+                LOGGER.debug(" Door toggled at {}, {}, {}", pos.getX(), pos.getY(), pos.getZ());
             }
         } catch (Exception e) {
-            LOGGER.error("❌ Error toggling door: {}", e.getMessage());
+            LOGGER.error(" Error toggling door: {}", e.getMessage());
         }
     }
 

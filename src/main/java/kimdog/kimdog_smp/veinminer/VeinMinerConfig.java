@@ -184,12 +184,12 @@ public class VeinMinerConfig {
         try {
             File dir = CONFIG_DIR.toFile();
             if (!dir.exists()) {
-                LOGGER.info("📁 Creating config directory: {}", CONFIG_DIR);
+                LOGGER.info(" Creating config directory: {}", CONFIG_DIR);
                 dir.mkdirs();
             }
             File f = CONFIG_FILE;
             if (!f.exists()) {
-                LOGGER.info("⚙️  Creating default configuration file: {}", CONFIG_FILE);
+                LOGGER.info("  Creating default configuration file: {}", CONFIG_FILE);
                 INSTANCE = new VeinMinerConfig();
                 save();
                 logConfig();
@@ -197,11 +197,11 @@ public class VeinMinerConfig {
             }
             try (FileReader reader = new FileReader(f)) {
                 INSTANCE = GSON.fromJson(reader, VeinMinerConfig.class);
-                LOGGER.info("✅ Configuration loaded from: {}", CONFIG_FILE);
+                LOGGER.info(" Configuration loaded from: {}", CONFIG_FILE);
                 logConfig();
             }
         } catch (Exception e) {
-            LOGGER.error("❌ Error loading config, using defaults:", e);
+            LOGGER.error(" Error loading config, using defaults:", e);
             INSTANCE = new VeinMinerConfig();
         }
     }
@@ -212,35 +212,35 @@ public class VeinMinerConfig {
             if (!dir.exists()) Files.createDirectories(CONFIG_DIR);
             try (FileWriter writer = new FileWriter(CONFIG_FILE)) {
                 GSON.toJson(get(), writer);
-                LOGGER.info("💾 Configuration saved to: {}", CONFIG_FILE);
+                LOGGER.info(" Configuration saved to: {}", CONFIG_FILE);
             }
         } catch (IOException e) {
-            LOGGER.error("❌ Error saving config:", e);
+            LOGGER.error(" Error saving config:", e);
         }
     }
 
     private static void logConfig() {
         VeinMinerConfig cfg = get();
-        LOGGER.info("╔═══════════════════════════════════════════════════════════╗");
-        LOGGER.info("║          VeinMiner Configuration Summary                  ║");
-        LOGGER.info("╚═══════════════════════════════════════════════════════════╝");
-        LOGGER.info("🟢 Enabled: {}", cfg.enabled);
-        LOGGER.info("⚙️  Activation Mode: {}", cfg.activation);
-        LOGGER.info("📦 Max Blocks: {}", cfg.maxBlocks);
-        LOGGER.info("📍 Max Range: {}", cfg.maxRange);
-        LOGGER.info("🔧 Require Tool: {}", cfg.requireTool);
-        LOGGER.info("⚒️  Require Pickaxe: {}", cfg.requirePickaxe);
-        LOGGER.info("🏷️  Check Ore Tag: {}", cfg.checkOreTag);
-        LOGGER.info("🎁 Silk Touch Respect: {}", cfg.silkTouchRespect);
-        LOGGER.info("💎 Apply Fortune: {}", cfg.applyFortune);
-        LOGGER.info("🚫 Blacklisted Blocks: {}", cfg.blacklist.size());
-        LOGGER.info("═══════════════════════════════════════════════════════════");
-        LOGGER.info("✨ Enhancement Settings:");
-        LOGGER.info("📦 Consolidate Drops: {}", cfg.consolidateDrops);
-        LOGGER.info("⏱️  Break Delay: {}ms", cfg.breakDelayMs);
-        LOGGER.info("✨ Enable Particles: {}", cfg.enableParticles);
-        LOGGER.info("🔊 Play Sound Effects: {}", cfg.playSoundEffects);
-        LOGGER.info("💫 Particle Effect: {} ({} per block)", cfg.particleEffect, cfg.particleCount);
-        LOGGER.info("═══════════════════════════════════════════════════════════");
+        LOGGER.info("");
+        LOGGER.info("          VeinMiner Configuration Summary                  ");
+        LOGGER.info("");
+        LOGGER.info(" Enabled: {}", cfg.enabled);
+        LOGGER.info("  Activation Mode: {}", cfg.activation);
+        LOGGER.info(" Max Blocks: {}", cfg.maxBlocks);
+        LOGGER.info(" Max Range: {}", cfg.maxRange);
+        LOGGER.info(" Require Tool: {}", cfg.requireTool);
+        LOGGER.info("  Require Pickaxe: {}", cfg.requirePickaxe);
+        LOGGER.info("  Check Ore Tag: {}", cfg.checkOreTag);
+        LOGGER.info(" Silk Touch Respect: {}", cfg.silkTouchRespect);
+        LOGGER.info(" Apply Fortune: {}", cfg.applyFortune);
+        LOGGER.info(" Blacklisted Blocks: {}", cfg.blacklist.size());
+        LOGGER.info("");
+        LOGGER.info(" Enhancement Settings:");
+        LOGGER.info(" Consolidate Drops: {}", cfg.consolidateDrops);
+        LOGGER.info("  Break Delay: {}ms", cfg.breakDelayMs);
+        LOGGER.info(" Enable Particles: {}", cfg.enableParticles);
+        LOGGER.info(" Play Sound Effects: {}", cfg.playSoundEffects);
+        LOGGER.info(" Particle Effect: {} ({} per block)", cfg.particleEffect, cfg.particleCount);
+        LOGGER.info("");
     }
 }

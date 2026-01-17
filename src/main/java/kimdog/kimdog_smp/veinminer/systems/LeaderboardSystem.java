@@ -67,14 +67,14 @@ public class LeaderboardSystem {
 
     private static void announceLeaderboardChange(ServerPlayerEntity player, int rank, ServerWorld world) {
         String rankText = switch (rank) {
-            case 1 -> "§6🥇 #1 - TOP MINER!";
-            case 2 -> "§7🥈 #2";
-            case 3 -> "§c🥉 #3";
+            case 1 -> "6 #1 - TOP MINER!";
+            case 2 -> "7 #2";
+            case 3 -> "c #3";
             default -> "#" + rank;
         };
 
         world.getServer().getPlayerManager().broadcast(
-            Text.literal(String.format("⛏️ %s is now %s on the mining leaderboard!",
+            Text.literal(String.format(" %s is now %s on the mining leaderboard!",
                 player.getName().getString(), rankText))
                 .formatted(Formatting.GOLD),
             false
@@ -83,8 +83,8 @@ public class LeaderboardSystem {
 
     public static String getLeaderboardText(int maxEntries) {
         StringBuilder sb = new StringBuilder();
-        sb.append("§6§l⛏ TOP MINERS ⛏§r\n");
-        sb.append("§7━━━━━━━━━━━━━━━━━━━━\n");
+        sb.append("6l TOP MINERS r\n");
+        sb.append("7\n");
 
         List<Map.Entry<UUID, LeaderboardEntry>> sorted = leaderboard.entrySet().stream()
             .sorted((a, b) -> Integer.compare(b.getValue().totalBlocks, a.getValue().totalBlocks))
@@ -94,17 +94,17 @@ public class LeaderboardSystem {
         for (int i = 0; i < sorted.size(); i++) {
             LeaderboardEntry entry = sorted.get(i).getValue();
             String medal = switch (i) {
-                case 0 -> "§6🥇";
-                case 1 -> "§7🥈";
-                case 2 -> "§c🥉";
-                default -> "§7" + (i + 1) + ".";
+                case 0 -> "6";
+                case 1 -> "7";
+                case 2 -> "c";
+                default -> "7" + (i + 1) + ".";
             };
 
-            sb.append(String.format("%s §e%s §7- §a%,d blocks §7(%d veins)\n",
+            sb.append(String.format("%s e%s 7- a%,d blocks 7(%d veins)\n",
                 medal, entry.playerName, entry.totalBlocks, entry.totalVeins));
         }
 
-        sb.append("§7━━━━━━━━━━━━━━━━━━━━");
+        sb.append("7");
         return sb.toString();
     }
 

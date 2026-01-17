@@ -41,7 +41,7 @@ public class MultiplayerBonusSystem {
     public static void notifyMultiplayerBonus(ServerPlayerEntity player, int nearbyCount, float bonusMultiplier) {
         if (nearbyCount > 0) {
             player.sendMessage(
-                Text.literal(String.format("👥 Mining with %d player%s! %.0f%% XP Bonus!",
+                Text.literal(String.format(" Mining with %d player%s! %.0f%% XP Bonus!",
                     nearbyCount, nearbyCount > 1 ? "s" : "", (bonusMultiplier - 1.0f) * 100))
                     .formatted(Formatting.AQUA),
                 true
