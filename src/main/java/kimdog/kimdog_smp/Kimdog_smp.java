@@ -35,21 +35,13 @@ public class Kimdog_smp implements ModInitializer {
 
             loadModule("Command System", "Registering /fly and admin commands", "[CMD]", FlyCommands::register);
 
-            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "[VM]", () -> {
-                new VeinMinerMod().onInitialize();
-            });
+            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "[VM]", () -> new VeinMinerMod().onInitialize());
 
-            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "[CHAT]", () -> {
-                new ChatMessagesMod().onInitialize();
-            });
+            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "[CHAT]", () -> new ChatMessagesMod().onInitialize());
 
-            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "[DD]", () -> {
-                new DoubleDoorMod().onInitialize();
-            });
+            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "[DD]", () -> new DoubleDoorMod().onInitialize());
 
-            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "[AC]", () -> {
-                new AntiCheatMod().onInitialize();
-            });
+            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "[AC]", () -> new AntiCheatMod().onInitialize());
 
             long loadTime = System.currentTimeMillis() - startTime;
             printCompletionBanner(loadTime);
