@@ -30,44 +30,52 @@ else {
     exit 1
 }
 
-# Parse version
-$versionParts = $currentVersion -replace '-.*$', '' -split '\.'
-$major = [int]$versionParts[0]
-$minor = [int]$versionParts[1]
-$patch = [int]$versionParts[2]
-
-# Increment version based on bump type
-switch ($BumpType) {
-    'major' {
-        $major++
-        $minor = 0
-        $patch = 0
-    }
-    'minor' {
-        $minor++
-        $patch = 0
-    }
-    'patch' {
-        $patch++
-    }
+# Ask bump type if not provided
+if (-not $PSBoundParameters.ContainsKey('BumpType')) {
+    $BumpType = Read-Host "Bump type? (patch/minor/major, default patch)"
+    if ([string]::IsNullOrWhiteSpace($BumpType)) { $BumpType = 'patch' }
 }
 
-$newVersion = "$major.$minor.$patch"
+# Optionally override version manually
+$manualVersion = Read-Host "Enter new version (leave blank to auto-bump from $currentVersion)"
+if (-not [string]::IsNullOrWhiteSpace($manualVersion)) {
+    $newVersion = $manualVersion.Trim()
+}
+else {
+    # Parse version
+    $versionParts = $currentVersion -replace '-.*$', '' -split '\.'
+    $major = [int]$versionParts[0]
+    $minor = [int]$versionParts[1]
+    $patch = [int]$versionParts[2]
+
+    # Increment version based on bump type
+    switch ($BumpType) {
+        'major' { $major++; $minor = 0; $patch = 0 }
+        'minor' { $minor++; $patch = 0 }
+        default { $patch++ }
+    }
+    $newVersion = "$major.$minor.$patch"
+}
+
 Write-Host "[+] New Version: $newVersion" -ForegroundColor Green
 Write-Host ""
+
+# Ask for release summary line
+$releaseNote = Read-Host "Optional release highlight (one line for changelog)";
+if ([string]::IsNullOrWhiteSpace($releaseNote)) { $releaseNote = "New features or fixes" }
 
 # Ask for confirmation
 Write-Host "Changes:" -ForegroundColor Yellow
 Write-Host "  Version: $currentVersion -> $newVersion" -ForegroundColor White
+Write-Host "  Release note: $releaseNote" -ForegroundColor White
 Write-Host "  This will:" -ForegroundColor White
 Write-Host "    1. Update gradle.properties" -ForegroundColor Gray
 Write-Host "    2. Update Kimdog_smp.java VERSION constant" -ForegroundColor Gray
-Write-Host "    3. Commit changes" -ForegroundColor Gray
-Write-Host "    4. Create git tag v$newVersion" -ForegroundColor Gray
-Write-Host "    5. Push to GitHub (triggers auto-release)" -ForegroundColor Gray
+Write-Host "    3. Update CHANGELOG.md" -ForegroundColor Gray
+Write-Host "    4. (Optional) Commit, tag, push" -ForegroundColor Gray
 Write-Host ""
 
-$confirm = Read-Host "Continue? (y/n)"
+$confirm = Read-Host "Proceed with file updates? (y/n)"
 if ($confirm -ne "y") {
     Write-Host "[X] Cancelled." -ForegroundColor Red
     exit 0
@@ -98,7 +106,7 @@ if (Test-Path $changelogFile) {
 
     $newEntry = "`n`n## [$newVersion] - $date`n`n"
     $newEntry += "### Added`n"
-    $newEntry += "- New features or functionality`n`n"
+    $newEntry += "- $releaseNote`n`n"
     $newEntry += "### Changed`n"
     $newEntry += "- Changes to existing functionality`n`n"
     $newEntry += "### Fixed`n"
@@ -116,7 +124,7 @@ if (Test-Path $changelogFile) {
 Write-Host ""
 Write-Host "[*] Committing changes..." -ForegroundColor Cyan
 
-# Git operations
+# Git operations - ALWAYS run these automatically
 git add gradle.properties $javaFile CHANGELOG.md
 git commit -m "Bump version to $newVersion"
 
