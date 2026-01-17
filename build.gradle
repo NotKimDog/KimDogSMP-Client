@@ -10,19 +10,28 @@ base {
     archivesName = project.archives_base_name
 }
 
-// Remove BOM from all Java source files before compilation
-tasks.compileJava {
-    doFirst {
-        sourceSets.main.java.srcDirs.each { srcDir ->
-            srcDir.traverse(type: groovy.io.FileType.FILES, nameFilter: ~/.*.java$/) { file ->
-                String content = file.text
-                if (content.startsWith('\ufeff')) {
-                    file.text = content.substring(1)
-                    println "Removed BOM from: ${file.name}"
-                }
+// Initialize by removing BOM from all source files
+def initBomRemoval() {
+    file('src/main/java').eachFileRecurse { file ->
+        if (file.name.endsWith('.java')) {
+            byte[] bytes = file.bytes
+            if (bytes.length >= 3 && bytes[0] == (byte)0xEF && bytes[1] == (byte)0xBB && bytes[2] == (byte)0xBF) {
+                println "Removing BOM from: ${file.name}"
+                file.bytes = java.util.Arrays.copyOfRange(bytes, 3, bytes.length)
             }
         }
     }
+}
+
+// Run on initialization
+initBomRemoval()
+
+// Also run before compile
+tasks.compileJava {
+    doFirst {
+        initBomRemoval()
+    }
+    options.encoding = 'UTF-8'
 }
 
 loom {
