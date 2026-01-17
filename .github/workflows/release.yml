@@ -1,5 +1,8 @@
 name: Build and Release
 
+permissions:
+  contents: write
+
 on:
   push:
     tags:
@@ -67,12 +70,14 @@ jobs:
           echo "Final JAR file:"
           ls -la kimdog-smp-*.jar
 
-      - name: Create Release and Upload JAR
-        uses: softprops/action-gh-release@v1
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          name: KimDog SMP v${{ steps.get_version.outputs.VERSION }}
-          files: ./build/libs/kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          tag_name: ${{ github.ref_name }}
+          release_name: KimDog SMP v${{ steps.get_version.outputs.VERSION }}
           body: |
             ## KimDog SMP v${{ steps.get_version.outputs.VERSION }}
             
@@ -103,8 +108,16 @@ jobs:
             Use /kimdogsmp update download to auto-install.
           draft: false
           prerelease: false
+
+      - name: Upload JAR to Release
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/libs/kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_name: kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          asset_content_type: application/java-archive
 
       - name: Upload to Modrinth (Optional)
         if: false  # Set to true if you want to publish to Modrinth
