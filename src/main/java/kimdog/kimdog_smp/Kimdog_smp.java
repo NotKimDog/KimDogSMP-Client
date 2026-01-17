@@ -1,4 +1,4 @@
-package kimdog.kimdog_smp;
+﻿package kimdog.kimdog_smp;
 
 import kimdog.kimdog_smp.veinminer.VeinMinerMod;
 import kimdog.kimdog_smp.chatmessages.ChatMessagesMod;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class Kimdog_smp implements ModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger("KimDog SMP");
-    private static final String VERSION = "1.0.0";
+    private static final String VERSION = "1.0.1";
     private static final String MC_VERSION = "1.21";
 
     private static int modulesLoaded = 0;
@@ -28,34 +28,34 @@ public class Kimdog_smp implements ModInitializer {
 
         try {
             // Update Checker (runs asynchronously)
-            loadModule("Update Checker", "Checking GitHub for latest releases", "🔄", () -> {
+            loadModule("Update Checker", "Checking GitHub for latest releases", "ðŸ”„", () -> {
                 UpdateChecker.initialize(VERSION);
                 UpdateNotifier.initialize();
                 UpdateCommand.register();
             });
 
             // Register commands
-            loadModule("Command System", "Registering /fly and admin commands", "🎮", () -> {
+            loadModule("Command System", "Registering /fly and admin commands", "ðŸŽ®", () -> {
                 FlyCommands.register();
             });
 
             // VeinMiner
-            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "⛏️", () -> {
+            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "â›ï¸", () -> {
                 new VeinMinerMod().onInitialize();
             });
 
             // Chat Messages
-            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "💬", () -> {
+            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "ðŸ’¬", () -> {
                 new ChatMessagesMod().onInitialize();
             });
 
             // Double Door
-            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "🚪", () -> {
+            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "ðŸšª", () -> {
                 new DoubleDoorMod().onInitialize();
             });
 
             // AntiCheat
-            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "🛡️", () -> {
+            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "ðŸ›¡ï¸", () -> {
                 new AntiCheatMod().onInitialize();
             });
 
@@ -65,7 +65,7 @@ public class Kimdog_smp implements ModInitializer {
             LOGGER.error("");
             LOGGER.error("################################################################################");
             LOGGER.error("#                                                                              #");
-            LOGGER.error("#  ❌ FATAL ERROR: Mod initialization failed!                                  #");
+            LOGGER.error("#  âŒ FATAL ERROR: Mod initialization failed!                                  #");
             LOGGER.error("#                                                                              #");
             LOGGER.error("################################################################################");
             LOGGER.error("");
@@ -86,10 +86,10 @@ public class Kimdog_smp implements ModInitializer {
             long moduleStart = System.currentTimeMillis();
             initializer.run();
             long moduleTime = System.currentTimeMillis() - moduleStart;
-            LOGGER.info("{} | ✅ {} loaded successfully! ({}ms)", icon, name, moduleTime);
+            LOGGER.info("{} | âœ… {} loaded successfully! ({}ms)", icon, name, moduleTime);
             LOGGER.info("{} +-------------------------------------------------------------------+", icon);
         } catch (Exception e) {
-            LOGGER.error("{} | ❌ Failed to load {}", icon, name);
+            LOGGER.error("{} | âŒ Failed to load {}", icon, name);
             LOGGER.error("{} +-------------------------------------------------------------------+", icon);
             throw e;
         }
@@ -108,14 +108,14 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info("");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#                   ██╗  ██╗██╗███╗   ███╗██████╗  ██████╗  ██████╗          #");
-        LOGGER.info("#                   ██║ ██╔╝██║████╗ ████║██╔══██╗██╔═══██╗██╔════╝          #");
-        LOGGER.info("#                   █████╔╝ ██║██╔████╔██║██║  ██║██║   ██║██║  ███╗         #");
-        LOGGER.info("#                   ██╔═██╗ ██║██║╚██╔╝██║██║  ██║██║   ██║██║   ██║         #");
-        LOGGER.info("#                   ██║  ██╗██║██║ ╚═╝ ██║██████╔╝╚██████╔╝╚██████╔╝         #");
-        LOGGER.info("#                   ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═════╝  ╚═════╝  ╚═════╝          #");
+        LOGGER.info("#                   â–ˆâ–ˆâ•—  â–ˆâ–ˆâ•—â–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ•—   â–ˆâ–ˆâ–ˆâ•—â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—  â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•—          #");
+        LOGGER.info("#                   â–ˆâ–ˆâ•‘ â–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ•— â–ˆâ–ˆâ–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â–ˆâ–ˆâ•—â–ˆâ–ˆâ•”â•â•â•â•â•          #");
+        LOGGER.info("#                   â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â• â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•”â–ˆâ–ˆâ–ˆâ–ˆâ•”â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ–ˆâ•—         #");
+        LOGGER.info("#                   â–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•— â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘â•šâ–ˆâ–ˆâ•”â•â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘   â–ˆâ–ˆâ•‘         #");
+        LOGGER.info("#                   â–ˆâ–ˆâ•‘  â–ˆâ–ˆâ•—â–ˆâ–ˆâ•‘â–ˆâ–ˆâ•‘ â•šâ•â• â–ˆâ–ˆâ•‘â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•â•šâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ•”â•         #");
+        LOGGER.info("#                   â•šâ•â•  â•šâ•â•â•šâ•â•â•šâ•â•     â•šâ•â•â•šâ•â•â•â•â•â•  â•šâ•â•â•â•â•â•  â•šâ•â•â•â•â•â•          #");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#                      🎮 SMP - Server Enhancement Suite 🎮                   #");
+        LOGGER.info("#                      ðŸŽ® SMP - Server Enhancement Suite ðŸŽ®                   #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
@@ -123,17 +123,17 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#  📦 Modules to Load:                                                         #");
+        LOGGER.info("#  ðŸ“¦ Modules to Load:                                                         #");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#    ⛏️  VeinMiner        - Mine entire ore veins instantly                   #");
-        LOGGER.info("#    💬 Chat System      - Enhanced chat formatting & announcements          #");
-        LOGGER.info("#    🚪 Double Doors     - Synchronized door opening mechanics               #");
-        LOGGER.info("#    🛡️  AntiCheat        - Server protection & cheat detection               #");
-        LOGGER.info("#    🎮 Command System   - Custom admin & player commands                    #");
+        LOGGER.info("#    â›ï¸  VeinMiner        - Mine entire ore veins instantly                   #");
+        LOGGER.info("#    ðŸ’¬ Chat System      - Enhanced chat formatting & announcements          #");
+        LOGGER.info("#    ðŸšª Double Doors     - Synchronized door opening mechanics               #");
+        LOGGER.info("#    ðŸ›¡ï¸  AntiCheat        - Server protection & cheat detection               #");
+        LOGGER.info("#    ðŸŽ® Command System   - Custom admin & player commands                    #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("");
-        LOGGER.info("🚀 Starting Module Initialization...");
+        LOGGER.info("ðŸš€ Starting Module Initialization...");
         LOGGER.info("");
     }
 
@@ -141,41 +141,41 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info("");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#                  ✨ ALL MODULES LOADED SUCCESSFULLY! ✨                     #");
+        LOGGER.info("#                  âœ¨ ALL MODULES LOADED SUCCESSFULLY! âœ¨                     #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#  📊 Load Statistics:                                                         #");
-        LOGGER.info("#     • Total Modules Loaded: {} / {}                                         #", TOTAL_MODULES, TOTAL_MODULES);
-        LOGGER.info("#     • Total Load Time: {}ms                                              #", padRight(loadTime + "", 5));
-        LOGGER.info("#     • Status: ✅ Operational                                                 #");
+        LOGGER.info("#  ðŸ“Š Load Statistics:                                                         #");
+        LOGGER.info("#     â€¢ Total Modules Loaded: {} / {}                                         #", TOTAL_MODULES, TOTAL_MODULES);
+        LOGGER.info("#     â€¢ Total Load Time: {}ms                                              #", padRight(loadTime + "", 5));
+        LOGGER.info("#     â€¢ Status: âœ… Operational                                                 #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#  ℹ️  Configuration:                                                          #");
-        LOGGER.info("#     • Config Directory: config/kimdog_smp/                                  #");
-        LOGGER.info("#     • Logs Directory: logs/                                                 #");
-        LOGGER.info("#     • Check logs for module-specific settings and details                   #");
+        LOGGER.info("#  â„¹ï¸  Configuration:                                                          #");
+        LOGGER.info("#     â€¢ Config Directory: config/kimdog_smp/                                  #");
+        LOGGER.info("#     â€¢ Logs Directory: logs/                                                 #");
+        LOGGER.info("#     â€¢ Check logs for module-specific settings and details                   #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#  🎮 Available Commands:                                                      #");
-        LOGGER.info("#     • /fly              - Toggle flight mode (Admin only)                   #");
-        LOGGER.info("#     • /veinminer        - VeinMiner configuration & stats                   #");
-        LOGGER.info("#     • /quest            - View and manage mining quests                     #");
-        LOGGER.info("#     • /chatmessages     - Message system controls (Admin)                   #");
-        LOGGER.info("#     • /anticheat        - AntiCheat status & controls (Admin)               #");
+        LOGGER.info("#  ðŸŽ® Available Commands:                                                      #");
+        LOGGER.info("#     â€¢ /fly              - Toggle flight mode (Admin only)                   #");
+        LOGGER.info("#     â€¢ /veinminer        - VeinMiner configuration & stats                   #");
+        LOGGER.info("#     â€¢ /quest            - View and manage mining quests                     #");
+        LOGGER.info("#     â€¢ /chatmessages     - Message system controls (Admin)                   #");
+        LOGGER.info("#     â€¢ /anticheat        - AntiCheat status & controls (Admin)               #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("#                                                                              #");
-        LOGGER.info("#  💡 Tips:                                                                    #");
-        LOGGER.info("#     • Hold Shift while mining to activate VeinMiner                         #");
-        LOGGER.info("#     • Check /quest daily for mining challenges                              #");
-        LOGGER.info("#     • AntiCheat runs automatically in the background                        #");
+        LOGGER.info("#  ðŸ’¡ Tips:                                                                    #");
+        LOGGER.info("#     â€¢ Hold Shift while mining to activate VeinMiner                         #");
+        LOGGER.info("#     â€¢ Check /quest daily for mining challenges                              #");
+        LOGGER.info("#     â€¢ AntiCheat runs automatically in the background                        #");
         LOGGER.info("#                                                                              #");
         LOGGER.info("################################################################################");
         LOGGER.info("");
-        LOGGER.info("⭐ KimDog SMP is now fully operational! Server ready for players! ⭐");
+        LOGGER.info("â­ KimDog SMP is now fully operational! Server ready for players! â­");
         LOGGER.info("");
     }
 }
