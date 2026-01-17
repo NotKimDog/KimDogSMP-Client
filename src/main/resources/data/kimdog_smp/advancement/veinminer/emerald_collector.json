@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:emerald"},
+    "title": "Emerald Collector",
+    "description": "Mine 5 emerald veins - Fortune enchantment increases drops!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"emerald_collector": {"trigger": "minecraft:impossible"}},
+  "requirements": [["emerald_collector"]]
+}

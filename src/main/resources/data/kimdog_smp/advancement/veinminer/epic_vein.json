@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:diamond_block"},
+    "title": "Epic Vein",
+    "description": "Mine a vein with 30+ blocks - The ultimate find!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/legendary_vein",
+  "criteria": {"epic_vein": {"trigger": "minecraft:impossible"}},
+  "requirements": [["epic_vein"]]
+}

@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:gold_block"},
+    "title": "Ore Legend",
+    "description": "Mine 5000 total ore blocks - You're a mining legend!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/ore_master",
+  "criteria": {"ore_legend": {"trigger": "minecraft:impossible"}},
+  "requirements": [["ore_legend"]]
+}

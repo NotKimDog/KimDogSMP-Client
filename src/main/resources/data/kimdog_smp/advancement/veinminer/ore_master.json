@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:raw_gold_block"},
+    "title": "Ore Master",
+    "description": "Mine 1000 total ore blocks - Use /veinminer stats to check progress!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"ore_master": {"trigger": "minecraft:impossible"}},
+  "requirements": [["ore_master"]]
+}

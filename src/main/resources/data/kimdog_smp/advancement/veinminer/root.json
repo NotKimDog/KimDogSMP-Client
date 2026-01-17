@@ -1,0 +1,23 @@
+{
+  "display": {
+    "icon": {
+      "id": "minecraft:diamond_pickaxe"
+    },
+    "title": "VeinMiner Master",
+    "description": "Start using VeinMiner - Break an ore block to activate!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/deepslate_diamond_ore.png"
+  },
+  "criteria": {
+    "first_vein": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    ["first_vein"]
+  ]
+}
+
+

@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:golden_apple"},
+    "title": "Lucky Break",
+    "description": "Get a lucky hit (15% chance) - Gain 50% bonus XP!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"lucky_break": {"trigger": "minecraft:impossible"}},
+  "requirements": [["lucky_break"]]
+}

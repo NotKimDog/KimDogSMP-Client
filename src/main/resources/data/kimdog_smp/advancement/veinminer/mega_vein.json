@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:diamond_ore"},
+    "title": "Mega Vein",
+    "description": "Mine a vein with 10+ blocks at once",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"mega_vein": {"trigger": "minecraft:impossible"}},
+  "requirements": [["mega_vein"]]
+}

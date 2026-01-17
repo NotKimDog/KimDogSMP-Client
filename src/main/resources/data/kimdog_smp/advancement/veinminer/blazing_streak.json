@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:fire_charge"},
+    "title": "Blazing Streak",
+    "description": "Achieve a 15 vein streak - Keep the momentum going!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/hot_streak",
+  "criteria": {"blazing_streak": {"trigger": "minecraft:impossible"}},
+  "requirements": [["blazing_streak"]]
+}

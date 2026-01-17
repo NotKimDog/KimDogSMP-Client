@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "kimdog_smp",
+  "version": "${version}",
+  "name": "KimDog SMP",
+  "description": "",
+  "authors": [],
+  "contact": {},
+  "license": "All-Rights-Reserved",
+  "icon": "assets/kimdog_smp/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "kimdog.kimdog_smp.client.Kimdog_smpDataGenerator"
+    ],
+    "client": [
+      "kimdog.kimdog_smp.client.Kimdog_smpClient"
+    ],
+    "main": [
+      "kimdog.kimdog_smp.Kimdog_smp"
+    ],
+    "modmenu": [
+      "kimdog.kimdog_smp.client.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "kimdog_smp.mixins.json",
+    {
+      "config": "kimdog_smp.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}

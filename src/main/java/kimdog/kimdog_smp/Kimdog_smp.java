@@ -1,0 +1,181 @@
+package kimdog.kimdog_smp;
+
+import kimdog.kimdog_smp.veinminer.VeinMinerMod;
+import kimdog.kimdog_smp.chatmessages.ChatMessagesMod;
+import kimdog.kimdog_smp.doubledoor.DoubleDoorMod;
+import kimdog.kimdog_smp.anticheat.AntiCheatMod;
+import kimdog.kimdog_smp.fly.FlyCommands;
+import kimdog.kimdog_smp.updater.UpdateChecker;
+import kimdog.kimdog_smp.updater.UpdateNotifier;
+import kimdog.kimdog_smp.updater.UpdateCommand;
+import net.fabricmc.api.ModInitializer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Kimdog_smp implements ModInitializer {
+    private static final Logger LOGGER = LoggerFactory.getLogger("KimDog SMP");
+    private static final String VERSION = "1.0.0-DEV";
+    private static final String MC_VERSION = "1.21";
+
+    private static int modulesLoaded = 0;
+    private static final int TOTAL_MODULES = 6;
+    private static long startTime;
+
+    @Override
+    public void onInitialize() {
+        startTime = System.currentTimeMillis();
+        printMainBanner();
+
+        try {
+            // Update Checker (runs asynchronously)
+            loadModule("Update Checker", "Checking GitHub for latest releases", "🔄", () -> {
+                UpdateChecker.initialize(VERSION);
+                UpdateNotifier.initialize();
+                UpdateCommand.register();
+            });
+
+            // Register commands
+            loadModule("Command System", "Registering /fly and admin commands", "🎮", () -> {
+                FlyCommands.register();
+            });
+
+            // VeinMiner
+            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "⛏️", () -> {
+                new VeinMinerMod().onInitialize();
+            });
+
+            // Chat Messages
+            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "💬", () -> {
+                new ChatMessagesMod().onInitialize();
+            });
+
+            // Double Door
+            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "🚪", () -> {
+                new DoubleDoorMod().onInitialize();
+            });
+
+            // AntiCheat
+            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "🛡️", () -> {
+                new AntiCheatMod().onInitialize();
+            });
+
+            long loadTime = System.currentTimeMillis() - startTime;
+            printCompletionBanner(loadTime);
+        } catch (Exception e) {
+            LOGGER.error("");
+            LOGGER.error("################################################################################");
+            LOGGER.error("#                                                                              #");
+            LOGGER.error("#  ❌ FATAL ERROR: Mod initialization failed!                                  #");
+            LOGGER.error("#                                                                              #");
+            LOGGER.error("################################################################################");
+            LOGGER.error("");
+            LOGGER.error("Stack trace:", e);
+            throw new RuntimeException("KimDog SMP initialization failed!", e);
+        }
+    }
+
+    private static void loadModule(String name, String description, String icon, Runnable initializer) {
+        modulesLoaded++;
+        LOGGER.info("");
+        LOGGER.info("{} +-------------------------------------------------------------------+", icon);
+        LOGGER.info("{} | Loading: {}  [{}/{}]", icon, padRight(name, 41), modulesLoaded, TOTAL_MODULES);
+        LOGGER.info("{} | -> {}", icon, description);
+        LOGGER.info("{} +-------------------------------------------------------------------+", icon);
+
+        try {
+            long moduleStart = System.currentTimeMillis();
+            initializer.run();
+            long moduleTime = System.currentTimeMillis() - moduleStart;
+            LOGGER.info("{} | ✅ {} loaded successfully! ({}ms)", icon, name, moduleTime);
+            LOGGER.info("{} +-------------------------------------------------------------------+", icon);
+        } catch (Exception e) {
+            LOGGER.error("{} | ❌ Failed to load {}", icon, name);
+            LOGGER.error("{} +-------------------------------------------------------------------+", icon);
+            throw e;
+        }
+    }
+
+    private static String padRight(String text, int length) {
+        if (text.length() >= length) return text;
+        StringBuilder sb = new StringBuilder(text);
+        while (sb.length() < length) {
+            sb.append(" ");
+        }
+        return sb.toString();
+    }
+
+    private static void printMainBanner() {
+        LOGGER.info("");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#                   ██╗  ██╗██╗███╗   ███╗██████╗  ██████╗  ██████╗          #");
+        LOGGER.info("#                   ██║ ██╔╝██║████╗ ████║██╔══██╗██╔═══██╗██╔════╝          #");
+        LOGGER.info("#                   █████╔╝ ██║██╔████╔██║██║  ██║██║   ██║██║  ███╗         #");
+        LOGGER.info("#                   ██╔═██╗ ██║██║╚██╔╝██║██║  ██║██║   ██║██║   ██║         #");
+        LOGGER.info("#                   ██║  ██╗██║██║ ╚═╝ ██║██████╔╝╚██████╔╝╚██████╔╝         #");
+        LOGGER.info("#                   ╚═╝  ╚═╝╚═╝╚═╝     ╚═╝╚═════╝  ╚═════╝  ╚═════╝          #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#                      🎮 SMP - Server Enhancement Suite 🎮                   #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  Version: {}  |  Minecraft: {}  |  Platform: Fabric                    #", VERSION, MC_VERSION);
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  📦 Modules to Load:                                                         #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#    ⛏️  VeinMiner        - Mine entire ore veins instantly                   #");
+        LOGGER.info("#    💬 Chat System      - Enhanced chat formatting & announcements          #");
+        LOGGER.info("#    🚪 Double Doors     - Synchronized door opening mechanics               #");
+        LOGGER.info("#    🛡️  AntiCheat        - Server protection & cheat detection               #");
+        LOGGER.info("#    🎮 Command System   - Custom admin & player commands                    #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("");
+        LOGGER.info("🚀 Starting Module Initialization...");
+        LOGGER.info("");
+    }
+
+    private static void printCompletionBanner(long loadTime) {
+        LOGGER.info("");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#                  ✨ ALL MODULES LOADED SUCCESSFULLY! ✨                     #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  📊 Load Statistics:                                                         #");
+        LOGGER.info("#     • Total Modules Loaded: {} / {}                                         #", TOTAL_MODULES, TOTAL_MODULES);
+        LOGGER.info("#     • Total Load Time: {}ms                                              #", padRight(loadTime + "", 5));
+        LOGGER.info("#     • Status: ✅ Operational                                                 #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  ℹ️  Configuration:                                                          #");
+        LOGGER.info("#     • Config Directory: config/kimdog_smp/                                  #");
+        LOGGER.info("#     • Logs Directory: logs/                                                 #");
+        LOGGER.info("#     • Check logs for module-specific settings and details                   #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  🎮 Available Commands:                                                      #");
+        LOGGER.info("#     • /fly              - Toggle flight mode (Admin only)                   #");
+        LOGGER.info("#     • /veinminer        - VeinMiner configuration & stats                   #");
+        LOGGER.info("#     • /quest            - View and manage mining quests                     #");
+        LOGGER.info("#     • /chatmessages     - Message system controls (Admin)                   #");
+        LOGGER.info("#     • /anticheat        - AntiCheat status & controls (Admin)               #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("#  💡 Tips:                                                                    #");
+        LOGGER.info("#     • Hold Shift while mining to activate VeinMiner                         #");
+        LOGGER.info("#     • Check /quest daily for mining challenges                              #");
+        LOGGER.info("#     • AntiCheat runs automatically in the background                        #");
+        LOGGER.info("#                                                                              #");
+        LOGGER.info("################################################################################");
+        LOGGER.info("");
+        LOGGER.info("⭐ KimDog SMP is now fully operational! Server ready for players! ⭐");
+        LOGGER.info("");
+    }
+}

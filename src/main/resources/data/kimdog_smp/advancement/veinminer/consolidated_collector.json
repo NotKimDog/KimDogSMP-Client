@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:hopper"},
+    "title": "Consolidated Collector",
+    "description": "Use consolidated drops - All items drop in one spot!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"consolidated_collector": {"trigger": "minecraft:impossible"}},
+  "requirements": [["consolidated_collector"]]
+}

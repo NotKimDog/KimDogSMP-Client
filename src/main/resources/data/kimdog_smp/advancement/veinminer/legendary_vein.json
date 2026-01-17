@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:diamond_block"},
+    "title": "Legendary Vein",
+    "description": "Mine a vein with 20+ blocks - Use /veinminer stats to track progress!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/mega_vein",
+  "criteria": {"legendary_vein": {"trigger": "minecraft:impossible"}},
+  "requirements": [["legendary_vein"]]
+}

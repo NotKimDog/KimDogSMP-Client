@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:enchanted_golden_apple"},
+    "title": "Enchanted Prospector",
+    "description": "Use an enchanted pickaxe with VeinMiner - Efficiency/Unbreaking/Fortune all help!",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"enchanted_pickaxe": {"trigger": "minecraft:impossible"}},
+  "requirements": [["enchanted_pickaxe"]]
+}

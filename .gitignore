@@ -1,0 +1,45 @@
+# Gradle
+.gradle/
+build/
+out/
+bin/
+
+# Gradle wrapper (users can download via gradlew)
+gradle/wrapper/*.zip
+
+# IDE
+.idea/
+*.iml
+.vscode/
+*.code-workspace
+.settings/
+.classpath
+.project
+
+# Minecraft
+run/
+logs/
+crash-reports/
+
+# Fabric
+remappedSrc/
+.fabric/
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Build outputs (keep source jars out)
+*-sources.jar
+*-dev.jar
+
+# Environment
+.env
+local.properties

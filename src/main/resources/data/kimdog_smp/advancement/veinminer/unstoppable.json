@@ -1,0 +1,14 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:netherite_pickaxe"},
+    "title": "UNSTOPPABLE",
+    "description": "Achieve a 25 vein streak - You are a VeinMiner legend!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "background": "minecraft:textures/block/fire_0.png"
+  },
+  "parent": "kimdog_smp:veinminer/blazing_streak",
+  "criteria": {"unstoppable": {"trigger": "minecraft:impossible"}},
+  "requirements": [["unstoppable"]]
+}

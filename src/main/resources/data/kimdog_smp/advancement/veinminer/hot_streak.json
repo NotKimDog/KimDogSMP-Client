@@ -1,0 +1,13 @@
+{
+  "display": {
+    "icon": {"id": "minecraft:redstone_block"},
+    "title": "Hot Streak",
+    "description": "Mine 10 consecutive veins - Each vein increases XP multiplier!",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "parent": "kimdog_smp:veinminer/root",
+  "criteria": {"hot_streak": {"trigger": "minecraft:impossible"}},
+  "requirements": [["hot_streak"]]
+}
