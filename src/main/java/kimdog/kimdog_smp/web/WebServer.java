@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -18,9 +20,10 @@ public class WebServer {
     private static HttpServer server;
     private static final int PORT = 8080;
     private static final Map<String, Boolean> moduleStates = new HashMap<>();
-    // Shared log list that both web server and main logger write to
     private static final List<String> serverLogs = Collections.synchronizedList(new ArrayList<>());
     private static long startTime = System.currentTimeMillis();
+    private static String cachedHtml = null;
+    private static Object minecraftServer = null; // Store server reference for chat broadcasts
 
     static {
         moduleStates.put("VeinMiner", true);
@@ -29,6 +32,29 @@ public class WebServer {
         moduleStates.put("AntiCheat", true);
         moduleStates.put("Auto Updates", true);
         moduleStates.put("Zoom", false);
+    }
+
+    // Set the Minecraft server reference for broadcasting messages
+    public static void setMinecraftServer(Object server) {
+        WebServer.minecraftServer = server;
+    }
+
+    // Broadcast a message to all players in chat
+    private static void broadcastMessage(String message) {
+        if (minecraftServer != null) {
+            try {
+                // Use reflection to safely broadcast without hard dependencies
+                Class<?> serverClass = minecraftServer.getClass();
+                Object playerManager = serverClass.getMethod("getPlayerManager").invoke(minecraftServer);
+                Class<?> playerManagerClass = playerManager.getClass();
+                java.lang.reflect.Method broadcastMethod = playerManagerClass.getMethod("broadcast", net.minecraft.text.Text.class, boolean.class);
+                Object textComponent = net.minecraft.text.Text.class.getMethod("literal", String.class).invoke(null, message);
+                broadcastMethod.invoke(playerManager, textComponent, false);
+                LOGGER.info("[WEB] Broadcast: {}", message);
+            } catch (Exception e) {
+                LOGGER.debug("[WEB] Could not broadcast message (server may not be running): {}", e.getMessage());
+            }
+        }
     }
 
     public static void start() {
@@ -49,13 +75,11 @@ public class WebServer {
         }
     }
 
-    // Public method for other modules to add logs
     public static void addLog(String level, String message) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timestamp = LocalDateTime.now().format(formatter);
         String logEntry = "{\"timestamp\": \"" + timestamp + "\", \"level\": \"" + level + "\", \"message\": \"" + message.replace("\"", "\\\"") + "\"}";
         serverLogs.add(logEntry);
-        // Keep only last 100 logs
         if (serverLogs.size() > 100) serverLogs.remove(0);
     }
 
@@ -71,9 +95,18 @@ public class WebServer {
         @Override
         public void handle(HttpExchange exchange) throws IOException {
             long uptime = System.currentTimeMillis() - startTime;
-            long hours = uptime / 3600000;
+            long days = uptime / 86400000;
+            long hours = (uptime % 86400000) / 3600000;
             long minutes = (uptime % 3600000) / 60000;
-            String json = "{\"status\": \"online\", \"version\": \"1.0.0\", \"minecraft\": \"1.21\", \"uptime\": \"" + hours + "h " + minutes + "m\"}";
+            long seconds = (uptime % 60000) / 1000;
+
+            String uptimeStr = "";
+            if (days > 0) uptimeStr += days + "d ";
+            if (hours > 0) uptimeStr += hours + "h ";
+            if (minutes > 0) uptimeStr += minutes + "m ";
+            uptimeStr += seconds + "s";
+
+            String json = "{\"status\": \"online\", \"version\": \"1.0.0\", \"minecraft\": \"1.21\", \"uptime\": \"" + uptimeStr.trim() + "\"}";
             sendResponse(exchange, json, "application/json");
         }
     }
@@ -105,6 +138,10 @@ public class WebServer {
                     String status = newState ? "enabled" : "disabled";
                     LOGGER.info("[WEB] Module '{}' {}", module, status);
                     addLog("INFO", "Module '" + module + "' " + status);
+
+                    // Broadcast to chat if server is running
+                    broadcastMessage("§6[System] Module §b" + module + "§6 has been §" + (newState ? "a" : "c") + status);
+
                     sendResponse(exchange, "{\"status\": \"success\", \"module\": \"" + module + "\", \"state\": \"" + status + "\"}", "application/json");
                 } else {
                     sendResponse(exchange, "{\"error\": \"Module not found\"}", "application/json");
@@ -141,6 +178,25 @@ public class WebServer {
     }
 
     private static String getHtmlDashboard() {
-        return "<!DOCTYPE html><html><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width\"><title>KimDog SMP Control</title><style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);min-height:100vh;padding:20px}header{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white;padding:40px 30px;border-radius:15px;margin-bottom:30px;box-shadow:0 15px 35px rgba(0,0,0,0.4)}header h1{font-size:2.8em;margin-bottom:10px}.container{max-width:1400px;margin:0 auto}.tabs{display:flex;gap:10px;margin-bottom:30px;flex-wrap:wrap}.tab-button{padding:12px 25px;border:none;background:white;cursor:pointer;font-weight:600;border-radius:8px;color:#667eea;transition:all 0.3s;box-shadow:0 5px 15px rgba(0,0,0,0.2)}.tab-button.active{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white}.tab-content{display:none;animation:fadeIn 0.3s}.tab-content.active{display:block}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-bottom:30px}.card{background:white;border-radius:12px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.2);transition:all 0.3s}.card:hover{transform:translateY(-5px)}.card h3{color:#667eea;font-size:0.9em;text-transform:uppercase;letter-spacing:1px;margin-bottom:15px}.card .value{font-size:2.2em;font-weight:bold;color:#1a1a2e}.module-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}.module-card{background:white;border-radius:12px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,0.2);display:flex;justify-content:space-between;align-items:center;transition:all 0.3s}.module-card:hover{transform:translateY(-3px)}.module-info h3{color:#1a1a2e;margin-bottom:5px;font-size:1.2em}.module-info p{color:#999;font-size:0.9em}.toggle-switch{position:relative;width:60px;height:30px;background:#ccc;border-radius:15px;cursor:pointer;transition:all 0.3s}.toggle-switch.enabled{background:#667eea}.toggle-slider{position:absolute;top:3px;left:3px;width:24px;height:24px;background:white;border-radius:50%;transition:all 0.3s}.toggle-switch.enabled .toggle-slider{left:33px}.log-viewer{background:#1e1e1e;color:#00ff00;padding:20px;border-radius:12px;font-family:'Courier New',monospace;font-size:0.9em;height:450px;overflow-y:auto}.log-line{margin-bottom:8px}.log-info{color:#00ff00}.log-warn{color:#ffff00}.log-error{color:#ff6b6b}h2{color:white;margin-bottom:25px}footer{text-align:center;color:#999;margin-top:50px}.button{padding:15px 25px;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-size:1em;transition:all 0.3s}.button.primary{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:white}.button.primary:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(102,126,234,0.4)}</style></head><body><div class=\"container\"><header><h1>🎮 KimDog SMP</h1><p>Advanced Server Control Panel</p></header><div class=\"tabs\"><button class=\"tab-button active\" onclick=\"switchTab('dashboard',this)\">📊 Dashboard</button><button class=\"tab-button\" onclick=\"switchTab('modules',this)\">⚙️ Modules</button><button class=\"tab-button\" onclick=\"switchTab('logs',this)\">📝 Logs</button></div><div id=\"dashboard\" class=\"tab-content active\"><h2>Server Status</h2><div class=\"dashboard-grid\"><div class=\"card\"><h3>Status</h3><div class=\"value\">🟢 Online</div></div><div class=\"card\"><h3>Version</h3><div class=\"value\">1.0.0</div></div><div class=\"card\"><h3>Uptime</h3><div class=\"value\" id=\"uptime\">Loading...</div></div><div class=\"card\"><h3>Minecraft</h3><div class=\"value\">1.21</div></div></div></div><div id=\"modules\" class=\"tab-content\"><h2>Module Management</h2><div id=\"moduleContainer\" class=\"module-grid\"></div></div><div id=\"logs\" class=\"tab-content\"><h2>Server Logs</h2><button class=\"button primary\" onclick=\"refreshLogs()\" style=\"margin-bottom:15px\">🔄 Refresh</button><div class=\"log-viewer\" id=\"logViewer\"></div></div><footer><p>KimDog SMP | localhost:8080</p></footer></div><script>function switchTab(t,b){document.querySelectorAll('.tab-content').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.tab-button').forEach(x=>x.classList.remove('active'));document.getElementById(t).classList.add('active');b.classList.add('active');if(t==='logs')refreshLogs();else if(t==='modules')loadModules();else loadStatus()}function loadStatus(){fetch('/api/status').then(r=>r.json()).then(d=>{document.getElementById('uptime').textContent=d.uptime})}function loadModules(){fetch('/api/modules').then(r=>r.json()).then(d=>{document.getElementById('moduleContainer').innerHTML=d.modules.map(m=>`<div class=\"module-card\"><div class=\"module-info\"><h3>${m.name}</h3><p>Status: ${m.status}</p></div><div class=\"toggle-switch ${m.status==='enabled'?'enabled':''}\" onclick=\"toggleModule('${m.name}',this)\"><div class=\"toggle-slider\"></div></div></div>`).join('')})}function toggleModule(m,e){fetch('/api/module/toggle',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({module:m})}).then(r=>r.json()).then(d=>{e.classList.toggle('enabled');loadModules()})}function refreshLogs(){fetch('/api/logs').then(r=>r.json()).then(d=>{const v=document.getElementById('logViewer');v.innerHTML=d.logs.map(l=>`<div class=\"log-line log-${l.level.toLowerCase()}\">[${l.timestamp}] ${l.message}</div>`).join('');v.scrollTop=v.scrollHeight})}window.addEventListener('load',()=>{loadStatus();refreshLogs()});setInterval(loadStatus,5000);setInterval(refreshLogs,3000)</script></body></html>";
+        // Try to load from external file first (for development)
+        try {
+            String filePath = System.getProperty("user.dir") + "/src/main/resources/web/dashboard.html";
+            if (Files.exists(Paths.get(filePath))) {
+                return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
+            }
+        } catch (Exception e) {
+            LOGGER.debug("[WEB] Could not load external HTML file: {}", e.getMessage());
+        }
+
+        // If not in development, try to load from JAR resources
+        try {
+            String resourcePath = "/web/dashboard.html";
+            return new String(Files.readAllBytes(Paths.get(WebServer.class.getResource(resourcePath).toURI())), StandardCharsets.UTF_8);
+        } catch (Exception e) {
+            LOGGER.debug("[WEB] Could not load HTML from JAR: {}", e.getMessage());
+        }
+
+        // Fallback: return minimal inline HTML
+        return "<!DOCTYPE html><html><body><h1>KimDog SMP</h1><p>Dashboard loading...</p></body></html>";
     }
 }
