@@ -18,6 +18,7 @@ public class WebServer {
     private static HttpServer server;
     private static final int PORT = 8080;
     private static final Map<String, Boolean> moduleStates = new HashMap<>();
+    // Shared log list that both web server and main logger write to
     private static final List<String> serverLogs = Collections.synchronizedList(new ArrayList<>());
     private static long startTime = System.currentTimeMillis();
 
@@ -28,7 +29,6 @@ public class WebServer {
         moduleStates.put("AntiCheat", true);
         moduleStates.put("Auto Updates", true);
         moduleStates.put("Zoom", false);
-        addLog("INFO", "KimDog SMP Control Panel initialized");
     }
 
     public static void start() {
@@ -45,13 +45,17 @@ public class WebServer {
             addLog("INFO", "Web Server started on http://localhost:8080");
         } catch (IOException e) {
             LOGGER.error("[WEB] Failed to start web server: ", e);
+            addLog("ERROR", "Failed to start web server: " + e.getMessage());
         }
     }
 
+    // Public method for other modules to add logs
     public static void addLog(String level, String message) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
         String timestamp = LocalDateTime.now().format(formatter);
-        serverLogs.add("{\"timestamp\": \"" + timestamp + "\", \"level\": \"" + level + "\", \"message\": \"" + message.replace("\"", "\\\"") + "\"}");
+        String logEntry = "{\"timestamp\": \"" + timestamp + "\", \"level\": \"" + level + "\", \"message\": \"" + message.replace("\"", "\\\"") + "\"}";
+        serverLogs.add(logEntry);
+        // Keep only last 100 logs
         if (serverLogs.size() > 100) serverLogs.remove(0);
     }
 

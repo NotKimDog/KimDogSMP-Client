@@ -33,6 +33,7 @@ public class Kimdog_smp implements ModInitializer {
     public void onInitialize() {
         startTime = System.currentTimeMillis();
         printMainBanner();
+        WebServer.addLog("INFO", "KimDog SMP initializing...");
 
         try {
             loadModule("Update Checker", "Checking GitHub for latest releases", "[UC]", () -> {
@@ -40,25 +41,34 @@ public class Kimdog_smp implements ModInitializer {
                 UpdateNotifier.initialize();
                 UpdateCommand.register();
             });
+            WebServer.addLog("INFO", "Update Checker loaded");
 
             loadModule("Command System", "Registering /fly and admin commands", "[CMD]", FlyCommands::register);
+            WebServer.addLog("INFO", "Command System loaded");
 
             loadModule("VeinMiner", "Initializing ore vein mining mechanics", "[VM]", () -> new VeinMinerMod().onInitialize());
+            WebServer.addLog("INFO", "VeinMiner loaded");
 
             loadModule("Chat Messages", "Loading chat formatting and announcements", "[CHAT]", () -> new ChatMessagesMod().onInitialize());
+            WebServer.addLog("INFO", "Chat Messages loaded");
 
             loadModule("Double Door", "Setting up door mechanics", "[DD]", () -> new DoubleDoorMod().onInitialize());
+            WebServer.addLog("INFO", "Double Door loaded");
 
             loadModule("AntiCheat", "Activating anti-cheat protection", "[AC]", () -> new AntiCheatMod().onInitialize());
+            WebServer.addLog("INFO", "AntiCheat loaded");
 
             long loadTime = System.currentTimeMillis() - startTime;
             printCompletionBanner(loadTime);
+            WebServer.addLog("INFO", "All modules loaded in " + loadTime + "ms");
 
             // Start web server for control panel
             WebServer.start();
+            WebServer.addLog("INFO", "Web Control Panel started");
 
             // Start auto-update checker (15 minute interval)
             startAutoUpdateChecker();
+            WebServer.addLog("INFO", "Auto-update checker started");
         } catch (Exception e) {
             LOGGER.error("============================================================");
             LOGGER.error("FATAL ERROR: Mod initialization failed!");
@@ -145,16 +155,20 @@ public class Kimdog_smp implements ModInitializer {
             @Override
             public void run() {
                 LOGGER.info("[UC] Running scheduled update check...");
+                WebServer.addLog("INFO", "[UC] Running scheduled update check...");
                 try {
                     // Check if update is available
                     if (UpdateChecker.isUpdateAvailable()) {
                         LOGGER.warn("[UC] Update available! Scheduling server restart...");
+                        WebServer.addLog("WARN", "[UC] Update available! Scheduling server restart...");
                         scheduleServerRestart();
                     } else {
                         LOGGER.info("[UC] No updates available. Next check in 15 minutes.");
+                        WebServer.addLog("INFO", "[UC] No updates available. Next check in 15 minutes.");
                     }
                 } catch (Exception e) {
                     LOGGER.error("[UC] Error checking for updates: ", e);
+                    WebServer.addLog("ERROR", "[UC] Error checking for updates: " + e.getMessage());
                 }
             }
         }, UPDATE_CHECK_INTERVAL, UPDATE_CHECK_INTERVAL);
@@ -169,6 +183,7 @@ public class Kimdog_smp implements ModInitializer {
                 if (currentServer != null) {
                     // Save world
                     LOGGER.warn("[UC] Saving world before restart...");
+                    WebServer.addLog("WARN", "[UC] Saving world before restart...");
                     currentServer.getPlayerManager().saveAllPlayerData();
 
                     // Warn players with 10-second countdown
@@ -179,6 +194,7 @@ public class Kimdog_smp implements ModInitializer {
                             false
                         );
                         LOGGER.warn("[UC] " + message);
+                        WebServer.addLog("WARN", "[UC] " + message);
                         Thread.sleep(1000);
                     }
 
@@ -188,12 +204,14 @@ public class Kimdog_smp implements ModInitializer {
                         false
                     );
                     LOGGER.warn("[UC] Initiating server shutdown for update...");
+                    WebServer.addLog("WARN", "[UC] Initiating server shutdown for update...");
 
                     // Shutdown server
                     currentServer.stop(false);
                 }
             } catch (Exception e) {
                 LOGGER.error("[UC] Error during restart sequence: ", e);
+                WebServer.addLog("ERROR", "[UC] Error during restart sequence: " + e.getMessage());
             }
         }).start();
     }
