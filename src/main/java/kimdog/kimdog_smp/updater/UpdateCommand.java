@@ -68,7 +68,7 @@ public class UpdateCommand {
         source.sendFeedback(() -> Text.literal("🎮 KimDog SMP Mod Info").formatted(Formatting.YELLOW, Formatting.BOLD), false);
         source.sendFeedback(() -> Text.literal("═══════════════════════════════════").formatted(Formatting.GOLD), false);
         source.sendFeedback(() -> Text.literal("Version: ").formatted(Formatting.GRAY)
-            .append(Text.literal("1.0.0-DEV").formatted(Formatting.GREEN)), false);
+            .append(Text.literal("1.0.0").formatted(Formatting.GREEN)), false);
         source.sendFeedback(() -> Text.literal("Minecraft: ").formatted(Formatting.GRAY)
             .append(Text.literal("1.21").formatted(Formatting.GREEN)), false);
         source.sendFeedback(() -> Text.literal("Platform: ").formatted(Formatting.GRAY)
