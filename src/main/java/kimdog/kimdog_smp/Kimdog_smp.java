@@ -1,4 +1,4 @@
-﻿package kimdog.kimdog_smp;
+package kimdog.kimdog_smp;
 
 import kimdog.kimdog_smp.veinminer.VeinMinerMod;
 import kimdog.kimdog_smp.chatmessages.ChatMessagesMod;
@@ -35,13 +35,13 @@ public class Kimdog_smp implements ModInitializer {
 
             loadModule("Command System", "Registering /fly and admin commands", "[CMD]", FlyCommands::register);
 
-            loadModule("VeinMiner", "Initializing ore vein mining mechanics & quest system", "[VM]", () -> new VeinMinerMod().onInitialize());
+            loadModule("VeinMiner", "Initializing ore vein mining mechanics", "[VM]", () -> new VeinMinerMod().onInitialize());
 
-            loadModule("Chat Messages", "Loading custom chat formatting and auto-announcements", "[CHAT]", () -> new ChatMessagesMod().onInitialize());
+            loadModule("Chat Messages", "Loading chat formatting and announcements", "[CHAT]", () -> new ChatMessagesMod().onInitialize());
 
-            loadModule("Double Door", "Setting up synchronized door & trapdoor mechanics", "[DD]", () -> new DoubleDoorMod().onInitialize());
+            loadModule("Double Door", "Setting up door mechanics", "[DD]", () -> new DoubleDoorMod().onInitialize());
 
-            loadModule("AntiCheat", "Activating anti-cheat protection (Speed/Fly/Reach)", "[AC]", () -> new AntiCheatMod().onInitialize());
+            loadModule("AntiCheat", "Activating anti-cheat protection", "[AC]", () -> new AntiCheatMod().onInitialize());
 
             long loadTime = System.currentTimeMillis() - startTime;
             printCompletionBanner(loadTime);
@@ -90,10 +90,10 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info(" Version: {} | Minecraft: {} | Platform: Fabric", VERSION, MC_VERSION);
         LOGGER.info(" Modules to Load ({}):", TOTAL_MODULES);
         LOGGER.info("   [VM] VeinMiner         - Mine entire ore veins instantly");
-        LOGGER.info("   [CHAT] Chat System     - Enhanced chat formatting & announcements");
-        LOGGER.info("   [DD] Double Doors      - Synchronized door opening mechanics");
-        LOGGER.info("   [AC] AntiCheat         - Server protection & cheat detection");
-        LOGGER.info("   [CMD] Command System   - Custom admin & player commands");
+        LOGGER.info("   [CHAT] Chat System     - Enhanced chat formatting");
+        LOGGER.info("   [DD] Double Doors      - Synchronized door mechanics");
+        LOGGER.info("   [AC] AntiCheat         - Server protection");
+        LOGGER.info("   [CMD] Command System   - Custom admin commands");
         LOGGER.info("   [UC] Update Checker    - Auto-update detection");
         LOGGER.info("============================================================");
         LOGGER.info("");
@@ -110,13 +110,13 @@ public class Kimdog_smp implements ModInitializer {
         LOGGER.info("   Status: OK");
         LOGGER.info("------------------------------------------------------------");
         LOGGER.info(" Available Commands:");
-        LOGGER.info("   /fly             - Toggle flight mode (Admin only)");
-        LOGGER.info("   /veinminer       - VeinMiner configuration & stats");
-        LOGGER.info("   /quest           - View and manage mining quests");
-        LOGGER.info("   /chatmessages    - Message system controls (Admin)");
-        LOGGER.info("   /anticheat       - AntiCheat status & controls (Admin)");
+        LOGGER.info("   /fly             - Toggle flight mode");
+        LOGGER.info("   /veinminer       - VeinMiner stats");
+        LOGGER.info("   /quest           - View quests");
+        LOGGER.info("   /chatmessages    - Message controls");
+        LOGGER.info("   /anticheat       - AntiCheat controls");
         LOGGER.info("============================================================");
-        LOGGER.info(" KimDog SMP is now fully operational. Server ready for players!");
+        LOGGER.info(" KimDog SMP is now fully operational!");
         LOGGER.info("============================================================");
         LOGGER.info("");
     }
