@@ -1,13 +1,33 @@
-# KimDog SMP - Minecraft Fabric Mod
+<div align="center">
 
-[![Minecraft](https://img.shields.io/badge/Minecraft-1.21-brightgreen.svg)](https://www.minecraft.net/)
-[![Fabric](https://img.shields.io/badge/Fabric-Latest-orange.svg)](https://fabricmc.net/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.txt)
-[![GitHub release](https://img.shields.io/github/v/release/NotKimDog/KimDogSMP-Client)](https://github.com/NotKimDog/KimDogSMP-Client/releases)
+# 🎮 KimDog SMP
 
-A comprehensive server enhancement suite for Minecraft 1.21 built on Fabric, featuring VeinMiner, enhanced chat systems, double door mechanics, anti-cheat protection, and automatic update capabilities.
+### A Comprehensive Minecraft Server Enhancement Suite
 
-## ✨ Features
+**Enhance your SMP with powerful features, anti-cheat protection, and more!**
+
+[![Minecraft 1.21](https://img.shields.io/badge/Minecraft-1.21-green?style=for-the-badge&logo=minecraft)](https://www.minecraft.net/)
+[![Fabric Loader](https://img.shields.io/badge/Fabric-Latest-orange?style=for-the-badge&logo=files)](https://fabricmc.net/)
+[![License MIT](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE.txt)
+[![GitHub Releases](https://img.shields.io/github/v/release/NotKimDog/KimDogSMP-Client?style=for-the-badge&logo=github)](https://github.com/NotKimDog/KimDogSMP-Client/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/NotKimDog/KimDogSMP-Client?style=for-the-badge&logo=github)](https://github.com/NotKimDog/KimDogSMP-Client)
+
+---
+
+</div>
+
+<!-- OPTIONAL: Add a Hero Image here -->
+<!-- ![KimDog SMP Banner](https://your-image-url-here.png) -->
+
+## 🌟 About
+
+KimDog SMP is a comprehensive server enhancement suite for **Minecraft 1.21** built on the **Fabric** mod loader. It combines powerful utilities, anti-cheat protection, automated systems, and player conveniences into one cohesive package.
+
+> **Perfect for:** Survival servers, SMPs, and community-driven Minecraft experiences
+
+---
+
+## ✨ Core Features
 
 ### ⛏️ VeinMiner
 - Mine entire ore veins instantly by holding Shift
