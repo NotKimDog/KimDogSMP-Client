@@ -1,4 +1,4 @@
-package kimdog.kimdog_smp;
+﻿package kimdog.kimdog_smp;
 
 import kimdog.kimdog_smp.veinminer.VeinMinerMod;
 import kimdog.kimdog_smp.chatmessages.ChatMessagesMod;
@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 
 public class Kimdog_smp implements ModInitializer {
     private static final Logger LOGGER = LoggerFactory.getLogger("KimDog SMP");
-    private static final String VERSION = "1.0.5-patch";
+    private static final String VERSION = "1.0.6";
     private static final String MC_VERSION = "1.21";
 
     private static int modulesLoaded = 0;
