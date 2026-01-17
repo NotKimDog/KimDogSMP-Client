@@ -7,6 +7,10 @@ bin/
 # Gradle wrapper (users can download via gradlew)
 gradle/wrapper/*.zip
 
+# BUT keep the wrapper jar and properties (needed for GitHub Actions)
+!gradle/wrapper/gradle-wrapper.jar
+!gradle/wrapper/gradle-wrapper.properties
+
 # IDE
 .idea/
 *.iml
