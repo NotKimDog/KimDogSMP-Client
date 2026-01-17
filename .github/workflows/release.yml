@@ -55,9 +55,17 @@ jobs:
           cd build/libs
           # Find the main JAR (not sources or dev)
           MAIN_JAR=$(ls | grep -v "sources" | grep -v "dev" | grep ".jar" | head -n 1)
-          mv "$MAIN_JAR" "kimdog-smp-$VERSION.jar"
-          echo "Renamed to: kimdog-smp-$VERSION.jar"
-          ls -la
+          TARGET_NAME="kimdog-smp-$VERSION.jar"
+          
+          if [ "$MAIN_JAR" != "$TARGET_NAME" ]; then
+            mv "$MAIN_JAR" "$TARGET_NAME"
+            echo "Renamed $MAIN_JAR to $TARGET_NAME"
+          else
+            echo "JAR already correctly named: $TARGET_NAME"
+          fi
+          
+          echo "Final JAR file:"
+          ls -la kimdog-smp-*.jar
 
       - name: Create Release and Upload JAR
         uses: ncipollo/release-action@v1
