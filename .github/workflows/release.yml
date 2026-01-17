@@ -68,11 +68,11 @@ jobs:
           ls -la kimdog-smp-*.jar
 
       - name: Create Release and Upload JAR
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@v1
         with:
-          tag: ${{ github.ref }}
+          tag_name: ${{ github.ref }}
           name: KimDog SMP v${{ steps.get_version.outputs.VERSION }}
-          artifacts: ./build/libs/kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
+          files: ./build/libs/kimdog-smp-${{ steps.get_version.outputs.VERSION }}.jar
           body: |
             ## KimDog SMP v${{ steps.get_version.outputs.VERSION }}
             
@@ -101,7 +101,10 @@ jobs:
             ### Auto-Update
             This version will be automatically detected by the in-game updater!
             Use /kimdogsmp update download to auto-install.
-          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload to Modrinth (Optional)
         if: false  # Set to true if you want to publish to Modrinth
